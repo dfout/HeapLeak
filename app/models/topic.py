@@ -11,9 +11,9 @@ class Topic(db.Model):
     question_id = db.Column(db.Integer, db.ForeignKey('questions.id'), nullable=False)
     tag = db.Column(db.String(50), nullable=False)
 
-    main_post = db.relationship('Question', back_populates='tags')
 
     def to_dict(self):
         return {
-            'id':self.tag
+            'id':self.id,
+            'tag':self.tag
         }
