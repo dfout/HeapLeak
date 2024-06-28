@@ -48,6 +48,7 @@ def edit_question(id):
 
 
 @question_routes.route('/<int:id>', methods=['DELETE'])
+@login_required
 def delete_post(id):
     question = Question.query.filter_by(id=id).first()
     if(current_user.id == question.user_id):
