@@ -12,7 +12,7 @@ const Homepage = () => {
         <div class="logo">HeapLeak</div>
         <div class="search">
             <p>About</p>
-            <input type="search" placeholder="search"></input>
+            <input type="search" placeholder="search" />
         </div>
         <div class="login">
             <button type="submit">Login</button>
@@ -57,7 +57,7 @@ const Homepage = () => {
             <a href="https://github.com/dfout">dfout</a>
         </div>
         <div class="group-links">
-            <a href="https://github.com/dfout">zach</a>
+            <a href="https://github.com/Zach-gold">zach</a>
         </div>
         <div class="group-links">
             <a href="https://github.com/dfout">kyle</a>

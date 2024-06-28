@@ -1,0 +1,150 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100..900&display=swap');
+
+
+*{
+    font-family: 'Roboto Slab', serif;
+    box-sizing: border-box;
+    -webkit-font-smoothing: antialiased;
+
+}
+body {
+    margin: 0;
+    padding: 0;
+}
+
+.navbar {
+    display: flex;
+    align-items: center;
+    background-color: #c7c7c7;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+
+.search {
+    display: flex;
+    align-items: center;
+}
+
+.search p {
+    padding-right: 10px;
+}
+
+.search input{
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.links a ,
+.group-links a {
+    padding: 0px 4px;
+    text-decoration: none;
+    cursor: pointer;
+
+}
+
+.footer{
+    height: 100px;
+    position: relative;
+    padding-top: 20px;
+    /* height: 200px; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #041629;
+    text-align: center;
+    padding: 4px 8px 4px 8px;
+    bottom:0;
+    width:100%;
+}
+
+
+#save-information{
+    padding-left: 5%;
+}
+
+.saved-questions{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content: center;
+    gap:30px;
+}
+
+.question-container{
+    display:flex;
+    flex-direction:column;
+
+    border: 1px solid #ccc;
+    min-width:400px;
+    /* max-width:800px; */
+    flex:1;
+}
+
+#question-title{
+    font-size: large;
+    font-weight: bold;
+}
+
+.saved-questions{
+        width: 600px;
+    margin-bottom: 50px;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 50px;
+}
+#save-information {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+#save-information h2 {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+#save-information h3 {
+    font-size: 20px;
+    font-weight: bold;
+}
+.saved-questions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+.question-container {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    background-color: #f9f9f9;
+    padding: 20px;
+    margin: 10px;
+    border-radius: 5px;
+}
+.question-container span {
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+
+#question-title {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
