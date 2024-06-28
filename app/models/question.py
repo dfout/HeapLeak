@@ -17,12 +17,14 @@ class Question(db.Model):
 
     def to_dict(self):
         answer_dict_list=[x.to_dict_base() for x in self.answers]
+        tag_dict_list = [x.to_dict() for x in self.tags]
         return {
             'id':self.id,
             'title':self.title,
             'body':self.body,
             'owner':self.owner.to_dict(),
-            'answers':answer_dict_list
+            'answers':answer_dict_list,
+            'tags':tag_dict_list
         }
     def to_dict_base(self):
         return {

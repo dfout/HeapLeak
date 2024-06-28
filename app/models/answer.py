@@ -20,7 +20,7 @@ class Answer(db.Model):
             'id':self.id,
             'title':self.title,
             'body':self.body,
-            'body':self.main_post.to_dict_base(),
+            'mainPost':self.main_post.to_dict_base(),
             'owner':self.owner.to_dict(),
         }
     def to_dict_base(self):
@@ -28,6 +28,6 @@ class Answer(db.Model):
             'id':self.id,
             'title':self.title,
             'body':self.body,
-            'body':self.main_post.to_dict_base(),
+            'mainPost':self.main_post.to_dict_base(),
             'owner':self.owner.to_dict(),
         }

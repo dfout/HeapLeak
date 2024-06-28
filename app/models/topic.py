@@ -12,3 +12,8 @@ class Topic(db.Model):
     tag = db.Column(db.String(50), nullable=False)
 
     main_post = db.relationship('Question', back_populates='tags')
+
+    def to_dict(self):
+        return {
+            'id':self.tag
+        }
