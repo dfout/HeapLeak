@@ -15,11 +15,6 @@ class Question(db.Model):
         return {
             'id':self.id,
             'title':self.title,
-            'body':self.body
-        }
-    def to_dict_base(self):
-        return {
-            'id':self.id,
-            'title':self.title,
             'body':self.body,
+            'ownerId':self.user_id
         }
