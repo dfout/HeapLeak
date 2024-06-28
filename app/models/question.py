@@ -11,7 +11,6 @@ class Question(db.Model):
     body = db.Column(db.String(2000), nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
 
-    owner = db.relationship('User', back_populates='questions')
     answers = db.relationship('Answer', back_populates='main_post')
     tags = db.relationship('Topic', back_populates='main_post')
 
@@ -22,7 +21,6 @@ class Question(db.Model):
             'id':self.id,
             'title':self.title,
             'body':self.body,
-            'owner':self.owner.to_dict(),
             'answers':answer_dict_list,
             'tags':tag_dict_list
         }
@@ -31,5 +29,4 @@ class Question(db.Model):
             'id':self.id,
             'title':self.title,
             'body':self.body,
-            'owner':self.owner.to_dict(),
         }
