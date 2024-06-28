@@ -1,0 +1,147 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100..900&display=swap');
+
+
+*{
+    font-family: 'Roboto Slab', serif;
+    box-sizing: border-box;
+
+}
+body {
+        margin: 0;
+    padding: 0;
+}
+
+.navbar {
+    display: flex;
+    align-items: center;
+    background-color: #c7c7c7;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+
+
+.search {
+    display: flex;
+    align-items: center;
+}
+
+.search p {
+    padding-right: 10px;
+}
+
+.search input{
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.login button,
+.signup button {
+    padding: 5px 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #041629;
+    color: #fff;
+    cursor: pointer;
+}
+
+
+.signup {
+    margin-left: 10px;
+}
+
+.login,
+.signup {
+    display: flex;
+    align-items: center;
+}
+.questions-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items:center;
+    flex-direction: column;
+    padding-top: 50px;
+}
+
+.question {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin: 10px;
+    width: 300px;
+}
+
+.title{
+    border: 1px solid #ccc;
+}
+
+.preview{
+    border: 1px solid #ccc;
+
+
+}
+
+
+.question:hover{
+    cursor: pointer
+}
+
+.title {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.body {
+    margin-top: 10px;
+}
+
+.tags {
+    margin-top: 10px;
+}
+
+.author {
+    margin-top: 10px;
+}
+
+.date {
+    margin-top: 10px;
+}
+
+.tags-container{
+border: 1px solid #ccc;
+width:20%;
+position:absolute;
+right:0;
+height:75%;
+}
+
+
+.links a ,
+.group-links a {
+    padding: 0px 4px;
+    text-decoration: none;
+    cursor: pointer;
+
+}
+
+.footer{
+    height: 100px;
+    position: relative;
+    padding-top: 20px;
+    /* height: 200px; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #041629;
+    text-align: center;
+    padding: 4px 8px 4px 8px;
+    bottom:0;
+    width:100%;
+}

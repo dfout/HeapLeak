@@ -49,7 +49,7 @@ def edit_question(id):
         return {"message":"Bad Request", "errors":form.errors}, 404
 
 
-@question_routes('/<int:id>/answers')
+@question_routes.route('/<int:id>/answers')
 def all_answers(id):
     answers = [x.to_dict() for x in Answer.query.filter_by(question_id=id).all()]
     return {"Answers":answers}
