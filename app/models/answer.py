@@ -12,22 +12,16 @@ class Answer(db.Model):
     question_id = db.Column(db.Integer, db.ForeignKey('questions.id'), nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
 
-    owner = db.relationship('User', back_populates='answers')
-    main_post = db.relationship('Question', back_populates='answers')
 
     def to_dict(self):
         return {
             'id':self.id,
             'title':self.title,
-            'body':self.body,
-            'mainPost':self.main_post.to_dict_base(),
-            'owner':self.owner.to_dict(),
+            'body':self.body
         }
     def to_dict_base(self):
         return {
             'id':self.id,
             'title':self.title,
-            'body':self.body,
-            'mainPost':self.main_post.to_dict_base(),
-            'owner':self.owner.to_dict(),
+            'body':self.body
         }
