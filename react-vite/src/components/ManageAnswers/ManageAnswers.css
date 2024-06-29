@@ -37,7 +37,7 @@ body {
     color: #333;
 }
 
-.search input[type="search"] {
+.search input{
     padding: 5px;
     border: 1px solid #ccc;
     border-radius: 5px;

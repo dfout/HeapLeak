@@ -1,0 +1,152 @@
+*{
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+}
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #a83737;
+  color: #fff;
+  padding: 10px;
+}
+
+.logo {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.about {
+  display: flex;
+  align-items: center;
+}
+
+.about span {
+  margin-right: 10px;
+}
+
+.about input {
+  padding: 5px;
+  border: none;
+  border-radius: 5px;
+  background-color: #fff;
+  color: #333;
+}
+
+.about input::placeholder {
+  color: #ccc;
+}
+
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  margin: 0 auto;
+  max-width: 800px;
+  padding: 20px;
+  background-color: #f2f2f2;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.question-form {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 10px;
+}
+
+.question-form h2 {
+  text-align: center;
+}
+
+.question-form label {
+  display: block;
+  font-weight: bold;
+}
+
+.question-form input[type="text"],
+.question-form textarea {
+  padding: 5px;
+  border: none;
+  border-radius: 5px;
+}
+
+.tags {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  gap: 10px;
+}
+
+.tags h3 {
+  text-align: center;
+}
+
+.tags input[type="text"] {
+  padding: 5px;
+  border: none;
+  border-radius: 5px;
+}
+
+.tags #add-tag {
+  padding: 5px 10px;
+  border: none;
+  border-radius: 5px;
+  background-color: #4CAF50;
+  color: white;
+  cursor: pointer;
+}
+
+.tags #add-tag:hover {
+  background-color: #45a049;
+}
+
+.tags #tag-list {
+  list-style-type: none;
+  padding: 0;
+}
+
+.tags #tag-list li {
+  display: inline-block;
+  margin-right: 5px;
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #f2f2f2;
+}
+
+.tags #tag-list li:hover {
+  background-color: #ddd;
+}
+
+.footer {
+  background-color: #333;
+  color: #fff;
+  padding: 10px;
+}
+
+.footer ul {
+  list-style-type: none;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+}
+
+.footer li {
+  margin: 0 10px;
+}
+
+.footer a {
+  color: #fff;
+  text-decoration: none;
+}
+
+.footer a:hover {
+  text-decoration: underline;
+}
