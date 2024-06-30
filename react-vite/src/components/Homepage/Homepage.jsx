@@ -1,58 +1,58 @@
-import { useEffect } from "react";
-import { NavLink } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+// import { useEffect } from "react";
+// import { NavLink } from "react-router-dom";
+// import { useDispatch} from "react-redux";
 import "./Homepage.css";
 
 const Homepage = () => {
-  const dispatch = useDispatch();
+//   const dispatch = useDispatch();
 
   
 
   return (
-    <body>
-    <div class="body">
-       <div class="tags-container">
+    <>
+    <div className="body">
+       <div className="tags-container">
            Tags
        </div>
-        <div class="questions-container">
-            <div class="question">
-                <h1 class="title">Title</h1>
-                <p class="preview">Body</p>
-                <p class="tags">tags 1</p>
-                <p class="author">Author 1</p>
-                <p class="date">date 1</p>
+        <div className="questions-container">
+            <div className="question">
+                <h1 className="title">Title</h1>
+                <p className="preview">Body</p>
+                <p className="tags">tags 1</p>
+                <p className="author">Author 1</p>
+                <p className="date">date 1</p>
             </div>
-            <div class="question">
-                <h1 class="title">Title</h1>
-                <p class="preview">Body </p>
-                <p class="tags">tags </p>
-                <p class="author">Author </p>
-                <p class="date">date </p>
+            <div className="question">
+                <h1 className="title">Title</h1>
+                <p className="preview">Body </p>
+                <p className="tags">tags </p>
+                <p className="author">Author </p>
+                <p className="date">date </p>
             </div>
-            <div class="question">
-                <h1 class="title">Title</h1>
-                <p class="preview">Body </p>
-                <p class="tags">tags </p>
-                <p class="author">Author </p>
-                <p class="date">date </p>
+            <div className="question">
+                <h1 className="title">Title</h1>
+                <p className="preview">Body </p>
+                <p className="tags">tags </p>
+                <p className="author">Author </p>
+                <p className="date">date </p>
             </div>
         </div>
     </div>
-    <div class="footer">
-        <div class="links">
+    <div className="footer">
+        <div className="links">
             <a href="https://github.com/withdrw">syed</a>
         </div>
-        <div class="group-links">
+        <div className="group-links">
             <a href="https://github.com/dfout">dfout</a>
         </div>
-        <div class="group-links">
+        <div className="group-links">
             <a href="https://github.com/Zach-gold">zach</a>
         </div>
-        <div class="group-links">
+        <div className="group-links">
             <a href="https://github.com/dfout">kyle</a>
         </div>
     </div>
-</body>
+</>
   );
 };
 

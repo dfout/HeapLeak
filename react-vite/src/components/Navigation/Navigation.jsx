@@ -13,17 +13,21 @@ function Navigation() {
     navigate('/login')
   }
 
+  const goHome = () => {
+    navigate('/')
+  }
+
   return (
-    <div class="navbar">
-        <div class="logo">HeapLeak</div>
-        <div class="search">
+    <div className="navbar">
+        <div onClick={goHome}className="logo">HeapLeak</div>
+        <div className="search">
             <p>About</p>
             <input type="search" placeholder="search" />
         </div>
         {!sessionUser && 
-                (<div class="login">
+                (<div className="login">
                 <button onClick={handleLogin}>Login</button>
-                <div class="signup">
+                <div className="signup">
                     <button type="submit">Sign Up</button>
                 </div>
             </div>)
