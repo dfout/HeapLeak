@@ -8,42 +8,42 @@ const Questions = () => {
 
   return (
 
-<div class="container">
-    <div class="main-question">
-        <h1 class="question">question</h1>
-        <div class="dates">Date Modified</div>
-        <div class="body">
+<div className="container">
+    <div className="main-question">
+        <h1 className="question">question</h1>
+        <div className="dates">Date Modified</div>
+        <div className="body">
             <p>
                 Description
             </p>
         </div>
-        <div class="tags">
+        <div className="tags">
             <p>Tags</p>
         </div>
     </div>
-    <div class="answers-container">
+    <div className="answers-container">
         <h2>
              2 Answers
         </h2>
-        <div class="answer-tile">
+        <div className="answer-tile">
                 <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Obcaecati, at similique. Rerum eligendi hic voluptas doloribus impedit minus mollitia eos ex consectetur! Iusto adipisci id eos quam? Quos dolorum rem a qui.</p>
                 <div id="user-info">
                     <span>answered on July 1</span>
                     <span>username</span>
                 </div>
          </div>
-         <div class="answer-tile">
+         <div className="answer-tile">
             <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Doloremque nobis deserunt debitis, similique nihil ea, nulla autem, aliquam neque rem obcaecati officiis voluptatum consequatur sapiente asperiores error!</p>
             <div id="user-info">
                 <span>answered on July 1</span>
                 <span>username</span>
             </div>
         </div>
-        <div class="write-answer">
+        <div className="write-answer">
             <h3>Your Answer</h3>
-            <textarea name="Answer" class="texts" id="" rows="10" cols="60"   ></textarea>
-            <div class="submit-btn">
-                <button class="submit">Submit</button>
+            <textarea name="Answer" className="texts" id="" rows="10" cols="60"   ></textarea>
+            <div className="submit-btn">
+                <button className="submit">Submit</button>
             </div>
         </div>
     </div>

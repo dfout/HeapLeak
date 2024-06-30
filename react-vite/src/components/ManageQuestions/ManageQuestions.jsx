@@ -44,7 +44,7 @@ const ManageQuestions = () => {
             <p>Date : July</p>
           </div>
           <div className="btn">
-            <button class="update">Update</button>
+            <button className="update">Update</button>
             <button className="update">Delete</button>
           </div>
         </div>

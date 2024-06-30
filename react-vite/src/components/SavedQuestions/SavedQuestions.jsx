@@ -8,23 +8,23 @@ const SavedQuestions = () => {
 
   return (
 <body>
-    <div class="navbar">
-        <div class="logo">HeapLeak</div>
-        <div class="search">
+    <div className="navbar">
+        <div className="logo">HeapLeak</div>
+        <div className="search">
             <p>About</p>
             <input type="search" placeholder="search" />
         </div>
-        <div class="menu">
+        <div className="menu">
             <button type="submit">Menu</button>
         </div>
     </div>
-    <div class="container">
+    <div className="container">
         <div id="save-information">
             <h2>All Saves</h2>
             <h3>2 Saved Items</h3>
         </div>
-    <div class="saved-questions">
-        <div class = 'question-container'>
+    <div className="saved-questions">
+        <div className = 'question-container'>
             <span>votes</span>
             <span id="question-title">Title</span>
             <span>Body</span>
@@ -32,7 +32,7 @@ const SavedQuestions = () => {
             <span>Author, date</span>
             <button>Remove</button>
         </div>
-        <div class = 'question-container'>
+        <div className = 'question-container'>
             <span>votes</span>
             <span id="question-title">Title</span>
             <span>Body</span>
@@ -42,17 +42,17 @@ const SavedQuestions = () => {
         </div>
     </div>
 </div>
-<div class="footer">
-    <div class="links">
+<div className="footer">
+    <div className="links">
         <a href="https://github.com/withdrw">syed</a>
     </div>
-    <div class="group-links">
+    <div className="group-links">
         <a href="https://github.com/dfout">dfout</a>
     </div>
-    <div class="group-links">
+    <div className="group-links">
         <a href="https://github.com/dfout">zach</a>
     </div>
-    <div class="group-links">
+    <div className="group-links">
         <a href="https://github.com/dfout">kyle</a>
     </div>
 </div>

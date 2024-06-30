@@ -18,11 +18,11 @@ const CreateQuestion = () => {
   <div className="container">
     <form className="question-form">
       <h2>Create a Question</h2>
-      <label for="title">Title:</label>
+      <label htmlFor="title">Title:</label>
       <input type="text" id="title" name="title" />
-      <label for="problem">Problem:</label>
+      <label htmlFor="problem">Problem:</label>
       <textarea id="problem" name="problem"></textarea>
-      <label for="attempt">Attempt:</label>
+      <label htmlFor="attempt">Attempt:</label>
       <input type="text" id="attempt" name="attempt" />
       <div className="tags">
         <h3>Tags:</h3>

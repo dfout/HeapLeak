@@ -52,7 +52,7 @@ const ManageAnswers = () => {
             </div>
           </div>
           <div className="answer-tile">
-            <div class="answer-info">
+            <div className="answer-info">
               <h1>Title</h1>
               <p>answers</p>
               <p>Body</p>
