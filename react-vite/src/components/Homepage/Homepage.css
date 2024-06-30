@@ -11,46 +11,6 @@ body {
     padding: 0;
 }
 
-.navbar {
-    display: flex;
-    align-items: center;
-    background-color: #c7c7c7;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px;
-}
-
-.logo {
-    font-size: 24px;
-    font-weight: bold;
-}
-
-
-
-.search {
-    display: flex;
-    align-items: center;
-}
-
-.search p {
-    padding-right: 10px;
-}
-
-.search input{
-    padding: 5px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-}
-
-.login button,
-.signup button {
-    padding: 5px 10px;
-    border: none;
-    border-radius: 5px;
-    background-color: #041629;
-    color: #fff;
-    cursor: pointer;
-}
 
 
 .signup {
@@ -144,4 +104,8 @@ height:75%;
     padding: 4px 8px 4px 8px;
     bottom:0;
     width:100%;
+}
+
+.logo:hover{
+    cursor: pointer;
 }
