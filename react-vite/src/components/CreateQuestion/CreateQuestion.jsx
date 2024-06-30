@@ -1,10 +1,16 @@
 import { useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import "./CreateQuestion.css";
 
 const CreateQuestion = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate()
+
+  const handleDiscard = () =>{
+    navigate('/')
+  }
 
   return (
 
@@ -24,7 +30,7 @@ const CreateQuestion = () => {
         <button type="button" id="add-tag">Add</button>
         <ul id="tag-list"></ul>
       </div>
-      <button type="button" id="discard-btn">Discard</button>
+      <button type="button" onClick={handleDiscard}id="discard-btn">Discard</button>
     </form>
   </div>
   );
