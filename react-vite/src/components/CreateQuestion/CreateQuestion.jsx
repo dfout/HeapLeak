@@ -7,16 +7,8 @@ const CreateQuestion = () => {
   const dispatch = useDispatch();
 
   return (
-    <body>
-  <header>
-    <div class="logo">
-        <p>HeapLeak</p>
-    </div>
-    <div class="about">
-      <span>About</span>
-      <input type="text" placeholder="Search" />
-    </div>
-  </header>
+
+
   <div class="container">
     <form class="question-form">
       <h2>Create a Question</h2>
@@ -35,15 +27,6 @@ const CreateQuestion = () => {
       <button type="button" id="discard-btn">Discard</button>
     </form>
   </div>
-  <div class="footer">
-    <ul>
-          <li><a href="https://github.com/withdrw">Syed</a></li>
-      <li><a href="https://github.com/zach-gold">Zach</a></li>
-      <li><a href="https://github.com/dfout">Drew</a></li>
-      <li><a href="https://github.com/pr55">Kyle</a></li>
-    </ul>
-  </div>
-</body>
   );
 };
 

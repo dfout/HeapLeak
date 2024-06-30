@@ -6,6 +6,7 @@ import QuestionPage from '../components/QuestionPage'
 import ManageQuestions from '../components/ManageQuestions'
 import ManageAnswers from '../components/ManageAnswers'
 import SavedQuestions from '../components/SavedQuestions'
+import AboutPage from '../components/AboutPage';
 import Layout from './Layout';
 
 export const router = createBrowserRouter([
@@ -39,6 +40,11 @@ export const router = createBrowserRouter([
       {
         path: "saved-questions",
         element : <SavedQuestions />
+      },
+      {
+        path: "about",
+        element: <AboutPage />
+
       },
     ],
   },

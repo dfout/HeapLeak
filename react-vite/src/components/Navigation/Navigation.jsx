@@ -2,6 +2,7 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import ProfileButton from "./ProfileButton";
+
 import "./Navigation.css";
 
 
@@ -20,6 +21,7 @@ function Navigation() {
   const goToSignup = () => {
     navigate('/signup')
   }
+
   // for design purposes, manually setting sessionUser
   sessionUser = true
 
@@ -27,7 +29,7 @@ function Navigation() {
     <div className="navbar">
         <div onClick={goHome}className="logo">HeapLeak</div>
         <div className="search">
-            <Link>About</Link>
+            <Link to='/about'>About</Link>
             <input type="search" placeholder="search" />
         </div>
         {!sessionUser && 
