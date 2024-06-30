@@ -9,8 +9,8 @@ const CreateQuestion = () => {
   return (
 
 
-  <div class="container">
-    <form class="question-form">
+  <div className="container">
+    <form className="question-form">
       <h2>Create a Question</h2>
       <label for="title">Title:</label>
       <input type="text" id="title" name="title" />
@@ -18,7 +18,7 @@ const CreateQuestion = () => {
       <textarea id="problem" name="problem"></textarea>
       <label for="attempt">Attempt:</label>
       <input type="text" id="attempt" name="attempt" />
-      <div class="tags">
+      <div className="tags">
         <h3>Tags:</h3>
         <input type="text" id="tag-input" placeholder="Add a tag" />
         <button type="button" id="add-tag">Add</button>

@@ -7,6 +7,7 @@ import ManageQuestions from '../components/ManageQuestions'
 import ManageAnswers from '../components/ManageAnswers'
 import SavedQuestions from '../components/SavedQuestions'
 import AboutPage from '../components/AboutPage';
+import CreateQuestion from '../components/CreateQuestion/CreateQuestion';
 import Layout from './Layout';
 
 export const router = createBrowserRouter([
@@ -44,6 +45,11 @@ export const router = createBrowserRouter([
       {
         path: "about",
         element: <AboutPage />
+
+      },
+      {
+        path: 'questions/create',
+        element: <CreateQuestion />
 
       },
     ],

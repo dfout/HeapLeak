@@ -42,9 +42,14 @@ function Navigation() {
         
         }
         {sessionUser && 
-        (                    <div id= 'profile'>
+        (
+          <>
+            <Link to='questions/create'>Ask a Question</Link>           
+          <div id= 'profile'>
           <ProfileButton user={sessionUser} className='profile-button' />
-      </div>)}
+          </div>
+          </>         
+        )}
     </div>
   );
 }
