@@ -4,15 +4,19 @@ import "./Navigation.css";
 
 function Navigation() {
   return (
-    <ul>
-      <li>
-        <NavLink to="/">Home</NavLink>
-      </li>
-
-      <li>
-        <ProfileButton />
-      </li>
-    </ul>
+    <div class="navbar">
+        <div class="logo">HeapLeak</div>
+        <div class="search">
+            <p>About</p>
+            <input type="search" placeholder="search" />
+        </div>
+        <div class="login">
+            <button type="submit">Login</button>
+            <div class="signup">
+                <button type="submit">Sign Up</button>
+            </div>
+        </div>
+    </div>
   );
 }
 

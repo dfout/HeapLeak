@@ -6,21 +6,10 @@ import "./Homepage.css";
 const Homepage = () => {
   const dispatch = useDispatch();
 
+  
+
   return (
     <body>
-    <div class="navbar">
-        <div class="logo">HeapLeak</div>
-        <div class="search">
-            <p>About</p>
-            <input type="search" placeholder="search" />
-        </div>
-        <div class="login">
-            <button type="submit">Login</button>
-            <div class="signup">
-                <button type="submit">Sign Up</button>
-            </div>
-        </div>
-    </div>
     <div class="body">
        <div class="tags-container">
            Tags
