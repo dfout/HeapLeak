@@ -1,46 +1,57 @@
 import { useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import "./ManageQuestions.css";
 
 const ManageQuestions = () => {
   const dispatch = useDispatch();
 
   return (
-    <body>
-      <div class="navbar">
-        <div class="logo">
-          <a href="/Index.html">HeapLeak</a>
+      <div className="container">
+        <div id="questions-overview">
+          <h2>All Questions</h2>
+          <h3>2 Questions</h3>
         </div>
-        <div class="search">
-          <a href="/Index.html">About</a>
-          <input type="search" placeholder="search" />
-        </div>
-        <div class="search">
-          <a href="/Index.html">Create a question</a>
-        </div>
-      </div>
-      <div class="container">
-        <div id="answer-information">
-          <h2>All Answers</h2>
-          <h3>2 Answers</h3>
-        </div>
-        <div class="answer-contain">
-          <div class="answer">
+        <div className='questions-container'>
+        <div className="question-tile">
+          <div className="question-info">
             <h1>Title</h1>
             <p>answers</p>
-            <p>Body</p>
-            <button class="tags">tags</button>
-            <p class="author">author</p>
+            <p>question-body</p>
+            <ul className='tile-tags-container'>
+            <li className='tag-container'><Link className='tag-link'>tag</Link></li>
+            <li className='tag-container'><Link className='tag-link'>tag</Link></li>
+            </ul>
+            <p className="author">author</p>
             <p>Date : July</p>
           </div>
-          <div class="btn">
-            <button class="update">Update</button>
-            <button class="update">Delete</button>
+          <div className="btn">
+            <button className="update">Update</button>
+            <button className="update">Delete</button>
           </div>
         </div>
+        <div className="question-tile">
+          <div className="question-info">
+            <h1>Title</h1>
+            <p>answers</p>
+            <p>question-body</p>
+            <ul className='tile-tags-container'>
+            <li className='tag-container'><Link className='tag-link'>tag</Link></li>
+            <li className='tag-container'><Link className='tag-link'>tag</Link></li>
+            </ul>
+            <p className="author">author</p>
+            <p>Date : July</p>
+          </div>
+          <div className="btn">
+            <button class="update">Update</button>
+            <button className="update">Delete</button>
+          </div>
+        </div>
+        </div>
+        
       </div>
-    </body>
+
   );
 };
 

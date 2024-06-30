@@ -1,21 +1,13 @@
 import { useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import "./Questions.css";
+import "./QuestionPage.css";
 
 const Questions = () => {
   const dispatch = useDispatch();
 
   return (
-<body>
-    <div class="navbar">
-        <div class="logo">
-            <a href="/Index.html">HeapLeak</a></div>
-        <div class="search">
-            <a href="/Index.html">About</a>
-            <input type="search" placeholder="search" />
-        </div>
-    </div>
+
 <div class="container">
     <div class="main-question">
         <h1 class="question">question</h1>
@@ -56,21 +48,8 @@ const Questions = () => {
         </div>
     </div>
 </div>
-    <div class="footer">
-        <div class="links">
-            <a href="https://github.com/withdrw">syed</a>
-        </div>
-        <div class="group-links">
-            <a href="https://github.com/dfout">dfout</a>
-        </div>
-        <div class="group-links">
-            <a href="https://github.com/dfout">zach</a>
-        </div>
-        <div class="group-links">
-            <a href="https://github.com/dfout">kyle</a>
-        </div>
-    </div>
-</body>
+
+
   );
 };
 

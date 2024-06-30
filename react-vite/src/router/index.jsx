@@ -2,7 +2,7 @@ import { createBrowserRouter } from 'react-router-dom';
 import LoginFormPage from '../components/LoginFormPage';
 import SignupFormPage from '../components/SignupFormPage';
 import Homepage from '../components/Homepage';
-import Questions from '../components/Questions';
+import QuestionPage from '../components/QuestionPage'
 import ManageQuestions from '../components/ManageQuestions'
 import ManageAnswers from '../components/ManageAnswers'
 import SavedQuestions from '../components/SavedQuestions'
@@ -25,8 +25,8 @@ export const router = createBrowserRouter([
         element: <SignupFormPage />,
       },
       {
-        path: "questions",
-        element : <Questions />
+        path: "questions/:questionId",
+        element : <QuestionPage />
       },
       {
         path: "manage-questions",
