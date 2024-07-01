@@ -154,7 +154,7 @@ def save_question(id):
 
 @question_routes.route('/<int:id>/save', methods = ['DELETE'])
 @login_required
-def save_question(id):
+def unsave_question(id):
     '''
         Removes the relation to a save
         for a question and user
