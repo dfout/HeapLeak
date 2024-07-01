@@ -1,4 +1,4 @@
-from .db import db, environment, SCHEMA
+from .db import db, environment, SCHEMA,add_prefix_for_prod
 
 class Answer(db.Model):
     __tablename__ = 'answers'
@@ -8,8 +8,8 @@ class Answer(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     body = db.Column(db.String(2000), nullable=False)
-    question_id = db.Column(db.Integer, db.ForeignKey('questions.id'), nullable=False)
-    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
+    question_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('questions.id')), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')), nullable=False)
     is_primary = db.Column(db.Boolean, nullable=False)
 
     def to_dict(self):
