@@ -14,7 +14,7 @@ const Homepage = () => {
        <div className="tags-container">
            Tags
        </div>
-        <div className="questions-container">
+        <div className="all-questions-container">
             <div className="question">
                 <h1 className="title">Title</h1>
                 <p className="preview">Body</p>

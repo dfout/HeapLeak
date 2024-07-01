@@ -22,7 +22,7 @@ body {
     display: flex;
     align-items: center;
 }
-.questions-container {
+.all-questions-container {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;

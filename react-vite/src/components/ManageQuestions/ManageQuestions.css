@@ -1,15 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100..900&display=swap');
 
-
-/* *{
-    font-family: 'Roboto Slab', serif;
-    box-sizing: border-box;
-
-}
-body {
-        margin: 0;
-        padding: 0;
-} */
 
 .manage-questions-container {
     display: flex;
