@@ -118,6 +118,6 @@ class Topic(db.Model):
     def to_dict(self):
         return {
             'id':self.id,
-            'tag':self.tag,
+            'tag':self.tag.value,
             'post_id':self.question_id
         }
