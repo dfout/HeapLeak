@@ -8,7 +8,7 @@ const ManageQuestions = () => {
   const dispatch = useDispatch();
 
   return (
-      <div className="container">
+      <div className="manage-questions-container">
         <div id="questions-overview">
           <h2>All Questions</h2>
           <h3>2 Questions</h3>

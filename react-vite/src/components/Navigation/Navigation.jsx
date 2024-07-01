@@ -25,6 +25,7 @@ function Navigation() {
   // for design purposes, manually setting sessionUser
   sessionUser = true
 
+
   return (
     <div className="navbar">
         <div onClick={goHome}className="logo">HeapLeak</div>

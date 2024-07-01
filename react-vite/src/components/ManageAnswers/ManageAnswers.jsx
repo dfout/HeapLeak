@@ -8,8 +8,8 @@ const ManageAnswers = () => {
   const dispatch = useDispatch();
 
   return (
-    <>
-      <div className="container">
+  
+      <div className="manage-answers-container">
         <div id="answers-overview">
           <h2>All Answers</h2>
           <h3>2 Answers</h3>
@@ -70,7 +70,6 @@ const ManageAnswers = () => {
           </div>
         </div>
       </div>
-    </>
   );
 };
 

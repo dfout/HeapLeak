@@ -11,7 +11,7 @@ body {
         padding: 0;
 } */
 
-.container {
+.manage-questions-container {
     display: flex;
     flex-direction: column;
     align-items: center;
