@@ -1,10 +1,10 @@
-import { useEffect } from "react";
-import { NavLink } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+// import { useEffect } from "react";
+// import { NavLink } from "react-router-dom";
+// import { useDispatch } from "react-redux";
 import "./SavedQuestions.css";
 
 const SavedQuestions = () => {
-  const dispatch = useDispatch();
+//   const dispatch = useDispatch();
 
   return (
 <body>

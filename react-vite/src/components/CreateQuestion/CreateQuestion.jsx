@@ -1,11 +1,11 @@
-import { useEffect } from "react";
-import { NavLink } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+// import { useEffect } from "react";
+// import { NavLink } from "react-router-dom";
+// import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import "./CreateQuestion.css";
 
 const CreateQuestion = () => {
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
   const navigate = useNavigate()
 
   const handleDiscard = () =>{

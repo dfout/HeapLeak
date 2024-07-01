@@ -1,11 +1,11 @@
-import { useEffect } from "react";
-import { NavLink } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+// import { useEffect } from "react";
+// import { NavLink } from "react-router-dom";
+// import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import "./ManageAnswers.css";
 
 const ManageAnswers = () => {
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
 
   return (
   
