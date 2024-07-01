@@ -22,9 +22,8 @@ function Navigation() {
     navigate('/signup')
   }
 
-  // for design purposes, manually setting sessionUser
-  sessionUser = true
-
+  
+  
 
   return (
     <div className="navbar">
