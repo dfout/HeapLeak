@@ -12,9 +12,9 @@ const getQuestions = (questions) =>({
     payload:questions
 })
 
-const getOneQuestion = (id) =>({
+const getOneQuestion = (question) =>({
     type: GET_ONE_QUESTION,
-    payload:id
+    payload:question
 })
 
 const deleteQuestion = (id)=>({
@@ -23,12 +23,12 @@ const deleteQuestion = (id)=>({
 })
 
 const createQuestion = (question) => ({
-    type: CREATE_QUESTION, 
+    type: CREATE_QUESTION,
     payload: question
 })
 
 const updateQuestion = (question) =>({
-    type: UPDATE_QUESTION, 
+    type: UPDATE_QUESTION,
     payload: question
 })
 
@@ -38,26 +38,24 @@ const updateQuestion = (question) =>({
 export const getQuestionsThunk = () => async (dispatch) =>{
     const response = await fetch("/api/questions")
     if (response.ok) {
-		const data = await response.json();
-		if (data.errors) {
-			return data.errors
-		}
-
-		dispatch(getQuestions(data));
-	}
+		const {Questions} = await response.json();
+		dispatch(getQuestions(Questions));
+    } else {
+        const data = await response.json()
+        return data.errors
+    }
 }
 
 
 export const getOneQuestionThunk = (id) => async (dispatch) =>{
     const response = await fetch(`/api/questions/${id}`)
     if (response.ok) {
-		const data = await response.json();
-		if (data.errors) {
-			return data.errors
-		}
-
-		dispatch(getOneQuestion(data));
-	}
+      const {Question} = await response.json();
+      dispatch(getOneQuestion(Question));
+    } else {
+      const data = await response.json();
+      return data.errors;
+    }
 }
 
 export const deleteQuestionThunk = (id) => async(dispatch) =>{
@@ -66,13 +64,12 @@ export const deleteQuestionThunk = (id) => async(dispatch) =>{
         body: JSON.stringify({question})
     })
     if (response.ok) {
-		const data = await response.json();
-		if (data.errors) {
-			return data.errors
-		}
-
-		dispatch(deleteQuestion(data));
-	}
+    const {Id} = await response.json();
+      dispatch(deleteQuestion(Id));
+    } else {
+      const data = await response.json();
+      return data.errors;
+    }
 }
 
 
@@ -82,13 +79,12 @@ export const createQuestionThunk = (question) => async(dispatch) =>{
         body: JSON.stringify({question})
     })
     if (response.ok) {
-		const data = await response.json();
-		if (data.errors) {
-			return data.errors
-		}
-
-		dispatch(createQuestion(data));
-	}
+      const {Question} = await response.json();
+      dispatch(createQuestion(Question));
+    } else {
+      const data = await response.json();
+      return data.errors;
+    }
 }
 
 export const updateQuestionThunk = (question) => async(dispatch) =>{
@@ -101,13 +97,12 @@ export const updateQuestionThunk = (question) => async(dispatch) =>{
         body: JSON.stringify({question})
     })
     if (response.ok) {
-		const data = await response.json();
-		if (data.errors) {
-			return data.errors
-		}
-
-		dispatch(updateQuestion(data));
-	}
+      const {Question} = await response.json();
+      dispatch(updateQuestion(Question));
+    } else {
+      const data = await response.json();
+      return data.errors;
+    }
 }
 
 
@@ -117,27 +112,27 @@ const questionReducer = (state = initialState, action) => {
     switch(action.type){
         case GET_QUESTIONS:{
             const newState = {...state.questions};
-            action.questions.Questions.forEach((question) => newState[question.id] = question)
+            action.payload.forEach((question) => newState[question.id] = question)
             return newState
         }
         case GET_ONE_QUESTION:{
             const newState = {...state}
-            const question = action.question
-            newState[action.question.id] = question
+            const question = action.payload
+            newState[action.payload.id] = question
             return {...newState}
         }
         case DELETE_QUESTION:{
             const newState = {...state,...state.questions}
-            delete newState[action.question.id]
+            delete newState[action.payload]
             return {...newState}
         }
         case CREATE_QUESTION:{
-            let newState = { ...state, [action.question.id]: action.question };
+            let newState = { ...state, [action.payload.id]: action.payload };
             return newState;
         }
         case UPDATE_QUESTION:{
             const newState = {...state}
-            newState[action.question.id] = {...action.question}
+            newState[action.payload.id] = {...action.payload}
             return {...newState}
         }
         default:
