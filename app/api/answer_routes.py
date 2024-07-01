@@ -8,6 +8,11 @@ answer_routes = Blueprint('answer', __name__)
 @answer_routes.route('/<int:id>', methods=['PUT'])
 @login_required
 def edit_answer(id):
+    '''
+        If logged in and the owner of the answer,
+        update the body of the answer and
+        update the entry in the database
+    '''
     answer = Answer.query.filter_by(id=id).first()
     if answer.user_id != current_user.id:
         return {"message":"Not the owner of this Answer"},401
@@ -23,6 +28,15 @@ def edit_answer(id):
 @answer_routes.route('/<int:id>/mark_primary', methods=['PUT'])
 @login_required
 def promote_answer(id):
+    '''
+        If logged in and the owner of the
+        question linked to the current
+        answer, update the answer
+        to be the new primary and
+        make any other primary beforehand
+        no longer the primary in the
+        database.
+    '''
     answer = Answer.query.filter_by(id=id).first()
     question = Question.query.filter_by(id=answer.question_id)
     if question.user_id == current_user.id:
@@ -43,6 +57,10 @@ def promote_answer(id):
 @answer_routes.route('/<int:id>', methods=['DELETE'])
 @login_required
 def delete_answer(id):
+    '''
+        If the owner of the answer, delete the answer
+        if it exists
+    '''
     answer = Answer.query.filter_by(id=id).first()
     if current_user.id == answer.user_id:
         db.session.delete(answer)
