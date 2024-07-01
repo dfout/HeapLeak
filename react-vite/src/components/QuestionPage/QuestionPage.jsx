@@ -8,7 +8,7 @@ const Questions = () => {
 
   return (
 
-<div className="container">
+<div className="create-question-container">
     <div className="main-question">
         <h1 className="question">question</h1>
         <div className="dates">Date Modified</div>
