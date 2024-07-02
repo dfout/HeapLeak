@@ -1,7 +1,7 @@
 from flask_login import current_user, login_required
 from flask import Blueprint, request
-from app.models import Question, db, Answer, Topic, Save
-from app.forms import QuestionForm, AnswerForm, TagForm
+from app.models import Question, User, db, Answer, Topic, Save
+from app.forms import QuestionForm, AnswerForm, TagForm, QuestionUpdateForm
 
 question_routes = Blueprint('question', __name__)
 
@@ -14,6 +14,8 @@ def all_questions():
     questions = [x.to_dict() for x in Question.query.all()]
     for question in questions:
         question['Tags'] = [x.to_dict()['tag'] for x in Topic.query.filter_by(question_id=question['id']).all()]
+        author = User.query.filter_by(id = question['ownerId']).first()
+        question['author'] = author.username
     return {"Questions":questions}
 
 @question_routes.route('/<int:id>')
@@ -26,6 +28,8 @@ def one_question(id):
         return {"message":"Question could not be found"}, 404
     questionObj = question.to_dict()
     questionObj['Tags'] = [x.to_dict() for x in Topic.query.filter_by(question_id=question.id).all()]
+    author = User.query.filter_by(id = question.ownerId).first()
+    question['author'] = author.username
     return {"Question":questionObj}
 
 @question_routes.route('/', methods=['POST'])
@@ -70,7 +74,7 @@ def edit_question(id):
     question = Question.query.filter_by(id=id).first()
     if question.user_id != current_user.id:
         return {"message":"Not the owner of this Question"},401
-    form = QuestionForm()
+    form = QuestionUpdateForm()
     form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():
         question.title = form.data["title"]

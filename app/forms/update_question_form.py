@@ -13,12 +13,3 @@ def minLengthBody(form, field):
 class MultiCheckBoxField(SelectMultipleField):
     widget = widgets.ListWidget(prefix_label=False)
     option_widget = widgets.CheckboxInput()
-
-class QuestionForm(FlaskForm):
-    title = StringField("Title", validators=[DataRequired(), minLengthTitle])
-    body = StringField("Body", validators=[DataRequired(), minLengthBody])
-    tags = MultiCheckBoxField("Tags",choices=[x.value for x in Tags], validators=[DataRequired()])
-
-class QuestionUpdateForm(FlaskForm):
-    title = StringField("Title", validators=[DataRequired(), minLengthTitle])
-    body = StringField("Body", validators=[DataRequired(), minLengthBody])
