@@ -1,11 +1,23 @@
-// import { useEffect } from "react";
-// import { NavLink } from "react-router-dom";
-// import { useDispatch } from "react-redux";
+import { useNavigate, NavLink } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { getQuestionsThunk } from "../../redux/question";
 import "./ManageQuestions.css";
 
+
+
 const ManageQuestions = () => {
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
+  const questions = useSelector((state) => state.questions)
+  const user = useSelector((state) => state.session.user)
+  const [deleted, setDeleted] = useState(false);
+  //console.log((user.id))
+
+  useEffect(() => {
+    dispatch(getQuestionsThunk());
+
+  }, [dispatch, deleted])
 
   return (
       <div className="manage-questions-container">
@@ -49,7 +61,7 @@ const ManageQuestions = () => {
           </div>
         </div>
         </div>
-        
+
       </div>
 
   );
