@@ -1,6 +1,6 @@
 from flask import Blueprint, jsonify
 from flask_login import login_required,current_user
-from app.models import User, Save, Question
+from app.models import User, Save, Question, Answer
 
 user_routes = Blueprint('users', __name__)
 
@@ -41,3 +41,16 @@ def get_saved_posts():
         if question!= None:
             saved_questions.append(question.to_dict())
     return {"SavedQuestions": saved_questions}
+
+@user_routes.route('/answers')
+@login_required
+def get_my_answers():
+    '''
+        Get all of the current logged in
+        user's answers to questions, return
+        an empty array if there are no
+        relations or if the questions no longer
+        exist
+    '''
+    answers = [x.to_dict() for x in Answer.query.filter_by(user_id=current_user.id).all()]
+    return {"Answers":answers}

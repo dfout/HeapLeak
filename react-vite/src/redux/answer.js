@@ -46,6 +46,15 @@ export const createOneAnswer = (answer,id) => async (dispatch) => {
     }
 }
 
+export const myAnswers = () => async (dispatch) => {
+    const response = await fetch(`/api/users/answers`)
+    if (response.ok) {
+        const {Answers} = await response.json();
+        await dispatch(getAll(Answers))
+        return Answers
+    }
+}
+
 export const updateAnswerThunk = (answer) => async (dispatch) => {
     const res = await fetch(`/api/answers/${answer.id}`,
         {

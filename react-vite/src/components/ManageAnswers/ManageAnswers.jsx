@@ -1,14 +1,21 @@
 // import { useEffect } from "react";
 // import { NavLink } from "react-router-dom";
-// import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import "./ManageAnswers.css";
+import { useEffect } from "react";
+import { myAnswers } from "../../redux/answer";
 
 const ManageAnswers = () => {
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
+  const answers = useSelector((state) => state.answers);
+
+  useEffect(()=>{
+    dispatch(myAnswers())
+  },[])
 
   return (
-  
+
       <div className="manage-answers-container">
         <div id="answers-overview">
           <h2>All Answers</h2>
@@ -32,7 +39,7 @@ const ManageAnswers = () => {
               <button className="update">Delete</button>
             </div>
 
-            
+
           </div>
           <div className="answer-tile">
             <div className="answer-info">
