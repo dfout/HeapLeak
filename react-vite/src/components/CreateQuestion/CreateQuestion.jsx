@@ -1,10 +1,10 @@
 // import { useEffect } from "react";
 // import { NavLink } from "react-router-dom";
-// import { useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import "./CreateQuestion.css";
 import { useState } from "react";
-// import { createQuestionThunk } from "../../redux/question";
+import { createQuestionThunk } from "../../redux/question";
 import { enumTags } from "./tags";
 
 const CreateQuestion = () => {
@@ -13,7 +13,7 @@ const CreateQuestion = () => {
   const [tags,setTags] = useState([])
 
 
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const handleDiscard = () => {
@@ -25,18 +25,18 @@ const CreateQuestion = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-      if (!title || !body || !tags) {
-        console.error("Title, body, and tags are required");
-        return;
-      }
+      // if (!title || !body || !tags) {
+      //   console.error("Title, body, and tags are required");
+      //   return;
+      // }
 
 
     const question = {
-      title,
-      body,
-      tags,
+      title: title,
+      body: body,
+      tags: tags,
     };
-    // dispatch(CreateQuestion(question));
+    dispatch(createQuestionThunk(question));
     console.log(question)
     setTitle("");
     setBody("");
