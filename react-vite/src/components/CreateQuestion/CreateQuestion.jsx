@@ -73,13 +73,13 @@ const CreateQuestion = () => {
         <div className="tags">
           <h3>Tags:</h3>
           <ul id="tag-list">
-            {Object.values(enumTags).map((tag) => (
+            {enumTags.map((tag) => (
               <li key={tag}>
                 <input type="checkbox"
-                value={tag}
+                value={tag[0]}
                 onChange={e => manageTags(e)}
                 />
-                <label>{tag}</label>
+                <label>{tag[1]}</label>
               </li>
             ))}
 
