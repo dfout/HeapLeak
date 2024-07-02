@@ -64,7 +64,6 @@ def make_question():
         safe_question['author'] = current_user.username
         return {"Question":safe_question}
     if form.errors:
-        print(form.errors)
         return {"message":"Bad Request", "errors":form.errors}, 400
 
 @question_routes.route('/<int:id>', methods=['PUT'])

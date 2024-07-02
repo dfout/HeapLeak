@@ -8,4 +8,4 @@ class MultiCheckBoxField(SelectMultipleField):
     option_widget = widgets.CheckboxInput()
 
 class TagForm(FlaskForm):
-    tags = MultiCheckBoxField("Tags",choices=[x.value for x in Tags], validators=[DataRequired()])
+    tags = MultiCheckBoxField("Tags",choices=[(x, x.value) for x in Tags], validators=[DataRequired()])
