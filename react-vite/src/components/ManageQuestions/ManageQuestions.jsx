@@ -1,7 +1,6 @@
-import { useNavigate, NavLink } from "react-router-dom";
+import {  NavLink } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 import { getQuestionsThunk, deleteQuestionThunk } from "../../redux/question";
 import "./ManageQuestions.css";
 
@@ -45,7 +44,7 @@ const ManageQuestions = () => {
           <h2>Manage Questions</h2>
         </div>
         {userQuestions.length === 0 ? (
-        <div classname="noQuestions">
+        <div className="noQuestions">
           <NavLink to="/questions/create">Ask a Question</NavLink>
         </div>
         ) : (
