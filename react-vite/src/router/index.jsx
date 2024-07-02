@@ -1,14 +1,14 @@
-import { createBrowserRouter } from 'react-router-dom';
-import LoginFormPage from '../components/LoginFormPage';
-import SignupFormPage from '../components/SignupFormPage';
-import Homepage from '../components/Homepage';
-import QuestionPage from '../components/QuestionPage'
-import ManageQuestions from '../components/ManageQuestions'
-import ManageAnswers from '../components/ManageAnswers'
-import SavedQuestions from '../components/SavedQuestions'
-import AboutPage from '../components/AboutPage';
-import CreateQuestion from '../components/CreateQuestion/CreateQuestion';
-import Layout from './Layout';
+import { createBrowserRouter } from "react-router-dom";
+import LoginFormPage from "../components/LoginFormPage";
+import SignupFormPage from "../components/SignupFormPage";
+import Homepage from "../components/Homepage";
+import QuestionPage from "../components/QuestionPage";
+import ManageQuestions from "../components/ManageQuestions";
+import ManageAnswers from "../components/ManageAnswers";
+import SavedQuestions from "../components/SavedQuestions";
+import AboutPage from "../components/AboutPage";
+import CreateQuestion from "../components/CreateQuestion/CreateQuestion";
+import Layout from "./Layout";
 
 export const router = createBrowserRouter([
   {
@@ -28,29 +28,27 @@ export const router = createBrowserRouter([
       },
       {
         path: "questions/:questionId",
-        element : <QuestionPage />
+        element: <QuestionPage />,
       },
       {
         path: "manage-questions",
-        element : <ManageQuestions />
+        element: <ManageQuestions />,
       },
       {
         path: "manage-answers",
-        element : <ManageAnswers />
+        element: <ManageAnswers />,
       },
       {
         path: "saved-questions",
-        element : <SavedQuestions />
+        element: <SavedQuestions />,
       },
       {
         path: "about",
-        element: <AboutPage />
-
+        element: <AboutPage />,
       },
       {
-        path: 'questions/create',
-        element: <CreateQuestion />
-
+        path: "questions/create",
+        element: <CreateQuestion />,
       },
     ],
   },

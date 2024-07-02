@@ -20,10 +20,14 @@ const Homepage = () => {
           {Object.values(questions).map((question) => (
             <div key={question.id} className="question">
               <h1 className="title">{question.title}</h1>
-              <p className="preview">{question.content}</p>
-              <p className="tags">{question.tags}</p>
+              <p className="preview">{question.body}</p>
+              <div>
+                {question.Tags.map((tag) => (
+                  <p key={tag}>{tag}</p>
+              ))}
+              </div>
               <p className="author">{question.author}</p>
-              <p className="date">{question.createdAt}</p>
+              <p className="date">{question.date}</p>
               <a href={`/questions/${question.id}`}>View Question</a>
             </div>
           ))}
