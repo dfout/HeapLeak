@@ -26,7 +26,7 @@ const delAnswer = (id) => ({
 })
 
 
-const getAllAnswersThunk = (id) => async (dispatch) => {
+export const getAllAnswersThunk = (id) => async (dispatch) => {
     const response = await fetch(`/api/question/${id}/answer`)
     if (response.ok) {
         const {Answers} = await response.json();
@@ -35,7 +35,7 @@ const getAllAnswersThunk = (id) => async (dispatch) => {
     }
 }
 
-const createOneAnswer = (answer,id) => async (dispatch) => {
+export const createOneAnswer = (answer,id) => async (dispatch) => {
     const res = await fetch(`/api/questions/${id}/answers`, {
         method: 'POST',
         body: JSON.stringify(answer)
@@ -46,7 +46,7 @@ const createOneAnswer = (answer,id) => async (dispatch) => {
     }
 }
 
-const updateAnswerThunk = (answer) => async (dispatch) => {
+export const updateAnswerThunk = (answer) => async (dispatch) => {
     const res = await fetch(`/api/answers/${answer.id}`,
         {
             method: "PUT",
@@ -60,7 +60,7 @@ const updateAnswerThunk = (answer) => async (dispatch) => {
 }
 
 
-const deleteAnswerThunk = (id) => async (dispatch) => {
+export const deleteAnswerThunk = (id) => async (dispatch) => {
     const res = await fetch(`/api/answers/${id}`, {
         method: "DELETE",
     })
@@ -99,9 +99,10 @@ const answerReducer = (state = initialState, action) => {
             }
             return newState
         }
+        default:
+            return state
 
     }
 }
 
 export default answerReducer;
-
