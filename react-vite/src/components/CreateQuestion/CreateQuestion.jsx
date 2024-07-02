@@ -36,6 +36,23 @@ const CreateQuestion = () => {
     setTags([]);
   };
 
+  const manageTags = (e) => {
+    console.log(`I have been clicked! my value is ${e.target.value}`)
+    let arr = tags
+    if(e.target.checked){
+      arr.push(e.target.value)
+    }else{
+      let ind = arr.indexOf(e.target.value)
+      if(ind == 0){
+        arr = arr.slice(1)
+      }else if(ind == arr.length-1){
+        arr.pop()
+      }else if (ind > 0){
+        arr = arr.slice(0, ind).concat(arr.slice(ind+1))
+      }
+    }
+    setTags(arr)
+  }
 
   return (
     <div className="container">
@@ -51,6 +68,8 @@ const CreateQuestion = () => {
             {Object.values(enumTags).map((tag) => (
               <li key={tag}>
                 <input type="checkbox"
+                value={tag}
+                onChange={e => manageTags(e)}
                 />
                 <label>{tag}</label>
               </li>
