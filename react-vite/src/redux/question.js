@@ -36,7 +36,7 @@ const updateQuestion = (question) =>({
 
 
 export const getQuestionsThunk = () => async (dispatch) =>{
-    const response = await fetch("/api/questions")
+    const response = await fetch("/api/questions/")
     if (response.ok) {
 		const {Questions} = await response.json();
 		dispatch(getQuestions(Questions));
@@ -74,7 +74,7 @@ export const deleteQuestionThunk = (id) => async(dispatch) =>{
 
 
 export const createQuestionThunk = (question) => async(dispatch) =>{
-    const response = await fetch(`/api/questions`, {
+    const response = await fetch(`/api/questions/`, {
         method: "POST",
         body: JSON.stringify({question})
     })
