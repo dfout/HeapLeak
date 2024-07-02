@@ -6,7 +6,7 @@ import { getQuestionsThunk, deleteQuestionThunk } from "../../redux/question";
 import "./ManageQuestions.css";
 
 function filterById(questions, userId) {
-  const result = {};
+  const result = [];
   for (const question in questions) {
       if (questions[question].ownerId === userId) {
           result[question] = questions[question];
@@ -43,47 +43,33 @@ const ManageQuestions = () => {
       <div className="manage-questions-container">
         <div id="questions-overview">
           <h2>Manage Questions</h2>
-      </div>
-      {userQuestions.length === 0 ? (
-        <div classname="noQuestions">
-          <Navlink to="/questions/create">Ask a Question</Navlink>
         </div>
-      ) : (
-        <div className='questions-container'>
-          <div className="question-tile">
-            <div className="question-info">
-              <h1>Title</h1>
-              <p>answers</p>
-              <p>question-body</p>
-              <ul className='tile-tags-container'>
-                <li className='tag-container'><Link className='tag-link'>tag</Link></li>
-                <li className='tag-container'><Link className='tag-link'>tag</Link></li>
-              </ul>
-              <p className="author">author</p>
-              <p>Date : July</p>
+        {userQuestions.length === 0 ? (
+        <div classname="noQuestions">
+          <NavLink to="/questions/create">Ask a Question</NavLink>
+        </div>
+        ) : (
+            <div className='questions-container'>
+              {userQuestions.map((question) => (
+          <div className="question-tile" key={question.id}>
+            <div className="question-info" key ={question.id}>
+                    <h1>{ question.title}</h1>
+                    <p>answers</p>
+                    <p>{ question.body }</p>
+                    <div>
+                {question.Tags.map((tag) => (
+                  <p key={tag}>{tag}</p>
+              ))}
+              </div>
+                    <p className="author">{ question.author}</p>
+                    <p>Date : { question.updatedAt}</p>
             </div>
             <div className="btn">
               <button className="update">Update</button>
               <button className="update">Delete</button>
             </div>
           </div>
-          <div className="question-tile">
-            <div className="question-info">
-              <h1>Title</h1>
-              <p>answers</p>
-              <p>question-body</p>
-              <ul className='tile-tags-container'>
-                <li className='tag-container'><Link className='tag-link'>tag</Link></li>
-                <li className='tag-container'><Link className='tag-link'>tag</Link></li>
-              </ul>
-              <p className="author">author</p>
-              <p>Date : July</p>
-            </div>
-            <div className="btn">
-              <button className="update">Update</button>
-              <button className="update">Delete</button>
-            </div>
-          </div>
+                ))}
         </div>
       )}
       </div>
