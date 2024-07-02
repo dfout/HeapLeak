@@ -61,7 +61,7 @@ export const getOneQuestionThunk = (id) => async (dispatch) =>{
 export const deleteQuestionThunk = (id) => async(dispatch) =>{
     const response = await fetch(`/api/questions/${id}`, {
         method: "DELETE",
-        body: JSON.stringify({question})
+        // body: JSON.stringify({question})
     })
     if (response.ok) {
     const {Id} = await response.json();

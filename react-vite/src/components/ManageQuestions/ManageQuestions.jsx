@@ -62,11 +62,11 @@ const ManageQuestions = () => {
               ))}
               </div>
                     <p className="author">{ question.author}</p>
-                    <p>Date : { question.updatedAt}</p>
+                    <p>Date : { question.timeUpdated}</p>
             </div>
             <div className="btn">
-              <button className="update">Update</button>
-              <button className="update">Delete</button>
+              <button className="update" >Update</button>
+              <button className="update" onClick={() => handleDelete(question.id)}>Delete</button>
             </div>
           </div>
                 ))}
