@@ -16,6 +16,7 @@ def all_questions():
         question['Tags'] = [x.to_dict()['tag'] for x in Topic.query.filter_by(question_id=question['id']).all()]
         author = User.query.filter_by(id = question['ownerId']).first()
         question['author'] = author.username
+        question['Answers'] = [x.to_dict() for x in Answer.query.filter_by(question_id = question['id'])]
     return {"Questions":questions}
 
 @question_routes.route('/<int:id>')
@@ -29,7 +30,8 @@ def one_question(id):
     questionObj = question.to_dict()
     questionObj['Tags'] = [x.to_dict() for x in Topic.query.filter_by(question_id=question.id).all()]
     author = User.query.filter_by(id = question.ownerId).first()
-    question['author'] = author.username
+    questionObj['author'] = author.username
+    questionObj['Answers'] = [x.to_dict() for x in Answer.query.filter_by(question_id = question.id)]
     return {"Question":questionObj}
 
 @question_routes.route('/', methods=['POST'])
