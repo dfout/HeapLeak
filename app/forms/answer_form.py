@@ -4,7 +4,7 @@ from wtforms.validators import DataRequired, ValidationError
 from app.models import Question
 
 def minLengthBody(form, field):
-    if len(field) < 20:
+    if len(field.data) < 20:
         raise ValidationError('Body must be at least 20 character long')
 
 class AnswerForm(FlaskForm):
