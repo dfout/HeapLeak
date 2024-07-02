@@ -29,7 +29,7 @@ def one_question(id):
         return {"message":"Question could not be found"}, 404
     questionObj = question.to_dict()
     questionObj['Tags'] = [x.to_dict() for x in Topic.query.filter_by(question_id=question.id).all()]
-    author = User.query.filter_by(id = question.ownerId).first()
+    author = User.query.filter_by(id = question.user_id).first()
     questionObj['author'] = author.username
     questionObj['Answers'] = [x.to_dict() for x in Answer.query.filter_by(question_id = question.id).all()]
     return {"Question":questionObj}
