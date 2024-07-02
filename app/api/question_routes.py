@@ -91,6 +91,9 @@ def all_answers(id):
         Get all answers for a question in the database
     '''
     answers = [x.to_dict() for x in Answer.query.filter_by(question_id=id).all()]
+    for answer in answers:
+        author = User.query.filter_by(id=answer['ownerId']).first()
+        answers['author'] = author.username
     return {"Answers":answers}
 
 
