@@ -22,6 +22,8 @@ def one_question(id):
         Get one question in the database by the id
     '''
     question = Question.query.filter_by(id=id).first()
+    if question == None:
+        return {"message":"Question could not be found"}, 404
     questionObj = question.to_dict()
     questionObj['Tags'] = [x.to_dict() for x in Topic.query.filter_by(question_id=question.id).all()]
     return {"Question":questionObj}
