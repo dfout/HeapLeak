@@ -1,6 +1,6 @@
 from flask_login import current_user, login_required
 from flask import Blueprint, request
-from app.models import Question, User, db, Answer, Topic, Save
+from app.models import Question, User, db, Answer, Topic, Save,Tags
 from app.forms import QuestionForm, AnswerForm, TagForm, QuestionUpdateForm
 
 question_routes = Blueprint('question', __name__)
@@ -13,7 +13,7 @@ def all_questions():
     '''
     questions = [x.to_dict() for x in Question.query.all()]
     for question in questions:
-        question['Tags'] = [x.to_dict()['tag'] for x in Topic.query.filter_by(question_id=question['id']).all()]
+        question['Tags'] = [x.to_dict() for x in Topic.query.filter_by(question_id=question['id']).all()]
         author = User.query.filter_by(id = question['ownerId']).first()
         question['author'] = author.username
         question['Answers'] = [x.to_dict() for x in Answer.query.filter_by(question_id = question['id']).all()]
@@ -54,12 +54,14 @@ def make_question():
         db.session.commit()
         safe_question = new_question.to_dict()
         for x in form.data['tags']:
-            new_tag = Topic (
-                tag = x,
-                question_id = new_question.id
-            )
-            db.session.add(new_tag)
-            db.session.commit()
+            for v in Tags:
+                if v.value == x:
+                    new_tag = Topic (
+                    tag = v,
+                    question_id = new_question.id
+                    )
+                    db.session.add(new_tag)
+        db.session.commit()
         safe_question['Tags'] = [x.to_dict() for x in Topic.query.filter_by(question_id=new_question.id).all()]
         safe_question['author'] = current_user.username
         return {"Question":safe_question}
@@ -87,11 +89,13 @@ def edit_question(id):
         _ = [db.session.delete(x) for x in oldTags]
         db.session.commit()
         for tag in form.data['tags']:
-            new_tag = Topic(
-                question_id = id,
-                tag=tag
-            )
-            db.session.add(new_tag)
+            for v in Tags:
+                if v.value == tag:
+                    new_tag = Topic (
+                    tag = v,
+                    question_id = id
+                    )
+                    db.session.add(new_tag)
         db.session.commit()
         safe_question = question.to_dict()
         safe_question['Tags'] = [x.to_dict() for x in Topic.query.filter_by(question_id = id).all()]

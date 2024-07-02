@@ -58,7 +58,7 @@ const ManageQuestions = () => {
                     <p>{ question.body }</p>
                     <div>
                 {question.Tags.map((tag) => (
-                  <p key={tag}>{tag}</p>
+                  <p key={tag.id}>{tag.tag}</p>
               ))}
               </div>
                     <p className="author">{ question.author}</p>
