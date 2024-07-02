@@ -24,6 +24,13 @@ const CreateQuestion = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
+      if (!title || !body || !tags) {
+        console.error("Title, body, and tags are required");
+        return;
+      }
+
+
     const question = {
       title,
       body,
@@ -34,6 +41,7 @@ const CreateQuestion = () => {
     setTitle("");
     setBody("");
     setTags([]);
+    navigate('/')
   };
 
   const manageTags = (e) => {
