@@ -1,44 +1,35 @@
-// import { useEffect } from "react";
+import { useEffect } from "react";
 // import { NavLink } from "react-router-dom";
-// import { useDispatch} from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import "./Homepage.css";
+import { getQuestionsThunk } from "../../redux/question";
 
 const Homepage = () => {
-//   const dispatch = useDispatch();
+  const dispatch = useDispatch();
+  const questions = useSelector((state) => state.questions);
 
-  
+  useEffect(() => {
+    dispatch(getQuestionsThunk());
+  }, [dispatch]);
 
   return (
     <>
-    <div className="body">
-       <div className="tags-container">
-           Tags
-       </div>
+      <div className="body">
+        <div className="tags-container">Tags</div>
         <div className="all-questions-container">
-            <div className="question">
-                <h1 className="title">Title</h1>
-                <p className="preview">Body</p>
-                <p className="tags">tags 1</p>
-                <p className="author">Author 1</p>
-                <p className="date">date 1</p>
+          {Object.values(questions).map((question) => (
+            <div key={question.id} className="question">
+              <h1 className="title">{question.title}</h1>
+              <p className="preview">{question.content}</p>
+              <p className="tags">{question.tags}</p>
+              <p className="author">{question.author}</p>
+              <p className="date">{question.createdAt}</p>
+              <a href={`/questions/${question.id}`}>View Question</a>
             </div>
-            <div className="question">
-                <h1 className="title">Title</h1>
-                <p className="preview">Body </p>
-                <p className="tags">tags </p>
-                <p className="author">Author </p>
-                <p className="date">date </p>
-            </div>
-            <div className="question">
-                <h1 className="title">Title</h1>
-                <p className="preview">Body </p>
-                <p className="tags">tags </p>
-                <p className="author">Author </p>
-                <p className="date">date </p>
-            </div>
+          ))}
         </div>
-    </div>
-</>
+      </div>
+    </>
   );
 };
 
