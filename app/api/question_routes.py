@@ -16,7 +16,7 @@ def all_questions():
         question['Tags'] = [x.to_dict()['tag'] for x in Topic.query.filter_by(question_id=question['id']).all()]
         author = User.query.filter_by(id = question['ownerId']).first()
         question['author'] = author.username
-        question['Answers'] = [x.to_dict() for x in Answer.query.filter_by(question_id = question['id'])]
+        question['Answers'] = [x.to_dict() for x in Answer.query.filter_by(question_id = question['id']).all()]
     return {"Questions":questions}
 
 @question_routes.route('/<int:id>')
@@ -31,7 +31,7 @@ def one_question(id):
     questionObj['Tags'] = [x.to_dict() for x in Topic.query.filter_by(question_id=question.id).all()]
     author = User.query.filter_by(id = question.ownerId).first()
     questionObj['author'] = author.username
-    questionObj['Answers'] = [x.to_dict() for x in Answer.query.filter_by(question_id = question.id)]
+    questionObj['Answers'] = [x.to_dict() for x in Answer.query.filter_by(question_id = question.id).all()]
     return {"Question":questionObj}
 
 @question_routes.route('/', methods=['POST'])
@@ -61,6 +61,7 @@ def make_question():
             db.session.add(new_tag)
             db.session.commit()
         safe_question['Tags'] = [x.to_dict() for x in Topic.query.filter_by(question_id=new_question.id).all()]
+        safe_question['author'] = current_user.username
         return {"Question":safe_question}
     if form.errors:
         return {"message":"Bad Request", "errors":form.errors}, 400
@@ -76,13 +77,26 @@ def edit_question(id):
     question = Question.query.filter_by(id=id).first()
     if question.user_id != current_user.id:
         return {"message":"Not the owner of this Question"},401
-    form = QuestionUpdateForm()
+    form = QuestionForm()
     form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():
         question.title = form.data["title"]
         question.body = form.data["body"]
+        oldTags = [x for x in Topic.query.filter_by(question_id = id).all()]
+        _ = [db.session.delete(x) for x in oldTags]
         db.session.commit()
-        return {"Question":question.to_dict()}
+        for tag in form.data['tags']:
+            new_tag = Topic(
+                question_id = id,
+                tag=tag
+            )
+            db.session.add(new_tag)
+        db.session.commit()
+        safe_question = question.to_dict()
+        safe_question['Tags'] = [x.to_dict() for x in Topic.query.filter_by(question_id = id).all()]
+        safe_question['author'] = current_user.username
+        safe_question['Answers']= [x.to_dict() for x in Answer.query.filter_by(question_id = id).all()]
+        return {"Question":safe_question}
     if form.errors:
         return {"message":"Bad Request", "errors":form.errors}, 400
 
