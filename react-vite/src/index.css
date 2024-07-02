@@ -4,7 +4,7 @@
 *{
     font-family: 'Roboto Slab', serif;
     box-sizing: border-box;
-    
+
 
 }
 body {
@@ -12,3 +12,14 @@ body {
         padding: 0;
 }
 
+.logoDiv{
+    display: flex;
+    flex-direction: row;
+    height: 75px;
+    width: 300px;
+}
+
+#logoPhoto {
+    height: 100%;
+    width: 25%;
+}
