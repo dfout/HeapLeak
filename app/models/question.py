@@ -14,6 +14,10 @@ class Question(db.Model):
     time_created = db.Column(db.DateTime(timezone=True), server_default=db.func.now())
     time_updated = db.Column(db.DateTime(timezone=True), server_default=db.func.now(), onupdate=db.func.now())
 
+    answers = db.relationship('Answer', cascade = "all, delete")
+    tags = db.relationship('Topic', cascade= "all, delete")
+    saves = db.relationship('Save', cascade="all, delete")
+
     def to_dict(self):
         return {
             'id':self.id,
