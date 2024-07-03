@@ -1,5 +1,5 @@
 import {  useNavigate } from "react-router-dom";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { useSelector } from "react-redux";
 import ProfileButton from "./ProfileButton";
 
@@ -47,6 +47,7 @@ function Navigation() {
         {sessionUser &&
         (
           <>
+          <NavLink to='/saved-questions'>Saved Questions</NavLink>
             <Link to='questions/create'>Ask a Question</Link>
           <div id= 'profile'>
           <ProfileButton user={sessionUser} className='profile-button' />

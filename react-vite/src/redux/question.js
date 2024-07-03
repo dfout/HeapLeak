@@ -112,9 +112,10 @@ export const updateQuestionThunk = (question, questionId) => async(dispatch) =>{
 export const getSavedQuestions = () => async (dispatch) => {
     const response = await fetch('/api/users/saves')
     if (response.ok) {
-        const {Questions} = await response.json();
-        await dispatch(getQuestions(Questions))
-        return Questions
+        const res = await response.json();
+        await dispatch(getQuestions(res))
+        console.log(res, "SAVED QUESTIONS")
+        return res
     }
 }
 
