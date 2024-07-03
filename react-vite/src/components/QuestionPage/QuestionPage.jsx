@@ -3,8 +3,9 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import "./QuestionPage.css";
 import { getOneQuestionThunk } from "../../redux/question";
-import { useNavigate, useParams } from "react-router-dom";
+import {  useParams } from "react-router-dom";
 import { createOneAnswer } from "../../redux/answer";
+import {  saveQuestionThunk, userSavedThunks } from "../../redux/save";
 
 const Questions = () => {
   const { questionId } = useParams();
@@ -14,7 +15,22 @@ const Questions = () => {
   const user = useSelector((state) => state.session.user);
   const [body, setBody] = useState("");
   const [errors, setErrors] = useState({});
-  const navigate = useNavigate();
+  const [isSaved, setIsSaved] = useState()
+  const userSaves = useSelector((state) => state.saves)
+
+  console.log('-----------------------------------------------',(userSaves))
+  // const navigate = useNavigate();
+  useEffect(() => {
+    if (userSaves[questionId]) {
+      setIsSaved(true)
+    } else {
+      setIsSaved(false)
+    }
+  },[isSaved,userSaves])
+
+  console.log('-------------saved',isSaved)
+
+
   const abilityCheck = () => {
     if (question && user) {
       if (question.ownerId === user.id) {
@@ -34,8 +50,16 @@ const Questions = () => {
   useEffect(() => {
     if (questionId) {
       dispatch(getOneQuestionThunk(questionId));
+      dispatch(userSavedThunks())
     }
   }, [dispatch, questionId]);
+
+    const handleSave = async (e, question) => {
+      e.preventDefault();
+      setIsSaved(true)
+      await dispatch(saveQuestionThunk(question));
+    };
+
 
   useEffect(() => {
     abilityCheck();
@@ -59,13 +83,30 @@ const Questions = () => {
 
   // console.log("->>>>>>>>>>>>>>>>>>>>>>>>>>>>>", questionId);
 
+
+  // THE WE NEED TO GRAB USER SAVE QUESTIONS AND THEN COMPARE RECEIPTS SEE IF THE CURRENT QUESTION EXISTS IN THE ARR OR OBJ / DATA .
   return (
     <>
       {question ? (
         <div className="create-question-container">
+          {
+            isSaved || !user  ?  (
+                          <div className="main-question">
+              <h1 className="question">{question.title}</h1>
+              <div className="dates">{question.timeUpdated}</div>
+              <div className="body">
+                <p>{question.body}</p>
+              </div>
+              <div className="tags">
+                {question.Tags.map((tag) => (
+                  <p key={tag.id}>{tag.tag}</p>
+                ))}
+              </div>
+            </div>
+            ): (
           <div id="question-button">
-            <div id="save-button">
-              <button>Save</button>
+            <div  id="save-button">
+              <button onClick={e => (handleSave(e,question))} >Save</button>
             </div>
             <div className="main-question">
               <h1 className="question">{question.title}</h1>
@@ -80,6 +121,8 @@ const Questions = () => {
               </div>
             </div>
           </div>
+            )
+          }
 
           <div className="answers-container">
             <h2></h2>

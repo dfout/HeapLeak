@@ -1,17 +1,17 @@
 import { useEffect } from "react";
 // import { NavLink } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
- 
+
 import { getSavedQuestionsThunk, unSaveQuestionThunk } from "../../redux/save";
 import "./SavedQuestions.css";
 
 const SavedQuestions = () => {
   const dispatch = useDispatch();
   let savedQuestions = useSelector((state)=>state.saves)
- 
+
   savedQuestions = Object.values(savedQuestions)
 
- 
+
 
   useEffect(()=>{
     dispatch(getSavedQuestionsThunk())
@@ -24,6 +24,7 @@ const SavedQuestions = () => {
   }
 
 
+
   return (
 
     <div className="container">
@@ -31,10 +32,11 @@ const SavedQuestions = () => {
             <h2>All Saves</h2>
             <h3>{savedQuestions.length} Saved Items</h3>
         </div>
-    <div className="saved-questions">
-        {savedQuestions.length && savedQuestions.map((question)=> {
+      <div className="saved-questions">
+        {savedQuestions.length && savedQuestions.map((question) => {
+          console.log('questionnnnnnnnnnnnnn',question)
             return(
-              
+
                     <div className = 'question-container' key= {question.id}>
                     <p id="question-title">{question.post.title}</p>
                     <span>{question.post.body}</span>
