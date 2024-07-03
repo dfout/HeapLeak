@@ -32,7 +32,7 @@ function Navigation() {
           <div onClick={goHome}className="logo">HeapLeak</div>
         </div>
         <div className="search">
-            <Link to='/about'>About</Link>
+            {/* <Link to='/about'>About</Link> */}
             <input type="search" placeholder="search" />
         </div>
         {!sessionUser &&

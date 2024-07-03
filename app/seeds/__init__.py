@@ -24,8 +24,11 @@ def seed():
         undo_questions()
         undo_users()
     seed_users()
+    print('-' * 30)
     seed_questions()
+    print('-' * 30)
     seed_answers()
+    print('-' * 30)
     seed_tags()
     # Add other seed functions here
 

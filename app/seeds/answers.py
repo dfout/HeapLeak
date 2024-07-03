@@ -15,11 +15,29 @@ answer_bodys = [
    "Sure, recursion is... Oh look, I have to explain recursion again."
    ]
 
+madeIds = [
+   [1,2],
+   [3,4],
+   [5,6],
+   [7,8],
+   [9,10],
+   [11,12],
+   [13,14],
+   [15,16],
+   [17,18],
+   [19,20],
+   [21,22],
+   [23,24],
+   [25,26],
+   [27,28],
+   [29,30],
+]
+
 # Adds a demo user, you can add other users here if you want
 def seed_answers():
    for i in range(1, 16):
     for k in range(1 , 31):
-       if i != k and (k % 3 == 0 or i % 3 == 0):
+       if k not in madeIds[i-1] and (i % 2 == 0):
         newAnswer = Answer(
           body=answer_bodys[randint(0, len(answer_bodys)-1)],
           user_id = i,
