@@ -1,5 +1,5 @@
 // import { useEffect } from "react";
-// import { NavLink } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 import "./ManageAnswers.css";
@@ -8,6 +8,7 @@ import { deleteAnswerThunk, myAnswers } from "../../redux/answer";
 
 const ManageAnswers = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const answers = useSelector((state) => state.answers);
   const [deleted, setDeleted] = useState(false)
 
@@ -43,7 +44,7 @@ const ManageAnswers = () => {
               <p>Date : {answer.timeUpdated}</p>
             </div>
             <div className="btn">
-              <button className="update">Update</button>
+              <button className="update" onClick={() => navigate(`/update-answer/${answer.id}`)}>Update</button>
               <button className="update" onClick={() => handleDelete(answer.id)}>Delete</button>
             </div>
           </div>

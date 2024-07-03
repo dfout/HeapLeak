@@ -10,54 +10,49 @@ const Questions = () => {
   const { questionId } = useParams();
   const dispatch = useDispatch();
   const question = useSelector((state) => state.questions[questionId]);
-  const [canAnswer, setCanAnswer] = useState(false);
+  const [canAnswer, setCanAnswer] = useState(true)
   const user = useSelector((state) => state.session.user);
-  const [body, setBody] = useState("");
-  const [errors, setErrors] = useState({});
-  const navigate = useNavigate();
-  const abilityCheck = () => {
+  const [body, setBody] = useState('')
+  const [errors, setErrors] = useState({})
+  const navigate = useNavigate()
+  const [answerOwnerIds, setOwnerIds] = useState([])
+  const abilityCheck = async () => {
+    console.log(question)
     if (question && user) {
-      if (question.ownerId === user.id) {
-        setCanAnswer(false);
-      } else {
-        let able = true;
-        for (let answer in question.Answers) {
-          if (answer.ownerId === user.id) {
-            able = false;
-            return;
-          }
+      let answers = Object.values(question.Answers)
+      let arr = []
+      for (let answer of answers){
+        if(!arr.includes(answer.ownerId)){
+          // console.log(answer)
+          arr.push(answer.ownerId)
         }
-        setCanAnswer(able);
       }
+      // console.log(arr)
+      setOwnerIds(arr)
     }
   };
   useEffect(() => {
     if (questionId) {
-      dispatch(getOneQuestionThunk(questionId));
+      dispatch(getOneQuestionThunk(questionId))
     }
-  }, [dispatch, questionId]);
+  }, [dispatch, questionId, canAnswer]);
 
   useEffect(() => {
-    abilityCheck();
-  }, [dispatch, canAnswer]);
+    abilityCheck()
+  }, [question])
 
-  async function sendAnswerSubmit(e) {
+  async function sendAnswerSubmit(e){
     const payload = {
-      body: body,
-    };
-    let data = await dispatch(createOneAnswer(payload, questionId));
-    if (data?.errors) {
-      console.log(data.errors);
-      setErrors(data.errors);
-    } else {
-      setErrors({});
-      setCanAnswer(false);
-      // console.log("SUCCESS!!!!!!!!!!!!!!!!!!!!!!!!")
-      // navigate(`/questions/${questionId}`)
+      body:body
+    }
+    let data = await dispatch(createOneAnswer(payload, questionId))
+    if(data?.errors){
+      console.log(data.errors)
+      setErrors(data.errors)
+    }else{
+      setCanAnswer(false)
     }
   }
-
-  // console.log("->>>>>>>>>>>>>>>>>>>>>>>>>>>>>", questionId);
 
   return (
     <>
@@ -83,40 +78,39 @@ const Questions = () => {
 
           <div className="answers-container">
             <h2></h2>
-            {question.Answers &&
-              question.Answers.map((answer) => (
-                <div key={answer.id} className="answer-tile">
-                  <p>{answer.body}</p>
-                  <div id="user-info">
-                    <span>{answer.timeUpdated}</span>
+            {question.Answers && question.Answers.map((answer) => (
 
-                    <span>{question.author}</span>
-                  </div>
-                </div>
-              ))}
-            {canAnswer ? (
-              <div className="write-answer">
-                <h3>Your Answer</h3>
-                <textarea
-                  name="Answer"
-                  className="texts"
-                  id=""
-                  rows="10"
-                  cols="60"
-                  value={body}
-                  onChange={(e) => setBody(e.target.value)}
-                ></textarea>
-                <p>{errors.body}</p>
-                <div className="submit-btn">
-                  <button
-                    className="submit"
-                    onClick={(e) => sendAnswerSubmit(e)}
-                  >
-                    Submit
-                  </button>
+              <div key={answer.id} className="answer-tile">
+                <p>{answer.body}</p>
+                <div id="user-info">
+                  <span>{answer.timeUpdated}</span>
+
+                  <span>{answer.author.username}</span>
                 </div>
               </div>
-            ) : null}
+            ))}
+            {
+              user && question.ownerId != user.id && !answerOwnerIds.includes(user.id)
+                ?
+                (
+                  <div className="write-answer">
+                    <h3>Your Answer</h3>
+                    <textarea
+                      name="Answer"
+                      className="texts"
+                      id=""
+                      rows="10"
+                      cols="60"
+                      value={body}
+                      onChange={e => setBody(e.target.value)}
+                    ></textarea>
+                    <p>{errors.body}</p>
+                    <div className="submit-btn">
+                      <button className="submit" onClick={e => sendAnswerSubmit(e)}>Submit</button>
+                    </div>
+                  </div>
+                ) : null
+            }
           </div>
         </div>
       ) : (

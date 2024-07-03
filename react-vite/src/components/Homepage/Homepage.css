@@ -109,3 +109,9 @@ height:75%;
 .logo:hover{
     cursor: pointer;
 }
+.tagListItem{
+    text-decoration: underline;
+}
+.tagListItem:hover{
+    cursor: pointer;
+}

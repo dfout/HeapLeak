@@ -31,7 +31,9 @@ const Homepage = () => {
   return (
     <>
       <div className="body">
-        <div className="tags-container">{Object.values(tagsObj).map((tag) => (<div key={tag} className="tagListItem">{tag}</div>))}</div>
+        <div className="tags-container">{Object.values(tagsObj).map((tag) =>
+          (
+          <div key={tag} className="tagListItem" onClick={() => alert('Search feature coming soon!')}>{tag}</div>))}</div>
         <div className="all-questions-container">
           {Object.values(questions).map((question) => (
             <div key={question.id} className="question">
