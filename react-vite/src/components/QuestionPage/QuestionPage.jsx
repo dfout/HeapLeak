@@ -16,6 +16,7 @@ const Questions = () => {
     }
   }, [dispatch, questionId]);
 
+
   console.log("->>>>>>>>>>>>>>>>>>>>>>>>>>>>>", questionId);
 
   return (
@@ -35,14 +36,18 @@ const Questions = () => {
             </div>
           </div>
           <div className="answers-container">
-                      <h2></h2>
-            <div className="answer-tile">
-              <p>{question.answers}</p>
+            <h2></h2>
+            {question.answers && question.answers.map((answer) => (
+
+              <div key={answer.id} className="answer-tile">
+              <p>{answer.body}</p>
               <div id="user-info">
-                <span>answered on July 1</span>
+                  <span>{answer.timeUpdated}</span>
+
                 <span>{question.author}</span>
               </div>
             </div>
+            ))}
             <div className="answer-tile">
               <p>
               </p>
