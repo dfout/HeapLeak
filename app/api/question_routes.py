@@ -172,8 +172,8 @@ def save_question(id):
         Creates a relation to save the requested
         question for the user
     '''
-    question = Question.query.filter_by(id=id).first()
-    if question != None:
+    x_question = Question.query.filter_by(id=id).first()
+    if x_question != None:
         new_save = Save(
             question_id = id,
             user_id = current_user.id
@@ -181,6 +181,10 @@ def save_question(id):
         db.session.add(new_save)
         db.session.commit()
         safe_save = new_save.to_dict()
+        question = x_question.to_dict()
+        question['Tags'] = [x.to_dict() for x in Topic.query.filter_by(question_id=question['id']).all()]
+        author = User.query.filter_by(id = question['ownerId']).first()
+        question['author'] = author.username
         safe_save['post'] = question
         return {'Save':safe_save}
     else:
