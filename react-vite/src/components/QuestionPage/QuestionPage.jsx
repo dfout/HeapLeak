@@ -10,37 +10,36 @@ const Questions = () => {
   const { questionId } = useParams();
   const dispatch = useDispatch();
   const question = useSelector((state) => state.questions[questionId]);
-  const [canAnswer, setCanAnswer] = useState(false)
+  const [canAnswer, setCanAnswer] = useState(true)
   const user = useSelector((state) => state.session.user)
   const [body, setBody] = useState('')
   const [errors, setErrors] = useState({})
   const navigate = useNavigate()
-  const abilityCheck = () => {
+  const [answerOwnerIds, setOwnerIds] = useState([])
+  const abilityCheck = async () => {
+    console.log(question)
     if (question && user) {
-      if (question.ownerId === user.id) {
-        setCanAnswer(false)
-      } else {
-        let able = true
-        for (let answer in question.Answers) {
-          if (answer.ownerId === user.id) {
-            able = false;
-            return
-          }
+      let answers = Object.values(question.Answers)
+      let arr = []
+      for (let answer of answers){
+        if(!arr.includes(answer.ownerId)){
+          // console.log(answer)
+          arr.push(answer.ownerId)
         }
-        setCanAnswer(able)
       }
+      // console.log(arr)
+      setOwnerIds(arr)
     }
   }
   useEffect(() => {
     if (questionId) {
-      dispatch(getOneQuestionThunk(questionId));
+      dispatch(getOneQuestionThunk(questionId))
     }
-  }, [dispatch, questionId]);
+  }, [dispatch, questionId, canAnswer]);
 
-  useEffect(()=>{
+  useEffect(() => {
     abilityCheck()
-  }, [dispatch, canAnswer])
-
+  }, [question])
 
   async function sendAnswerSubmit(e){
     const payload = {
@@ -51,15 +50,9 @@ const Questions = () => {
       console.log(data.errors)
       setErrors(data.errors)
     }else{
-      setErrors({})
       setCanAnswer(false)
-      // console.log("SUCCESS!!!!!!!!!!!!!!!!!!!!!!!!")
-      // navigate(`/questions/${questionId}`)
     }
   }
-
-
-  // console.log("->>>>>>>>>>>>>>>>>>>>>>>>>>>>>", questionId);
 
   return (
     <>
@@ -86,12 +79,12 @@ const Questions = () => {
                 <div id="user-info">
                   <span>{answer.timeUpdated}</span>
 
-                  <span>{question.author}</span>
+                  <span>{answer.author.username}</span>
                 </div>
               </div>
             ))}
             {
-              canAnswer
+              !answerOwnerIds.includes(user.id)
                 ?
                 (
                   <div className="write-answer">
