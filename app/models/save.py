@@ -9,3 +9,9 @@ class Save(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     question_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('questions.id')), nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')), nullable=False)
+
+    def to_dict(self):
+        return{
+            'id':self.id,
+            'post':self.question_id
+        }
