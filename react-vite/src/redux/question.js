@@ -105,7 +105,7 @@ export const updateQuestionThunk = (question, questionId) => async(dispatch) =>{
       dispatch(updateQuestion(Question));
     } else {
       const data = await response.json();
-      return data.errors;
+      return data;
     }
 }
 

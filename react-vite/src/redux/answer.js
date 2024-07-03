@@ -38,11 +38,18 @@ export const getAllAnswersThunk = (id) => async (dispatch) => {
 export const createOneAnswer = (answer,id) => async (dispatch) => {
     const res = await fetch(`/api/questions/${id}/answers`, {
         method: 'POST',
+        headers:{
+            'Content-Type': 'application/json'
+        },
         body: JSON.stringify(answer)
     });
     if (res.ok) {
         const {Answer} = await res.json()
         dispatch(createOne(Answer))
+        return Answer
+    }else{
+        const data = await res.json()
+        return data
     }
 }
 
@@ -59,12 +66,19 @@ export const updateAnswerThunk = (answer) => async (dispatch) => {
     const res = await fetch(`/api/answers/${answer.id}`,
         {
             method: "PUT",
+            headers:{
+                'Content-Type': 'application/json'
+            },
             body: JSON.stringify(answer)
         }
     )
     if (res.ok) {
         const {Answer} = await res.json()
         dispatch(updateAnswers(Answer))
+        return Answer
+    }else{
+        const data = await res.json()
+        return data
     }
 }
 
