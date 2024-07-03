@@ -48,9 +48,9 @@ const SavedQuestions = () => {
                     <button onClick={e => handleUnSave(e, question.id)}>Unsave</button>
                 </div>
             )
-})}
+        })}
     </div>
-</div>
+    </div>
 
   );
 };
