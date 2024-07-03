@@ -1,17 +1,17 @@
 import { useEffect } from "react";
 // import { NavLink } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
- 
+
 import { getSavedQuestionsThunk, unSaveQuestionThunk } from "../../redux/save";
 import "./SavedQuestions.css";
 
 const SavedQuestions = () => {
   const dispatch = useDispatch();
   let savedQuestions = useSelector((state)=>state.saves)
- 
+
   savedQuestions = Object.values(savedQuestions)
 
- 
+
 
   useEffect(()=>{
     dispatch(getSavedQuestionsThunk())
@@ -34,15 +34,15 @@ const SavedQuestions = () => {
     <div className="saved-questions">
         {savedQuestions.length && savedQuestions.map((question)=> {
             return(
-              
+
                     <div className = 'save-question-container' key= {question.id}>
                     <p id="save-question-title">{question.post.title}</p>
                     <span>{question.post.body}</span>
-                    
+
                     {question.post.Tags.map((tag) => (
                   <p key={tag.id}>{tag.tag}</p>
                     ))}
-        
+
                     <span>{question.post.author}</span>
                     <span>{question.post.timeUpdated}</span>
                     <button onClick={e => handleUnSave(e, question.id)}>Unsave</button>

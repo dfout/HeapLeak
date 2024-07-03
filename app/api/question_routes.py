@@ -194,6 +194,7 @@ def unsave_question(id):
         for a question and user
     '''
     save = Save.query.filter_by(id = id).first()
+    print(save)
     if save != None:
         db.session.delete(save)
         db.session.commit()

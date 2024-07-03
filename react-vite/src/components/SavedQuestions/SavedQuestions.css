@@ -148,3 +148,13 @@ body {
     font-weight: bold;
     margin-bottom: 10px;
 }
+
+.save-tile{
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    background-color: #f9f9f9;
+    padding: 20px;
+    margin: 10px;
+    border-radius: 5px;
+}

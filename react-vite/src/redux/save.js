@@ -26,15 +26,17 @@ export const getSavedQuestionsThunk = () => async (dispatch) => {
 export const unSaveQuestionThunk = (id) => async (dispatch)=> {
     const response = await fetch(`/api/questions/saves/${id}`,{
         method: 'DELETE',
-        
     })
     if (response.ok) {
+        console.log(response)
         const {Id} = await response.json();
+        // console.log(data)
           dispatch(deleteQuestion(Id));
-        } else {
+          return Id
+    } else {
           const data = await response.json();
           return data.errors;
-        }
+    }
 }
 
 const initialState = {}
@@ -60,4 +62,3 @@ const savesReducer = (state = initialState, action) =>{
 
 
 export default savesReducer
-
