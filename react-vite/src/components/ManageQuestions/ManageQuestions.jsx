@@ -53,7 +53,7 @@ const ManageQuestions = () => {
               {userQuestions.map((question) => (
           <div className="question-tile" key={question.id}>
             <div className="question-info" key ={question.id}>
-                    <h1>{ question.title}</h1>
+            <NavLink className = "questionLink" to={`/questions/${question.id}`}><h1>{question.title}</h1></NavLink>
                     <p>answers</p>
                     <p>{ question.body }</p>
                     <div>

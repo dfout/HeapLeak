@@ -53,4 +53,10 @@ def get_my_answers():
         exist
     '''
     answers = [x.to_dict() for x in Answer.query.filter_by(user_id=current_user.id).all()]
+    for answer in answers:
+        main = Question.query.filter_by(id = answer['mainPost']).first()
+        question = main.to_dict()
+        owner = User.query.filter_by(id= question['ownerId']).first()
+        question['owner'] = owner.to_dict()
+        answer['mainPost'] = question
     return {"Answers":answers}
