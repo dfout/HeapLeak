@@ -17,10 +17,10 @@ const Questions = () => {
   const [errors, setErrors] = useState({});
   const [answerOwnerIds, setOwnerIds] = useState([]);
 
-  const [isSaved, setIsSaved] = useState()
+  const [isSaved, setIsSaved] = useState(false)
   const userSaves = useSelector((state) => state.saves)
 
-  console.log('-----------------------------------------------',(userSaves))
+  // console.log('-----------------------------------------------',(userSaves))
   // const navigate = useNavigate();
   useEffect(() => {
     if (userSaves[questionId]) {
@@ -30,11 +30,11 @@ const Questions = () => {
     }
   },[isSaved,userSaves])
 
-  console.log('-------------saved',isSaved)
+  // console.log('-------------saved',isSaved)
 
 
   const abilityCheck = () => {
-    if (question && user) {
+    if (question && user && question?.Answers && question.Answers.length) {
       let answers = Object.values(question.Answers)
       let arr = []
       for (let answer of answers){
