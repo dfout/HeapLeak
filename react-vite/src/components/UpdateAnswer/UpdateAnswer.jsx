@@ -2,41 +2,34 @@ import { useEffect, useState } from "react";
 // import { NavLink } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 //import "./QuestionPage.css";
-import { getOneQuestionThunk } from "../../redux/question";
+import { myAnswers } from "../../redux/answer";
 import { useNavigate, useParams } from "react-router-dom";
 import { updateAnswerThunk } from "../../redux/answer";
 
 const UpdateAnswer = () => {
   const { questionId } = useParams();
   const dispatch = useDispatch();
-    const question = useSelector((state) => state.questions[questionId]);
-    console.log(question)
-    const answers = question.Answers;
-    console.log(answers);
+    const answer = useSelector((state) => state.answers[questionId]);
     const user = useSelector((state) => state.session.user);
-    let userAnswer = {};
-    for (let answer of answers) {
-        if (answer.ownerId === user.id) {
-            userAnswer = answer;
-        }
-    }
-    console.log(userAnswer)
 
 
-  const [body, setBody] = useState('')
+  const [body, setBody] = useState(answer ? answer.body:'')
   const [errors, setErrors] = useState({})
   const navigate = useNavigate()
 
   useEffect(() => {
     if (questionId) {
-      dispatch(getOneQuestionThunk(questionId))
+      dispatch(myAnswers())
     }
   }, [dispatch, questionId]);
+  useEffect(() => {
+    setBody(answer ? answer.body:'')
+  }, [answer])
 
   async function sendAnswerSubmit(e){
     const payload = {
         body: body,
-        id: userAnswer.id
+        id: answer.id
     }
     let data = await dispatch(updateAnswerThunk(payload))
     if(data?.errors){
@@ -44,34 +37,29 @@ const UpdateAnswer = () => {
       setErrors(data.errors)
     }
     else {
-        navigate(`/questions/${questionId}`)
+        navigate(`/questions/${answer.mainPost.id}`)
       }
   }
 
   return (
     <>
-      {question ? (
+      {answer ? (
         <div className="create-question-container">
           <div className="main-question">
-            <h1 className="question">{question.title}</h1>
-            <div className="dates">{question.timeUpdated}</div>
+            <h1 className="question">{answer.mainPost.title}</h1>
+            <div className="dates">{answer.mainPost.timeUpdated}</div>
             <div className="body">
-              <p>{question.body}</p>
-            </div>
-            <div className="tags">
-              {question.Tags.map((tag) => (
-                <p key={tag.id}>{tag.tag}</p>
-              ))}
+              <p>{answer.mainPost.body}</p>
             </div>
           </div>
           <div className="answers-container">
             <h2></h2>
 
 
-              <div key={userAnswer.id} className="answer-tile">
-                <p>{userAnswer.body}</p>
+              <div key={answer.id} className="answer-tile">
+                <p>{answer.body}</p>
                 <div id="user-info">
-                  <span>{userAnswer.timeUpdated}</span>
+                  <span>{answer.timeUpdated}</span>
 
                 </div>
               </div>

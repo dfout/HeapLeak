@@ -5,10 +5,10 @@ from app.models import Question, Tags
 
 def minLengthTitle(form, field):
     if len(field.data) < 10:
-        raise ValidationError('Title must be at least 10 character long')
+        raise ValidationError('Title must be at least 10 characters long')
 def minLengthBody(form, field):
     if len(field.data) < 20:
-        raise ValidationError('Body must be at least 20 character long')
+        raise ValidationError('Body must be at least 20 characters long')
 
 class MultiCheckBoxField(SelectMultipleField):
     widget = widgets.ListWidget(prefix_label=False)

@@ -1,6 +1,6 @@
 from flask_login import current_user, login_required
 from flask import Blueprint, request
-from app.models import db, Answer, Question
+from app.models import db, Answer, Question,User
 from app.forms import AnswerForm
 
 answer_routes = Blueprint('answer', __name__)
@@ -21,7 +21,13 @@ def edit_answer(id):
     if form.validate_on_submit():
         answer.body = form.data['body']
         db.session.commit()
-        return {"Answer": answer.to_dict()}
+        safe_answer = answer.to_dict()
+        x_question = Question.query.filter_by(id=answer.question_id).first()
+        question = x_question.to_dict()
+        owner = User.query.filter_by(id= answer.user_id).first()
+        question['owner'] = owner.to_dict()
+        safe_answer['mainPost'] = question
+        return {"Answer":safe_answer}
     if form.errors:
         return {"message":"Bad Request", "errors": form.errors},400
 
@@ -45,11 +51,24 @@ def promote_answer(id):
             previous_primary.is_primary = False
             answer.is_primary = True
             db.session.commit()
-            return {"NewPrimary":answer.to_dict(), "OldPrimary":previous_primary.to_dict()}
+            safe_answer = answer.to_dict()
+            x_question = Question.query.filter_by(id=answer.question_id).first()
+            question = x_question.to_dict()
+            owner = User.query.filter_by(id= answer.user_id).first()
+            question['owner'] = owner.to_dict()
+            safe_answer['mainPost'] = question
+            return {"Answer":safe_answer}
+            # return {"NewPrimary":answer.to_dict(), "OldPrimary":previous_primary.to_dict()}
         else:
             answer.is_primary = True
             db.session.commit()
-            return {"NewPrimary":answer.to_dict()}
+            safe_answer = answer.to_dict()
+            x_question = Question.query.filter_by(id=id).first()
+            question = x_question.to_dict()
+            owner = User.query.filter_by(id= question['ownerId']).first()
+            question['owner'] = owner.to_dict()
+            safe_answer['mainPost'] = question
+            return {"Answer":safe_answer}
     else:
         return {"message":"Not the owner of this Question"}, 401
 

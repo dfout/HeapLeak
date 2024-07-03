@@ -33,7 +33,7 @@ function Navigation() {
         </div>
         <div className="search">
             {/* <Link to='/about'>About</Link> */}
-            <input type="search" placeholder="search" />
+            <input type="search" placeholder="search" onClick={e => alert('Search feature coming soon!')}/>
         </div>
         {!sessionUser &&
                 (<div className="login">
