@@ -24,6 +24,7 @@ const SavedQuestions = () => {
   }
 
 
+
   return (
 
     <div className="save-container">
@@ -31,12 +32,13 @@ const SavedQuestions = () => {
             <h2>All Saves</h2>
             <h3>{savedQuestions.length} Saved Items</h3>
         </div>
-    <div className="saved-questions">
-        {savedQuestions.length && savedQuestions.map((question)=> {
+      <div className="saved-questions">
+        {savedQuestions.length && savedQuestions.map((question) => {
+          console.log('questionnnnnnnnnnnnnn',question)
             return(
 
-                    <div className = 'save-question-container' key= {question.id}>
-                    <p id="save-question-title">{question.post.title}</p>
+                    <div className = 'question-container' key= {question.id}>
+                    <p id="question-title">{question.post.title}</p>
                     <span>{question.post.body}</span>
 
                     {question.post.Tags.map((tag) => (

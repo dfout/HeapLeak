@@ -17,6 +17,9 @@ def all_questions():
         author = User.query.filter_by(id = question['ownerId']).first()
         question['author'] = author.username
         question['Answers'] = [x.to_dict() for x in Answer.query.filter_by(question_id = question['id']).all()]
+        for answer in question['Answers']:
+            user = User.query.filter_by(id = answer['ownerId']).first()
+            answer['author'] = user.to_dict()
     return {"Questions":questions}
 
 @question_routes.route('/<int:id>')
@@ -32,6 +35,9 @@ def one_question(id):
     author = User.query.filter_by(id = question.user_id).first()
     questionObj['author'] = author.username
     questionObj['Answers'] = [x.to_dict() for x in Answer.query.filter_by(question_id = question.id).all()]
+    for answer in questionObj['Answers']:
+        user = User.query.filter_by(id = answer['ownerId']).first()
+        answer['author'] = user.to_dict()
     return {"Question":questionObj}
 
 @question_routes.route('/', methods=['POST'])
@@ -138,7 +144,13 @@ def make_answer(id):
         )
         db.session.add(new_answer)
         db.session.commit()
-        return {"Answer":new_answer.to_dict()}
+        safe_answer = new_answer.to_dict()
+        x_question = Question.query.filter_by(id=id).first()
+        question = x_question.to_dict()
+        owner = User.query.filter_by(id= question['ownerId']).first()
+        question['owner'] = owner.to_dict()
+        safe_answer['mainPost'] = question
+        return {"Answer":safe_answer}
     if form.errors:
         print(form.errors)
         return {"message":"Bad Request", "errors":form.errors}, 400
@@ -172,8 +184,8 @@ def save_question(id):
         Creates a relation to save the requested
         question for the user
     '''
-    question = Question.query.filter_by(id=id).first()
-    if question != None:
+    x_question = Question.query.filter_by(id=id).first()
+    if x_question != None:
         new_save = Save(
             question_id = id,
             user_id = current_user.id
@@ -181,6 +193,10 @@ def save_question(id):
         db.session.add(new_save)
         db.session.commit()
         safe_save = new_save.to_dict()
+        question = x_question.to_dict()
+        question['Tags'] = [x.to_dict() for x in Topic.query.filter_by(question_id=question['id']).all()]
+        author = User.query.filter_by(id = question['ownerId']).first()
+        question['author'] = author.username
         safe_save['post'] = question
         return {'Save':safe_save}
     else:

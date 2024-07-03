@@ -4,6 +4,7 @@
     flex-direction: column;
     align-items: center;
     margin-top: 50px;
+    background-color: #e6e6fad7;
 }
 
 .main-question {
@@ -21,6 +22,16 @@
     margin-bottom: 10px;
 }
 
+#question-button{
+    padding-top: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-right: 65px;
+}
+#save-button{
+    padding-right: 20px;
+}
 .dates {
     margin-bottom: 10px;
 }

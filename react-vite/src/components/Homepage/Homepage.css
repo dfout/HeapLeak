@@ -32,10 +32,10 @@ body {
 }
 
 .question {
-    border: 1px solid #ccc;
+    border: 3px solid #ccc;
     padding: 10px;
     margin: 10px;
-    width: 300px;
+    width: 475px;
 }
 
 .title{
@@ -107,5 +107,11 @@ height:75%;
 }
 
 .logo:hover{
+    cursor: pointer;
+}
+.tagListItem{
+    text-decoration: underline;
+}
+.tagListItem:hover{
     cursor: pointer;
 }

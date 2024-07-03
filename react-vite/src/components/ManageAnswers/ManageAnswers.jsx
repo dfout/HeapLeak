@@ -1,5 +1,5 @@
 // import { useEffect } from "react";
-// import { NavLink } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 import "./ManageAnswers.css";
@@ -8,6 +8,7 @@ import { deleteAnswerThunk, myAnswers } from "../../redux/answer";
 
 const ManageAnswers = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const answers = useSelector((state) => state.answers);
   const [deleted, setDeleted] = useState(false)
 
@@ -36,21 +37,21 @@ const ManageAnswers = () => {
           ?
           Object.values(answers).map((answer) => (
             <div className="answer-tile" key={answer.id}>
-              <div className="answer-info">
-                <NavLink className="questionLink" to={`/questions/${answer.mainPost.id}`}><h1>{answer.mainPost.title}</h1></NavLink>
-                <p className="author">{answer.mainPost.owner.username}</p>
-                <p>{answer.body}</p>
-                <p>Date : {answer.timeUpdated}</p>
-              </div>
-              <div className="btn">
-                <button className="update">Update</button>
-                <button className="update" onClick={() => handleDelete(answer.id)}>Delete</button>
-              </div>
+            <div className="answer-info">
+              <NavLink className = "questionLink" to={`/questions/${answer.mainPost.id}`}><h1>{answer.mainPost.title}</h1></NavLink>
+              <p className="author">{answer.mainPost.owner.username}</p>
+              <p>{answer.body}</p>
+              <p>Date : {answer.timeUpdated}</p>
             </div>
-          ))
-          : <h1>You have not made any answers! Go find an question and post your answer to it!</h1>}
+            <div className="btn">
+              <button className="update" onClick={() => navigate(`/update-answer/${answer.id}`)}>Update</button>
+              <button className="update" onClick={() => handleDelete(answer.id)}>Delete</button>
+            </div>
+          </div>
+          ) )
+          :<h1>You have not made any answers! Go find an question and post your answer to it!</h1>}
+        </div>
       </div>
-    </div>
   );
 };
 
