@@ -37,7 +37,7 @@ const CreateQuestion = () => {
     };
     let id = await dispatch(createQuestionThunk(question)).catch(async (res)=> {
       const data = await res.json();
-      console.log('I am being hit!')
+      console.log('I am being hit!', data)
   });
     if(id?.errors){
     console.log('The object!: ', id)

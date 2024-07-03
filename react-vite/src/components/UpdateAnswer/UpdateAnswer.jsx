@@ -27,6 +27,7 @@ const UpdateAnswer = () => {
   }, [answer])
 
   async function sendAnswerSubmit(e){
+    e.preventDefault()
     const payload = {
         body: body,
         id: answer.id
