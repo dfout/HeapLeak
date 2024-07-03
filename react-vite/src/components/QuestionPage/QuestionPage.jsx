@@ -11,7 +11,7 @@ const Questions = () => {
   const dispatch = useDispatch();
   const question = useSelector((state) => state.questions[questionId]);
   const [canAnswer, setCanAnswer] = useState(true)
-  const user = useSelector((state) => state.session.user)
+  const user = useSelector((state) => state.session.user) || { id:255, username: "Guest" };
   const [body, setBody] = useState('')
   const [errors, setErrors] = useState({})
   const navigate = useNavigate()
@@ -84,7 +84,7 @@ const Questions = () => {
               </div>
             ))}
             {
-              !answerOwnerIds.includes(user.id)
+              !answerOwnerIds.includes(user.id) && user.id != 255
                 ?
                 (
                   <div className="write-answer">
