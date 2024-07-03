@@ -1,10 +1,21 @@
 // import { useEffect } from "react";
 // import { NavLink } from "react-router-dom";
-// import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { getSavedQuestions } from "../../redux/question";
+import { unSaveQuestion } from "../../redux/question";
 import "./SavedQuestions.css";
 
 const SavedQuestions = () => {
-//   const dispatch = useDispatch();
+  const dispatch = useDispatch();
+  const savedQuestions = useSelector((state)=>state.questions)
+
+  useEffect(()=>{
+    dispatch(getSavedQuestions())
+  }, [dispatch])
+
+  const handleUnSave = (id) => {
+    dispatch(unSaveQuestion(id))
+  }
 
   return (
 <body>
@@ -24,22 +35,20 @@ const SavedQuestions = () => {
             <h3>2 Saved Items</h3>
         </div>
     <div className="saved-questions">
-        <div className = 'question-container'>
-            <span>votes</span>
-            <span id="question-title">Title</span>
-            <span>Body</span>
-            <span>Tags</span>
-            <span>Author, date</span>
-            <button>Remove</button>
-        </div>
-        <div className = 'question-container'>
-            <span>votes</span>
-            <span id="question-title">Title</span>
-            <span>Body</span>
-            <span>Tags</span>
-            <span>Author, date</span>
-            <button>Remove</button>
-        </div>
+        {savedQuestions && savedQuestions.forEach((question)=> (
+                    <div className = 'question-container'>
+                    <span id="question-title">{question.title}</span>
+                    <span>{question.body}</span>
+                    <div className='tags-container'>
+                    {question.Tags.map((tag) => (
+                  <p key={tag.id}>{tag.tag}</p>
+                    ))}
+                    </div>
+                    <span>{question.author}</span>
+                    <span>{question.date}</span>
+                    <button onClick={handleUnSave(question.id)}>Unsave</button>
+                </div>
+        ))}
     </div>
 </div>
 <div className="footer">
