@@ -25,7 +25,7 @@ export const getSavedQuestionsThunk = () => async (dispatch) => {
 
 export const unSaveQuestionThunk = (id) => async (dispatch)=> {
     const response = await fetch(`/api/questions/saves/${id}`,{
-        methods: 'DELETE',
+        method: 'DELETE',
         
     })
     if (response.ok) {

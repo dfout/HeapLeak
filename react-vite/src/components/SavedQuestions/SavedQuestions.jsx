@@ -26,7 +26,7 @@ const SavedQuestions = () => {
 
   return (
 
-    <div className="container">
+    <div className="save-container">
         <div id="save-information">
             <h2>All Saves</h2>
             <h3>{savedQuestions.length} Saved Items</h3>
@@ -35,14 +35,14 @@ const SavedQuestions = () => {
         {savedQuestions.length && savedQuestions.map((question)=> {
             return(
               
-                    <div className = 'question-container' key= {question.id}>
-                    <p id="question-title">{question.post.title}</p>
+                    <div className = 'save-question-container' key= {question.id}>
+                    <p id="save-question-title">{question.post.title}</p>
                     <span>{question.post.body}</span>
-                    <div className='tags-container'>
+                    
                     {question.post.Tags.map((tag) => (
                   <p key={tag.id}>{tag.tag}</p>
                     ))}
-                    </div>
+        
                     <span>{question.post.author}</span>
                     <span>{question.post.timeUpdated}</span>
                     <button onClick={e => handleUnSave(e, question.id)}>Unsave</button>

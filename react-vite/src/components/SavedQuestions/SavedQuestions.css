@@ -129,7 +129,7 @@ body {
     flex-wrap: wrap;
     justify-content: center;
 }
-.question-container {
+.save-question-container {
     display: flex;
     flex-direction: column;
     align-items: start;
@@ -138,12 +138,12 @@ body {
     margin: 10px;
     border-radius: 5px;
 }
-.question-container span {
+.save-question-container span {
     font-size: 16px;
     margin-bottom: 10px;
 }
 
-#question-title {
+#save-question-title {
     font-size: 20px;
     font-weight: bold;
     margin-bottom: 10px;
