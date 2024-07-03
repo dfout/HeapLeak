@@ -10,7 +10,7 @@ const UpdateAnswer = () => {
   const { questionId } = useParams();
   const dispatch = useDispatch();
     const answer = useSelector((state) => state.answers[questionId]);
-    const user = useSelector((state) => state.session.user);
+    // const user = useSelector((state) => state.session.user);
 
 
   const [body, setBody] = useState(answer ? answer.body:'')

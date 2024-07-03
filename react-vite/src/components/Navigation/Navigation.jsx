@@ -28,12 +28,11 @@ function Navigation() {
   return (
     <div className="navbar">
         <div className="logoDiv">
-          <img src="https://drive.google.com/thumbnail?id=1zNukTs6moDSaxbKr-lIEKz33J1htZs6K" alt="" id="logoPhoto"/>
-          <div onClick={goHome}className="logo">HeapLeak</div>
+          <img src="https://drive.google.com/thumbnail?id=1nD3JcAqqznDaTvWaRYqDRFD3PUIcKW9V" alt="HeapLeak Logo" id="logoPhoto" onClick={()=> goHome()}/>
         </div>
         <div className="search">
             {/* <Link to='/about'>About</Link> */}
-            <input type="search" placeholder="search" onClick={e => alert('Search feature coming soon!')}/>
+            <input type="search" placeholder="search" onClick={() => alert('Search feature coming soon!')}/>
         </div>
         {!sessionUser &&
                 (<div className="login">
