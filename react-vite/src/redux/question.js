@@ -109,30 +109,6 @@ export const updateQuestionThunk = (question, questionId) => async(dispatch) =>{
     }
 }
 
-export const getSavedQuestions = () => async (dispatch) => {
-    const response = await fetch('/api/users/saves')
-    if (response.ok) {
-        const res = await response.json();
-        await dispatch(getQuestions(res))
-        console.log(res, "SAVED QUESTIONS")
-        return res
-    }
-}
-
-export const unSaveQuestion = (id) => async (dispatch)=> {
-    const response = await fetch(`/api/questions/saves/${id}`,{
-        methods: 'DELETE',
-        
-    })
-    if (response.ok) {
-        const {Id} = await response.json();
-          dispatch(deleteQuestion(Id));
-        } else {
-          const data = await response.json();
-          return data.errors;
-        }
-}
-
 
 const initialState = {}
 

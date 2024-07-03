@@ -1,75 +1,57 @@
 import { useEffect } from "react";
 // import { NavLink } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { getSavedQuestions } from "../../redux/question";
-import { unSaveQuestion } from "../../redux/question";
+ 
+import { getSavedQuestionsThunk, unSaveQuestionThunk } from "../../redux/save";
 import "./SavedQuestions.css";
 
 const SavedQuestions = () => {
   const dispatch = useDispatch();
-  let savedQuestions = useSelector((state)=>state.questions)
+  let savedQuestions = useSelector((state)=>state.saves)
+ 
   savedQuestions = Object.values(savedQuestions)
-  const count = savedQuestions.length
+
+ 
 
   useEffect(()=>{
-    dispatch(getSavedQuestions())
+    dispatch(getSavedQuestionsThunk())
   }, [dispatch])
 
-  const handleUnSave = (id) => {
-    dispatch(unSaveQuestion(id))
+
+  const handleUnSave = async(e,id) => {
+    e.preventDefault()
+    await dispatch(unSaveQuestionThunk(id))
   }
 
+
   return (
-<>
+
     <div className="container">
         <div id="save-information">
             <h2>All Saves</h2>
-            <h3>{count} Saved Items</h3>
+            <h3>{savedQuestions.length} Saved Items</h3>
         </div>
     <div className="saved-questions">
-    <div className = 'question-container'>
-                    <span id="question-title">{question.title}</span>
-                    <span>body</span>
+        {savedQuestions.length && savedQuestions.map((question)=> {
+            return(
+              
+                    <div className = 'question-container' key= {question.id}>
+                    <p id="question-title">{question.post.title}</p>
+                    <span>{question.post.body}</span>
                     <div className='tags-container'>
-                    {question.Tags.map((tag) => (
+                    {question.post.Tags.map((tag) => (
                   <p key={tag.id}>{tag.tag}</p>
                     ))}
                     </div>
-                    <span>author</span>
-                    <span>date</span>
-                    <button onClick={handleUnSave(question.id)}>Unsave</button>
+                    <span>{question.post.author}</span>
+                    <span>{question.post.timeUpdated}</span>
+                    <button onClick={e => handleUnSave(e, question.id)}>Unsave</button>
                 </div>
-        {/* {savedQuestions && savedQuestions.forEach((question)=> (
-                    <div className = 'question-container'>
-                    <span id="question-title">{question.title}</span>
-                    <span>{question.body}</span>
-                    <div className='tags-container'>
-                    {question.Tags.map((tag) => (
-                  <p key={tag.id}>{tag.tag}</p>
-                    ))}
-                    </div>
-                    <span>{question.author}</span>
-                    <span>{question.date}</span>
-                    <button onClick={handleUnSave(question.id)}>Unsave</button>
-                </div>
-        ))} */}
+            )
+})}
     </div>
 </div>
-<div className="footer">
-    <div className="links">
-        <a href="https://github.com/withdrw">syed</a>
-    </div>
-    <div className="group-links">
-        <a href="https://github.com/dfout">dfout</a>
-    </div>
-    <div className="group-links">
-        <a href="https://github.com/dfout">zach</a>
-    </div>
-    <div className="group-links">
-        <a href="https://github.com/dfout">kyle</a>
-    </div>
-</div>
-</>
+
   );
 };
 

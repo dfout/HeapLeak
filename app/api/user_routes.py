@@ -1,6 +1,6 @@
 from flask import Blueprint, jsonify
 from flask_login import login_required,current_user
-from app.models import User, Save, Question, Answer
+from app.models import User, Save, Question, Answer, Topic
 
 user_routes = Blueprint('users', __name__)
 
@@ -36,9 +36,14 @@ def get_saved_posts():
     '''
     saves = [x.to_dict() for x in Save.query.filter_by(user_id=current_user.id).all()]
     for x in saves:
-        question = Question.query.filter_by(id=x['post']).first()
-        if question!= None:
-            x['post'] = question.to_dict()
+        x_question = Question.query.filter_by(id=x['post']).first()
+        question = x_question.to_dict()
+        question['Tags'] = [x.to_dict() for x in Topic.query.filter_by(question_id=question['id']).all()]
+        author = User.query.filter_by(id = question['ownerId']).first()
+        question['author'] = author.username
+        question['Answers'] = [x.to_dict() for x in Answer.query.filter_by(question_id = question['id']).all()]
+        if x_question!= None:
+            x['post'] = question
     return {"SavedQuestions": saves}
 
 @user_routes.route('/answers')
