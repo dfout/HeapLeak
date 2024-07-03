@@ -136,9 +136,11 @@ def make_answer(id):
             user_id=current_user.id,
             is_primary=False
         )
+        db.session.add(new_answer)
         db.session.commit()
         return {"Answer":new_answer.to_dict()}
     if form.errors:
+        print(form.errors)
         return {"message":"Bad Request", "errors":form.errors}, 400
 
 @question_routes.route('/<int:id>/tags', methods=['POST'])

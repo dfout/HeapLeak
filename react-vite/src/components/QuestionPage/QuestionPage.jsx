@@ -3,14 +3,18 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import "./QuestionPage.css";
 import { getOneQuestionThunk } from "../../redux/question";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import { createOneAnswer } from "../../redux/answer";
 
 const Questions = () => {
   const { questionId } = useParams();
   const dispatch = useDispatch();
   const question = useSelector((state) => state.questions[questionId]);
-  const [canAnswer, setCanAnswer] = useState(true)
+  const [canAnswer, setCanAnswer] = useState(false)
   const user = useSelector((state) => state.session.user)
+  const [body, setBody] = useState('')
+  const [errors, setErrors] = useState({})
+  const navigate = useNavigate()
   const abilityCheck = () => {
     if (question && user) {
       if (question.ownerId === user.id) {
@@ -20,7 +24,7 @@ const Questions = () => {
         for (let answer in question.Answers) {
           if (answer.ownerId === user.id) {
             able = false;
-            break;
+            return
           }
         }
         setCanAnswer(able)
@@ -31,12 +35,31 @@ const Questions = () => {
     if (questionId) {
       dispatch(getOneQuestionThunk(questionId));
     }
+  }, [dispatch, questionId]);
+
+  useEffect(()=>{
     abilityCheck()
-  }, [dispatch, questionId, canAnswer]);
+  }, [dispatch, canAnswer])
 
 
+  async function sendAnswerSubmit(e){
+    const payload = {
+      body:body
+    }
+    let data = await dispatch(createOneAnswer(payload, questionId))
+    if(data?.errors){
+      console.log(data.errors)
+      setErrors(data.errors)
+    }else{
+      setErrors({})
+      setCanAnswer(false)
+      // console.log("SUCCESS!!!!!!!!!!!!!!!!!!!!!!!!")
+      // navigate(`/questions/${questionId}`)
+    }
+  }
 
-  console.log("->>>>>>>>>>>>>>>>>>>>>>>>>>>>>", questionId);
+
+  // console.log("->>>>>>>>>>>>>>>>>>>>>>>>>>>>>", questionId);
 
   return (
     <>
@@ -79,9 +102,12 @@ const Questions = () => {
                       id=""
                       rows="10"
                       cols="60"
+                      value={body}
+                      onChange={e => setBody(e.target.value)}
                     ></textarea>
+                    <p>{errors.body}</p>
                     <div className="submit-btn">
-                      <button className="submit">Submit</button>
+                      <button className="submit" onClick={e => sendAnswerSubmit(e)}>Submit</button>
                     </div>
                   </div>
                 ) : null
