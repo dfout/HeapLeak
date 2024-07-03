@@ -1,4 +1,4 @@
-import {  NavLink } from "react-router-dom";
+import {  NavLink, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { getQuestionsThunk, deleteQuestionThunk } from "../../redux/question";
@@ -16,6 +16,7 @@ function filterById(questions, userId) {
 
 const ManageQuestions = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const questions = useSelector((state) => state.questions)
   const userId = useSelector((state) => state.session.user.id)
   const [deleted, setDeleted] = useState(false);
@@ -64,7 +65,7 @@ const ManageQuestions = () => {
                     <p>Date : { question.timeUpdated}</p>
             </div>
             <div className="btn">
-              <button className="update" >Update</button>
+              <button className="update" onClick={() => navigate(`/questions/${question.id}/update`)}>Update</button>
               <button className="update" onClick={() => handleDelete(question.id)}>Delete</button>
             </div>
           </div>

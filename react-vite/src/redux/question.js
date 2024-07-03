@@ -91,8 +91,8 @@ export const createQuestionThunk = (question) => async(dispatch) =>{
     }
 }
 
-export const updateQuestionThunk = (question) => async(dispatch) =>{
-    const {id} = question
+export const updateQuestionThunk = (question, questionId) => async(dispatch) =>{
+    const id = questionId
     const response = await fetch(`/api/questions/${id}`, {
         method: "PUT",
         headers:{

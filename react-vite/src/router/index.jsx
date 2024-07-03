@@ -9,6 +9,7 @@ import SavedQuestions from "../components/SavedQuestions";
 import AboutPage from "../components/AboutPage";
 import CreateQuestion from "../components/CreateQuestion/CreateQuestion";
 import Layout from "./Layout";
+import UpdateQuestion from "../components/UpdateQuestion";
 
 export const router = createBrowserRouter([
   {
@@ -50,6 +51,10 @@ export const router = createBrowserRouter([
         path: "questions/create",
         element: <CreateQuestion />,
       },
+      {
+        path: "questions/:questionId/update",
+        element: <UpdateQuestion />
+      }
     ],
   },
 ]);
