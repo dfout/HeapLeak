@@ -34,13 +34,12 @@ def get_saved_posts():
         relations or if the questions no longer
         exist
     '''
-    saves = [x.question_id for x in Save.query.filter_by(user_id=current_user.id).all()]
-    saved_questions = []
+    saves = [x.to_dict() for x in Save.query.filter_by(user_id=current_user.id).all()]
     for x in saves:
-        question = Question.query.filter_by(id=x).first()
+        question = Question.query.filter_by(id=x['post']).first()
         if question!= None:
-            saved_questions.append(question.to_dict())
-    return {"SavedQuestions": saved_questions}
+            x['post'] = question.to_dict()
+    return {"SavedQuestions": saves}
 
 @user_routes.route('/answers')
 @login_required

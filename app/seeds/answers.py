@@ -19,7 +19,7 @@ answer_bodys = [
 def seed_answers():
    for i in range(1, 16):
     for k in range(1 , 31):
-       if i != k and k % 3 == 0 or i % 3 == 0:
+       if i != k and (k % 3 == 0 or i % 3 == 0):
         newAnswer = Answer(
           body=answer_bodys[randint(0, len(answer_bodys)-1)],
           user_id = i,

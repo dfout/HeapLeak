@@ -96,7 +96,7 @@ const answerReducer = (state = initialState, action) => {
         }
         case UPDATE_ANSWER: {
             const newState = { ...state }
-            newState[action.payload.answer] = action.payload
+            newState[action.payload.id] = action.payload
             return newState
         }
         case DELETE_ANSWER: {

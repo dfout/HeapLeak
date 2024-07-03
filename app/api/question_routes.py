@@ -163,7 +163,7 @@ def add_tags(id):
     if form.errors:
         return {"message":"Bad Request",'errors':form.errors}, 400
 
-@question_routes.route('/<int:id>/save', methods = ['POST'])
+@question_routes.route('/<int:id>/saves', methods = ['POST'])
 @login_required
 def save_question(id):
     '''
@@ -178,22 +178,24 @@ def save_question(id):
         )
         db.session.add(new_save)
         db.session.commit()
-        return {'User':current_user.to_dict(), 'Question': question.to_dict()}
+        safe_save = new_save.to_dict()
+        safe_save['post'] = question
+        return {'Save':safe_save}
     else:
         return {'message':"Question could not be found"}, 404
 
-@question_routes.route('/<int:id>/save', methods = ['DELETE'])
+@question_routes.route('/saves/<int:id>', methods = ['DELETE'])
 @login_required
 def unsave_question(id):
     '''
         Removes the relation to a save
         for a question and user
     '''
-    save = Save.query.filter_by(question_id = id, user_id=current_user.id).first()
+    save = Save.query.filter_by(id = id).first()
     if save != None:
         db.session.delete(save)
         db.session.commit()
-        return {'Id':save.id}
+        return {'Id':id}
     else:
         return {'message':"Relation could not be found"}, 404
 
