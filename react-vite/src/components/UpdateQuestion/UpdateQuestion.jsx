@@ -15,39 +15,45 @@ const UpdateQuestion = () => {
   const [body, setBody] = useState(question?.body)
   const [tags, setTags] = useState(question?.Tags)
   const [block, setBlock] = useState(false);
+  const [manageTagBool, setManageTagBool] = useState(false);
   const [errors, setErrors] = useState({})
   const [tagArr, setTagArr] = useState(enumTags.map((tag) => false))
   const [updated, setUpdated] = useState(false)
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  //this works, but the behavior for the tags is slightly buggy, I suspect because of how we're handling the tags logic, will do a second pass later -Zach
+  //this works, but the behavior for the tags is slightly buggy, will do a second pass later -Zach
   useEffect(() => {
     // Form validation logic
-    const validateForm = () => {
       const newErrors = {};
-      if (title.length < 10 ) {
-        newErrors.title = 'Title is required, and must be at least 10 Characters';
-      }
-      if (title.length > 200 ) {
-        newErrors.title = 'Title must be less than 200 characters';
-      }
-      if (body.length < 20) {
-        newErrors.body = 'Body is required, and must be at least 20 characters';
-      }
-      if (body.length > 2000) {
-        newErrors.body = 'Body must be less than 2000 characters';
-      }
-      if (tags.length === 0) {
-        newErrors.tags = 'At least one tag is required';
-      }
-      setErrors(newErrors);
+    if (title.length < 10) {
+      newErrors.title = 'Title is required, and must be at least 10 Characters';
       setBlock(true);
-    };
+    }
+    if (title.length > 200) {
+      newErrors.title = 'Title must be less than 200 characters';
+      setBlock(true);
+    }
+    if (body.length < 20) {
+      newErrors.body = 'Body is required, and must be at least 20 characters';
+      setBlock(true);
+    }
+    if (body.length > 2000) {
+      newErrors.body = 'Body must be less than 2000 characters';
+      setBlock(true);
+    }
+    if (tags.length === 0) {
+      newErrors.tags = 'At least one tag is required';
+      setBlock(true);
+    } else setBlock(false);
 
-    validateForm();
+
+
+      setErrors(newErrors);
+
+
     console.log(errors)
-  }, [title, body, tags]);
+  }, [title, body, tags, manageTagBool]);
 
   useEffect(() => {
     dispatch(getOneQuestionThunk(questionId))
@@ -86,6 +92,7 @@ const UpdateQuestion = () => {
 
   const manageTags = async (e) => {
     let arr = tags
+    setManageTagBool(!manageTagBool);
     if (!arr.includes(e.target.value)) {
       arr.push(e.target.value)
     } else {

@@ -12,6 +12,7 @@ const CreateQuestion = () => {
   const [body, setBody] = useState('')
   const [tags, setTags] = useState([])
   const [block, setBlock] = useState(false);
+  const [manageTagBool, setManageTagBool] = useState(false);
   const [errors, setErrors] = useState({})
 
 
@@ -22,30 +23,35 @@ const CreateQuestion = () => {
  //this works, but the behavior for the tags is slightly buggy, will do a second pass later -Zach
   useEffect(() => {
     // Form validation logic
-    const validateForm = () => {
       const newErrors = {};
-      if (title.length < 10 ) {
-        newErrors.title = 'Title is required, and must be at least 10 Characters';
-      }
-      if (title.length > 200 ) {
-        newErrors.title = 'Title must be less than 200 characters';
-      }
-      if (body.length < 20) {
-        newErrors.body = 'Body is required, and must be at least 20 characters';
-      }
-      if (body.length > 2000) {
-        newErrors.body = 'Body must be less than 2000 characters';
-      }
-      if (tags.length === 0) {
-        newErrors.tags = 'At least one tag is required';
-      }
-      setErrors(newErrors);
+    if (title.length < 10) {
+      newErrors.title = 'Title is required, and must be at least 10 Characters';
       setBlock(true);
-    };
+    }
+    if (title.length > 200) {
+      newErrors.title = 'Title must be less than 200 characters';
+      setBlock(true);
+    }
+    if (body.length < 20) {
+      newErrors.body = 'Body is required, and must be at least 20 characters';
+      setBlock(true);
+    }
+    if (body.length > 2000) {
+      newErrors.body = 'Body must be less than 2000 characters';
+      setBlock(true);
+    }
+    if (tags.length === 0) {
+      newErrors.tags = 'At least one tag is required';
+      setBlock(true);
+    } else setBlock(false);
 
-    validateForm();
+
+
+      setErrors(newErrors);
+
+
     console.log(errors)
-  }, [title, body, tags]);
+  }, [title, body, tags, manageTagBool]);
 
   const handleDiscard = () => {
     navigate("/");
@@ -87,6 +93,7 @@ const CreateQuestion = () => {
   const manageTags = (e) => {
     console.log(`I have been clicked! my value is ${e.target.value}`)
     let arr = tags
+    setManageTagBool(!manageTagBool);
     if(e.target.checked){
       arr.push(e.target.value)
     }else{

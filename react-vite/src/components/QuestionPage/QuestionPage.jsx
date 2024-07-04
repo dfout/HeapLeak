@@ -29,7 +29,7 @@ const Questions = () => {
 
       setBlock(true);
     }
-    else if (body.length > 2000) {
+    if (body.length > 2000) {
       ansErr.body = "Answer cannot be more than 2000 characters long!"
 
       setBlock(true);
