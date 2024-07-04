@@ -41,9 +41,9 @@ const Homepage = () => {
               <h1 className="title">{question.title}</h1>
               </NavLink>
               <p className="preview">{question.body}</p>
-              <div>
+              <div className ="tags-display">
                 {question.Tags.map((tag) => (
-                  <p key={tag.id}>{tag.tag}</p>
+                  <p className="tag"key={tag.id}>{tag.tag}</p>
               ))}
               </div>
               <p className="author">{question.author}</p>

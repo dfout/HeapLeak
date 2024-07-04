@@ -41,8 +41,12 @@
     margin-bottom: 20px;
 }
 
-.tags {
-    margin-bottom: 10px;
+.tags-display {
+    display:flex;
+    gap:10px;
+    margin-top: 10px;
+    font-size:small;
+
 }
 
 .answers-container {

@@ -112,10 +112,10 @@ const Questions = () => {
               <div className="body">
                 <p>{question.body}</p>
               </div>
-              <div className="tags">
+              <div className ="tags-display">
                 {question.Tags.map((tag) => (
-                  <p key={tag.id}>{tag.tag}</p>
-                ))}
+                  <p className="tag"key={tag.id}>{tag.tag}</p>
+              ))}
               </div>
             </div>
             ): (

@@ -64,8 +64,18 @@ body {
     word-wrap: break-word
 }
 
-.tags {
+.tags-display {
+    display:flex;
+    gap:10px;
     margin-top: 10px;
+    font-size:small;
+
+}
+.tag{
+    background-color: lightgray;
+    border-radius: 5%;
+    height: 20px;
+    padding: auto;
 }
 
 .author {

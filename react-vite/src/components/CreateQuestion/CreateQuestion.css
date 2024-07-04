@@ -84,8 +84,8 @@ header {
 
 
 .tags {
-  /* display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); */
+  /* display: grid; */
+  /* grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); */
   gap: 10px;
   overflow-y: auto;
   height: 400px;
