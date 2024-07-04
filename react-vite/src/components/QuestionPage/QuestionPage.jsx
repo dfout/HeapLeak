@@ -14,11 +14,29 @@ const Questions = () => {
   const [canAnswer, setCanAnswer] = useState(true)
   const user = useSelector((state) => state.session.user);
   const [body, setBody] = useState("");
+  const [block, setBlock] = useState(false);
   const [errors, setErrors] = useState({});
   const [answerOwnerIds, setOwnerIds] = useState([]);
 
   const [isSaved, setIsSaved] = useState(false)
   const userSaves = useSelector((state) => state.saves)
+
+  //answer block validator
+  useEffect(() => {
+    let ansErr ={}
+    if (body.length < 20) {
+      ansErr.body = "Answer must be at least 20 characters long!"
+
+      setBlock(true);
+    }
+    if (body.length > 2000) {
+      ansErr.body = "Answer cannot be more than 2000 characters long!"
+
+      setBlock(true);
+    }else setBlock(false);
+
+    setErrors(ansErr);
+  },[body])
 
   // console.log('-----------------------------------------------',(userSaves))
   // const navigate = useNavigate();
@@ -152,7 +170,7 @@ const Questions = () => {
                     ></textarea>
                     <p>{errors.body}</p>
                     <div className="submit-btn">
-                      <button className="submit" onClick={e => sendAnswerSubmit(e)}>Submit</button>
+                      <button className="submit" disabled={block} onClick={e => sendAnswerSubmit(e)}>Submit</button>
                     </div>
                   </div>
                 ) : null
