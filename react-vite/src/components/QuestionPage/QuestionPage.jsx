@@ -46,10 +46,9 @@ const Questions = () => {
     } else {
       setIsSaved(false)
     }
-  },[isSaved,userSaves])
+  },[isSaved,userSaves, questionId])
 
   // console.log('-------------saved',isSaved)
-
 
   const abilityCheck = () => {
     if (question && user && question?.Answers && question.Answers.length) {
@@ -66,10 +65,10 @@ const Questions = () => {
     }
   };
   useEffect(() => {
-    if (questionId) {
+    // if (questionId) {
       dispatch(getOneQuestionThunk(questionId));
       dispatch(userSavedThunks())
-    }
+    // }
   }, [dispatch, questionId, canAnswer]);
 
     const handleSave = async (e, question) => {
@@ -149,7 +148,7 @@ const Questions = () => {
                 <div id="user-info">
                   <span>{answer.timeUpdated}</span>
 
-                  <span>{answer.author.username}</span>
+                  <span>{answer.author?.username}</span>
                 </div>
               </div>
             ))}
