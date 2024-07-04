@@ -16,7 +16,12 @@ function SignupFormPage() {
 
   useEffect(() => {
     let errObj = {}
-    let validRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+
+    //comparison regex : [any char, num, symbol] + @[any char or num] + .[any char or num]
+    //ex: demo@aa.io would match, as would demo@aa.i, but demo@aa. would not match, nor would demo@aa and so on
+
+    
+    let validRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-]/;
     if (
       email.length === 0 ||
       !email.match(validRegex) ||
