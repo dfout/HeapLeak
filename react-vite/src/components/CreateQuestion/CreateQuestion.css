@@ -60,6 +60,8 @@ header {
   display: grid;
   grid-template-columns: 1fr;
   gap: 10px;
+  /* overflow-y: auto; */
+
 }
 
 .question-form h2 {
@@ -71,17 +73,22 @@ header {
   font-weight: bold;
 }
 
-.question-form input[type="text"],
+/* .question-form input[type="text"], */
 .question-form textarea {
+  height: 200px;
   padding: 5px;
   border: none;
   border-radius: 5px;
 }
 
+
+
 .tags {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  /* display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); */
   gap: 10px;
+  overflow-y: auto;
+  height: 400px;
 }
 
 .tags h3 {
