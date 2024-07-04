@@ -1,4 +1,4 @@
-// import { useEffect } from "react";
+ import { useEffect } from "react";
 // import { NavLink } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -10,12 +10,42 @@ import { enumTags } from "./tags";
 const CreateQuestion = () => {
   const [title, setTitle] = useState('')
   const [body, setBody] = useState('')
-  const [tags,setTags] = useState([])
+  const [tags, setTags] = useState([])
+  const [block, setBlock] = useState(false);
   const [errors, setErrors] = useState({})
 
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+
+ //this works, but the behavior for the tags is slightly buggy, will do a second pass later -Zach
+  useEffect(() => {
+    // Form validation logic
+    const validateForm = () => {
+      const newErrors = {};
+      if (title.length < 10 ) {
+        newErrors.title = 'Title is required, and must be at least 10 Characters';
+      }
+      if (title.length > 200 ) {
+        newErrors.title = 'Title must be less than 200 characters';
+      }
+      if (body.length < 20) {
+        newErrors.body = 'Body is required, and must be at least 20 characters';
+      }
+      if (body.length > 2000) {
+        newErrors.body = 'Body must be less than 2000 characters';
+      }
+      if (tags.length === 0) {
+        newErrors.tags = 'At least one tag is required';
+      }
+      setErrors(newErrors);
+      setBlock(true);
+    };
+
+    validateForm();
+    console.log(errors)
+  }, [title, body, tags]);
 
   const handleDiscard = () => {
     navigate("/");
@@ -101,7 +131,7 @@ const CreateQuestion = () => {
         <button type="button" onClick={handleDiscard} id="discard-btn">
           Discard
         </button>
-        <button type="submit" id="discard-btn">
+        <button type="submit" disabled ={block} id="discard-btn">
           Submit
         </button>
       </form>
