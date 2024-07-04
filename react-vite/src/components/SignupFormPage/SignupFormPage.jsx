@@ -20,7 +20,7 @@ function SignupFormPage() {
     //comparison regex : [any char, num, symbol] + @[any char or num] + .[any char or num]
     //ex: demo@aa.io would match, as would demo@aa.i, but demo@aa. would not match, nor would demo@aa and so on
 
-    
+
     let validRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-]/;
     if (
       email.length === 0 ||
@@ -80,7 +80,7 @@ function SignupFormPage() {
     <>
       <h1>Sign Up</h1>
       {errors.server && <p>{errors.server}</p>}
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit}style={{display:"flex",flexDirection:"column"}}>
         <label>
           Email
           <input
