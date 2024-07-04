@@ -28,7 +28,12 @@ const Questions = () => {
       ansErr.body = "Answer must be at least 20 characters long!"
 
       setBlock(true);
-    } else setBlock(false);
+    }
+    else if (body.length > 2000) {
+      ansErr.body = "Answer cannot be more than 2000 characters long!"
+
+      setBlock(true);
+    }else setBlock(false);
 
     setErrors(ansErr);
   },[body])

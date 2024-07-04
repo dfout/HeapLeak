@@ -18,13 +18,19 @@ const UpdateAnswer = () => {
   const [errors, setErrors] = useState({})
   const navigate = useNavigate()
 
+  //answer block validator
   useEffect(() => {
     let ansErr ={}
     if (body.length < 20) {
       ansErr.body = "Answer must be at least 20 characters long!"
 
       setBlock(true);
-    } else setBlock(false);
+    }
+    else if (body.length > 2000) {
+      ansErr.body = "Answer cannot be more than 2000 characters long!"
+
+      setBlock(true);
+    }else setBlock(false);
 
     setErrors(ansErr);
   },[body])
