@@ -138,7 +138,7 @@ const CreateQuestion = () => {
         <button type="button" onClick={handleDiscard} id="ask-discard-btn">
           Discard
         </button>
-        <button type="submit" disabled ={block} id="ask-discard-btn">
+        <button type="submit" disabled ={Object.values(errors).length ? true : false} id="ask-discard-btn">
           Submit
         </button>
       </form>

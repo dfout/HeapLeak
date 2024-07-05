@@ -139,7 +139,12 @@
     display: flex;
     margin-left: auto;
     font-size: 16px;
-
+    padding: 5px 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #041629;
+    color: #fff;
+    cursor: pointer;
 }
 
 .display-submit-btn{
@@ -162,4 +167,18 @@
 #display-can-click:hover{
     cursor: pointer;
     color: rgb(61, 61, 61);
+}
+
+.display-main-question{
+    /* border: 2px solid; */
+    max-width: 600px;
+    margin-bottom: 50px;
+    /* background-color: #fff; */
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 3px 3px 4px rgba(0, 0, 0, 0.1);
+}
+
+.display-submit:disabled{
+    background-color: gray;
 }

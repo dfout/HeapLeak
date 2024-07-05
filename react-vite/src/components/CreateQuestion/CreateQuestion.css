@@ -122,3 +122,17 @@ header {
 .ask-tags #ask-tag-list li:hover {
   background-color: #ddd;
 }
+
+#ask-discard-btn{
+  background-color: black;
+  color: white;
+  border: none;
+  border-radius: 15px;
+  width: 300px;
+  height: 40px;
+  justify-self: center;
+}
+
+#ask-discard-btn:disabled{
+  background-color: gray;
+}
