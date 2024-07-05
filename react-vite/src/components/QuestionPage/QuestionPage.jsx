@@ -109,6 +109,7 @@ const Questions = () => {
             <div id="display-save-button">
               {isSaved || !user
                 ?
+                !user ?null:
                 <FaBookmark size={32} color={'Blue'} />
                 :
                 <FaRegBookmark id="display-can-click" size={32} onClick={e => (handleSave(e, question))} />
