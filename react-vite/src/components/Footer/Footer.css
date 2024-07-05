@@ -117,3 +117,11 @@ height:75%;
 .footer a:hover {
   text-decoration: underline;
 }
+
+/* @media screen{
+    .footer{
+        position: absolute;
+        bottom: 0px;
+        color: red;
+    }
+} */

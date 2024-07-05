@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Navigate, useNavigate } from "react-router-dom";
 import { thunkSignup } from "../../redux/session";
+import './SignupForm.css'
 
 function SignupFormPage() {
   const dispatch = useDispatch();
@@ -81,11 +82,11 @@ function SignupFormPage() {
 
 
   return (
-    <>
+    <div className="sign-up-holder">
       <h1>Sign Up</h1>
       {errors.server && <p>{errors.server}</p>}
-      <form onSubmit={handleSubmit}style={{display:"flex",flexDirection:"column"}}>
-        <label>
+      <form onSubmit={handleSubmit} className="login-form">
+        <label id='login-col'>
           Email
           <input
             type="text"
@@ -95,7 +96,7 @@ function SignupFormPage() {
           />
         </label>
         {errors.email && <p>{errors.email}</p>}
-        <label>
+        <label id='login-col'>
           Username
           <input
             type="text"
@@ -105,7 +106,7 @@ function SignupFormPage() {
           />
         </label>
         {errors.username && <p>{errors.username}</p>}
-        <label>
+        <label id='login-col'>
           Password
           <input
             type="password"
@@ -115,7 +116,7 @@ function SignupFormPage() {
           />
         </label>
         {errors.password && <p>{errors.password}</p>}
-        <label>
+        <label id='login-col'>
           Confirm Password
           <input
             type="password"
@@ -127,7 +128,7 @@ function SignupFormPage() {
         {errors.confirmPassword && <p>{errors.confirmPassword}</p>}
         <button type="submit" disabled ={block}>Sign Up</button>
       </form>
-    </>
+    </div>
   );
 }
 

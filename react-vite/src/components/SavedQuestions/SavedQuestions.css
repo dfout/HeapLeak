@@ -164,3 +164,15 @@
 .unsave-button:hover {
     cursor: pointer;
 }
+
+.center-align{
+    text-align: center;
+}
+
+.save-container-none {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* margin-top: 50px; */
+    height:71.75vh;
+}

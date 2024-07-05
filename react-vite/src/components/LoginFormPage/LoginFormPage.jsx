@@ -76,7 +76,8 @@ function LoginFormPage() {
   }
 
   return (
-    <div className="login-container">
+    <div className="login-holder">
+      <div className="login-container">
       <h1>Log In</h1>
       {errors.length > 0 &&
         errors.map((message) => <p key={message}>{message}</p>)}
@@ -104,6 +105,7 @@ function LoginFormPage() {
         <button type="submit" disabled={block}>Log In</button>
       </form>
       <button id='demo-button'onClick={e => handleDemoLogin(e)}>Login Demo User</button>
+    </div>
     </div>
   );
 }

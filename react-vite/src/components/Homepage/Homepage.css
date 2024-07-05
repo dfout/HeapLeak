@@ -41,7 +41,8 @@
 
 .home-body {
     margin-top: 10px;
-    word-wrap: break-word
+    word-wrap: break-word;
+    height: fit-content;
 }
 
 .home-tags-display {

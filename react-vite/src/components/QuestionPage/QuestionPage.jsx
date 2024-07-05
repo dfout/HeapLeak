@@ -158,7 +158,7 @@ const Questions = () => {
                     ></textarea>
                     <p>{errors.body}</p>
                     <div className="display-submit-btn">
-                      <button className="submit" disabled={block} onClick={e => sendAnswerSubmit(e)}>Submit</button>
+                      <button className="display-submit" disabled={block} onClick={e => sendAnswerSubmit(e)}>Submit</button>
                     </div>
                   </div>
                 ) : null

@@ -114,6 +114,8 @@
 
 .display-write-answer {
     margin-top: 20px;
+    display: flex;
+    flex-direction: column;
 }
 
 .display-write-answer h3 {
@@ -142,6 +144,7 @@
 
 .display-submit-btn{
     padding-top: 10px;
+    display: flex;
 }
 .display-links a ,
 .display-group-links a {
