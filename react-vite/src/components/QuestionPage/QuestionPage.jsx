@@ -3,9 +3,10 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import "./QuestionPage.css";
 import { getOneQuestionThunk } from "../../redux/question";
-import {  useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { createOneAnswer } from "../../redux/answer";
-import {  saveQuestionThunk, userSavedThunks } from "../../redux/save";
+import { saveQuestionThunk, userSavedThunks } from "../../redux/save";
+import { FaRegBookmark, FaBookmark } from "react-icons/fa";
 
 const Questions = () => {
   const { questionId } = useParams();
@@ -23,7 +24,7 @@ const Questions = () => {
 
   //answer block validator
   useEffect(() => {
-    let ansErr ={}
+    let ansErr = {}
     if (body.length < 20) {
       ansErr.body = "Answer must be at least 20 characters long!"
 
@@ -33,10 +34,10 @@ const Questions = () => {
       ansErr.body = "Answer cannot be more than 2000 characters long!"
 
       setBlock(true);
-    }else setBlock(false);
+    } else setBlock(false);
 
     setErrors(ansErr);
-  },[body])
+  }, [body])
 
   // console.log('-----------------------------------------------',(userSaves))
   // const navigate = useNavigate();
@@ -46,7 +47,7 @@ const Questions = () => {
     } else {
       setIsSaved(false)
     }
-  },[isSaved,userSaves, questionId])
+  }, [isSaved, userSaves, questionId])
 
   // console.log('-------------saved',isSaved)
 
@@ -54,8 +55,8 @@ const Questions = () => {
     if (question && user && question?.Answers && question.Answers.length) {
       let answers = Object.values(question.Answers)
       let arr = []
-      for (let answer of answers){
-        if(!arr.includes(answer.ownerId)){
+      for (let answer of answers) {
+        if (!arr.includes(answer.ownerId)) {
           // console.log(answer)
           arr.push(answer.ownerId)
         }
@@ -66,16 +67,16 @@ const Questions = () => {
   };
   useEffect(() => {
     // if (questionId) {
-      dispatch(getOneQuestionThunk(questionId));
-      dispatch(userSavedThunks())
+    dispatch(getOneQuestionThunk(questionId));
+    dispatch(userSavedThunks())
     // }
   }, [dispatch, questionId, canAnswer]);
 
-    const handleSave = async (e, question) => {
-      e.preventDefault();
-      setIsSaved(true)
-      await dispatch(saveQuestionThunk(question));
-    };
+  const handleSave = async (e, question) => {
+    e.preventDefault();
+    setIsSaved(true)
+    await dispatch(saveQuestionThunk(question));
+  };
 
 
   useEffect(() => {
@@ -85,13 +86,13 @@ const Questions = () => {
   async function sendAnswerSubmit(e) {
     e.preventDefault()
     const payload = {
-      body:body
+      body: body
     }
     let data = await dispatch(createOneAnswer(payload, questionId))
-    if(data?.errors){
+    if (data?.errors) {
       console.log(data.errors)
       setErrors(data.errors)
-    }else{
+    } else {
       setCanAnswer(false)
     }
   }
@@ -104,43 +105,30 @@ const Questions = () => {
     <>
       {question ? (
         <div className="create-question-container">
-          {
-            isSaved || !user  ?  (
-                          <div className="main-question">
-              <h1 className="question">{question.title}</h1>
-              <div className="dates">{question.timeUpdated}</div>
-              <div className="body">
-                <p>{question.body}</p>
-              </div>
-              <div className ="tags-display">
-                {question.Tags.map((tag) => (
-                  <p className="tag"key={tag.id}>{tag.tag}</p>
-              ))}
-              </div>
-            </div>
-            ): (
           <div id="question-button">
-            <div  id="save-button">
-              <button onClick={e => (handleSave(e,question))} >Save</button>
+            <div id="save-button">
+              {isSaved || !user
+                ?
+                <FaBookmark size={32} color={'Blue'} />
+                :
+                <FaRegBookmark id="can-click" size={32} onClick={e => (handleSave(e, question))} />
+              }
             </div>
             <div className="main-question">
-              <h1 className="question">{question.title}</h1>
+              <h1 className="pquestion">{question.title}</h1>
               <div className="dates">{question.timeUpdated}</div>
               <div className="body">
                 <p>{question.body}</p>
               </div>
-              <div className="tags">
+              <div className="tags-display">
                 {question.Tags.map((tag) => (
-                  <p key={tag.id}>{tag.tag}</p>
+                  <p className="tag" key={tag.id}>{tag.tag}</p>
                 ))}
               </div>
             </div>
           </div>
-            )
-          }
 
-          <div className="answers-container">
-            <h2></h2>
+          <div className="answers-containers">
             {question.Answers && question.Answers.map((answer) => (
 
               <div key={answer.id} className="answer-tile">
