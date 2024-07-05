@@ -14,10 +14,9 @@ const UpdateQuestion = () => {
   const [title, setTitle] = useState(question?.title)
   const [body, setBody] = useState(question?.body)
   const [tags, setTags] = useState(question?.Tags)
-  const [block, setBlock] = useState(false);
   const [manageTagBool, setManageTagBool] = useState(false);
   const [errors, setErrors] = useState({})
-  const [tagArr, setTagArr] = useState(enumTags.map((tag) => false))
+  const [tagArr, setTagArr] = useState(enumTags.map(() => false))
   const [updated, setUpdated] = useState(false)
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -28,24 +27,19 @@ const UpdateQuestion = () => {
       const newErrors = {};
     if (title.length < 10) {
       newErrors.title = 'Title is required, and must be at least 10 Characters';
-      setBlock(true);
     }
     if (title.length > 200) {
       newErrors.title = 'Title must be less than 200 characters';
-      setBlock(true);
     }
     if (body.length < 20) {
       newErrors.body = 'Body is required, and must be at least 20 characters';
-      setBlock(true);
     }
     if (body.length > 2000) {
       newErrors.body = 'Body must be less than 2000 characters';
-      setBlock(true);
     }
     if (tags.length === 0) {
       newErrors.tags = 'At least one tag is required';
-      setBlock(true);
-    } else setBlock(false);
+    }
 
 
 

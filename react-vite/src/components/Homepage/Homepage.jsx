@@ -1,24 +1,24 @@
-import { useEffect, useState } from "react";
+import { useEffect} from "react";
 import { NavLink } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import "./Homepage.css";
 import { getQuestionsThunk } from "../../redux/question";
 
-let tagsObj = {android: "Android",
-  flutter: "Flutter",
-  swiftui: "SwiftUI",
-  flask: "Flask",
-  ansible: "Ansible",
-  redis: "Redis",
-  vuejs: "Vue.js",
-  continuous_integration: "Continuous Integration",
-  kubernetes: "Kubernetes",
-  csharp: "C#",
-  git: "Git",
-  xamarin: "Xamarin",
-  cybersecurity: "Cybersecurity",
-  netbeans: "NetBeans",
-  sql: "SQL"}
+// let tagsObj = {android: "Android",
+//   flutter: "Flutter",
+//   swiftui: "SwiftUI",
+//   flask: "Flask",
+//   ansible: "Ansible",
+//   redis: "Redis",
+//   vuejs: "Vue.js",
+//   continuous_integration: "Continuous Integration",
+//   kubernetes: "Kubernetes",
+//   csharp: "C#",
+//   git: "Git",
+//   xamarin: "Xamarin",
+//   cybersecurity: "Cybersecurity",
+//   netbeans: "NetBeans",
+//   sql: "SQL"}
 
 const Homepage = () => {
   const dispatch = useDispatch();
