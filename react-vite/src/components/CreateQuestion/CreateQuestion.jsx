@@ -110,18 +110,18 @@ const CreateQuestion = () => {
   }
 
   return (
-    <div className="container">
-      <form onSubmit={handleSubmit} className="question-form">
+    <div className="ask-container">
+      <form onSubmit={handleSubmit} className="ask-question-form">
         <h2>Create a Question</h2>
-        <label htmlFor="title">Title:</label>
-        <input type="text" id="title" name="title" value={title} onChange={(e) => setTitle(e.target.value)} />
+        <label htmlFor="ask-title">Title:</label>
+        <input type="text" id="ask-title" name="title" value={title} onChange={(e) => setTitle(e.target.value)} />
         {Object.values(errors).length ? (<p>{errors.title}</p>) : null}
         <label htmlFor="problem">Problem:</label>
-        <textarea id="problem" name="problem" value={body} onChange={(e) => setBody(e.target.value)}></textarea>
+        <textarea id="ask-problem" name="problem" value={body} onChange={(e) => setBody(e.target.value)}></textarea>
         {Object.values(errors).length ? errors.body : null}
-        <div className="tags">
+        <div className="ask-tags">
           <h3>Tags:</h3>
-          <ul id="tag-list">
+          <ul id="ask-tag-list">
             {enumTags.map((tag) => (
               <li key={tag}>
                 <input type="checkbox"
@@ -135,10 +135,10 @@ const CreateQuestion = () => {
           </ul>
         </div>
         {Object.values(errors).length ? errors.tags : null}
-        <button type="button" onClick={handleDiscard} id="discard-btn">
+        <button type="button" onClick={handleDiscard} id="ask-discard-btn">
           Discard
         </button>
-        <button type="submit" disabled ={block} id="discard-btn">
+        <button type="submit" disabled ={Object.values(errors).length ? true : false} id="ask-discard-btn">
           Submit
         </button>
       </form>

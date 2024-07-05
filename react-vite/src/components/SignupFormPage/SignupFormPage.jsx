@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Navigate, useNavigate } from "react-router-dom";
 import { thunkSignup } from "../../redux/session";
+import './SignupForm.css'
 
 function SignupFormPage() {
   const dispatch = useDispatch();
@@ -24,8 +25,10 @@ function SignupFormPage() {
     let validRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-]/;
     if (
       email.length === 0 ||
+      email.length > 65 ||
       !email.match(validRegex) ||
       username.length < 4 ||
+      username.length > 30 ||
       password.length < 6 ||
       password !== confirmPassword
     ) {
@@ -36,7 +39,9 @@ function SignupFormPage() {
 
     if (email.length === 0) errObj.email = "Please provide a valid Email";
     if (!email.match(validRegex)) errObj.email = "Please provide a valid Email";
-    if (username.length < 4) errObj.username="Please provide a Username of at least 4 characters";
+    if (email.length > 65) errObj.email = "Email must be 65 characters or less";
+    if (username.length < 4) errObj.username = "Please provide a Username of at least 4 characters";
+    if (username.length > 30) errObj.username = "Username must be 30 characters or less";
     if (password.length < 6) errObj.password = "Please provide a password of at least 6 characters";
     if (password !== confirmPassword) errObj.confirmPassword = "Please ensure both passwords match";
 
@@ -77,11 +82,11 @@ function SignupFormPage() {
 
 
   return (
-    <>
+    <div className="sign-up-holder">
       <h1>Sign Up</h1>
       {errors.server && <p>{errors.server}</p>}
-      <form onSubmit={handleSubmit}style={{display:"flex",flexDirection:"column"}}>
-        <label>
+      <form onSubmit={handleSubmit} className="login-form">
+        <label id='login-col'>
           Email
           <input
             type="text"
@@ -91,7 +96,7 @@ function SignupFormPage() {
           />
         </label>
         {errors.email && <p>{errors.email}</p>}
-        <label>
+        <label id='login-col'>
           Username
           <input
             type="text"
@@ -101,7 +106,7 @@ function SignupFormPage() {
           />
         </label>
         {errors.username && <p>{errors.username}</p>}
-        <label>
+        <label id='login-col'>
           Password
           <input
             type="password"
@@ -111,7 +116,7 @@ function SignupFormPage() {
           />
         </label>
         {errors.password && <p>{errors.password}</p>}
-        <label>
+        <label id='login-col'>
           Confirm Password
           <input
             type="password"
@@ -123,7 +128,7 @@ function SignupFormPage() {
         {errors.confirmPassword && <p>{errors.confirmPassword}</p>}
         <button type="submit" disabled ={block}>Sign Up</button>
       </form>
-    </>
+    </div>
   );
 }
 
