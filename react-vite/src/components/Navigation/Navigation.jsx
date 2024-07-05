@@ -30,10 +30,10 @@ function Navigation() {
         <div className="logoDiv">
           <img src="https://drive.google.com/thumbnail?id=1nD3JcAqqznDaTvWaRYqDRFD3PUIcKW9V" alt="HeapLeak Logo" id="logoPhoto" onClick={()=> goHome()}/>
         </div>
-        <div className="search">
+        {/* <div className="search"> */}
             {/* <Link to='/about'>About</Link> */}
-            <input type="search" placeholder="search" onClick={() => alert('Search feature coming soon!')}/>
-        </div>
+            {/* <input type="search" placeholder="search" onClick={() => alert('Search feature coming soon!')}/>
+        </div> */}
         {!sessionUser &&
                 (<div className="login">
                 <button onClick={goToLogin}>Login</button>
@@ -46,8 +46,8 @@ function Navigation() {
         {sessionUser &&
         (
           <>
-          <NavLink to='/saved-questions'>Saved Questions</NavLink>
-            <Link to='questions/create'>Ask a Question</Link>
+          <NavLink className='nav-link'to='/saved-questions'>Saved Questions</NavLink>
+            <Link className='nav-link' to='questions/create'>Ask a Question </Link>
           <div id= 'profile'>
           <ProfileButton user={sessionUser} className='profile-button' />
           </div>

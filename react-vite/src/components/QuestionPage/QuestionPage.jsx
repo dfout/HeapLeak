@@ -14,11 +14,29 @@ const Questions = () => {
   const [canAnswer, setCanAnswer] = useState(true)
   const user = useSelector((state) => state.session.user);
   const [body, setBody] = useState("");
+  const [block, setBlock] = useState(false);
   const [errors, setErrors] = useState({});
   const [answerOwnerIds, setOwnerIds] = useState([]);
 
   const [isSaved, setIsSaved] = useState(false)
   const userSaves = useSelector((state) => state.saves)
+
+  //answer block validator
+  useEffect(() => {
+    let ansErr ={}
+    if (body.length < 20) {
+      ansErr.body = "Answer must be at least 20 characters long!"
+
+      setBlock(true);
+    }
+    if (body.length > 2000) {
+      ansErr.body = "Answer cannot be more than 2000 characters long!"
+
+      setBlock(true);
+    }else setBlock(false);
+
+    setErrors(ansErr);
+  },[body])
 
   // console.log('-----------------------------------------------',(userSaves))
   // const navigate = useNavigate();
@@ -28,10 +46,9 @@ const Questions = () => {
     } else {
       setIsSaved(false)
     }
-  },[isSaved,userSaves])
+  },[isSaved,userSaves, questionId])
 
   // console.log('-------------saved',isSaved)
-
 
   const abilityCheck = () => {
     if (question && user && question?.Answers && question.Answers.length) {
@@ -48,10 +65,10 @@ const Questions = () => {
     }
   };
   useEffect(() => {
-    if (questionId) {
+    // if (questionId) {
       dispatch(getOneQuestionThunk(questionId));
       dispatch(userSavedThunks())
-    }
+    // }
   }, [dispatch, questionId, canAnswer]);
 
     const handleSave = async (e, question) => {
@@ -95,10 +112,10 @@ const Questions = () => {
               <div className="body">
                 <p>{question.body}</p>
               </div>
-              <div className="tags">
+              <div className ="tags-display">
                 {question.Tags.map((tag) => (
-                  <p key={tag.id}>{tag.tag}</p>
-                ))}
+                  <p className="tag"key={tag.id}>{tag.tag}</p>
+              ))}
               </div>
             </div>
             ): (
@@ -131,7 +148,7 @@ const Questions = () => {
                 <div id="user-info">
                   <span>{answer.timeUpdated}</span>
 
-                  <span>{answer.author.username}</span>
+                  <span>{answer.author?.username}</span>
                 </div>
               </div>
             ))}
@@ -152,7 +169,7 @@ const Questions = () => {
                     ></textarea>
                     <p>{errors.body}</p>
                     <div className="submit-btn">
-                      <button className="submit" onClick={e => sendAnswerSubmit(e)}>Submit</button>
+                      <button className="submit" disabled={block} onClick={e => sendAnswerSubmit(e)}>Submit</button>
                     </div>
                   </div>
                 ) : null

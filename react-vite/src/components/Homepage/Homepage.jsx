@@ -31,19 +31,19 @@ const Homepage = () => {
   return (
     <>
       <div className="body">
-        <div className="tags-container">{Object.values(tagsObj).map((tag) =>
+        {/* <div className="tags-container">{Object.values(tagsObj).map((tag) =>
           (
-          <div key={tag} className="tagListItem" onClick={() => alert('Search feature coming soon!')}>{tag}</div>))}</div>
+          <div key={tag} className="tagListItem" onClick={() => alert('Search feature coming soon!')}>{tag}</div>))}</div> */}
         <div className="all-questions-container">
           {Object.values(questions).map((question) => (
             <div key={question.id} className="question">
-              <NavLink className = "questionLink" to={`/questions/${question.id}`}>
+              <NavLink style={{textDecoration:'none'}}className = "questionLink" to={`/questions/${question.id}`}>
               <h1 className="title">{question.title}</h1>
               </NavLink>
               <p className="preview">{question.body}</p>
-              <div>
+              <div className ="tags-display">
                 {question.Tags.map((tag) => (
-                  <p key={tag.id}>{tag.tag}</p>
+                  <p className="tag"key={tag.id}>{tag.tag}</p>
               ))}
               </div>
               <p className="author">{question.author}</p>

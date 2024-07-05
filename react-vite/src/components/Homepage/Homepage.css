@@ -56,14 +56,26 @@ body {
 .title {
     font-size: 20px;
     font-weight: bold;
+    word-wrap: break-word
 }
 
 .body {
     margin-top: 10px;
+    word-wrap: break-word
 }
 
-.tags {
+.tags-display {
+    display:flex;
+    gap:10px;
     margin-top: 10px;
+    font-size:small;
+
+}
+.tag{
+    background-color: lightgray;
+    border-radius: 5%;
+    height: 20px;
+    padding: auto;
 }
 
 .author {

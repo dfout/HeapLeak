@@ -1,9 +1,10 @@
 import { useEffect } from "react";
-// import { NavLink } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
 import { getSavedQuestionsThunk, unSaveQuestionThunk } from "../../redux/save";
 import "./SavedQuestions.css";
+
 
 const SavedQuestions = () => {
   const dispatch = useDispatch();
@@ -11,6 +12,7 @@ const SavedQuestions = () => {
 
   savedQuestions = Object.values(savedQuestions)
 
+  const navigate = useNavigate('')
 
 
   useEffect(()=>{
@@ -23,6 +25,9 @@ const SavedQuestions = () => {
     await dispatch(unSaveQuestionThunk(id))
   }
 
+  const handleClick = (questionId) => {
+    navigate(`/questions/${questionId}`)
+  }
 
 
   return (
@@ -34,15 +39,15 @@ const SavedQuestions = () => {
         </div>
       <div className="saved-questions">
         {savedQuestions.length && savedQuestions.map((question) => {
-          console.log('questionnnnnnnnnnnnnn',question)
+          
             return(
 
-                    <div className = 'question-container' key= {question.id}>
+                    <div className = 'question-container' key= {question.id} onClick={() => handleClick(question.id)}>
                     <p id="question-title">{question.post.title}</p>
                     <span>{question.post.body}</span>
-                    <div className='tags-container'>
+                    <div className='tags-display'>
                     {question.post.Tags.map((tag) => (
-                  <p key={tag.id}>{tag.tag}</p>
+                  <p className='tag' key={tag.id}>{tag.tag}</p>
                     ))}
                     </div>
                     <span>{question.post.author}</span>

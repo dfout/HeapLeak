@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Navigate, useNavigate } from "react-router-dom";
 import { thunkSignup } from "../../redux/session";
@@ -12,6 +12,38 @@ function SignupFormPage() {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [errors, setErrors] = useState({});
+  const [block, setBlock] = useState(false);
+
+  useEffect(() => {
+    let errObj = {}
+
+    //comparison regex : [any char, num, symbol] + @[any char or num] + .[any char or num]
+    //ex: demo@aa.io would match, as would demo@aa.i, but demo@aa. would not match, nor would demo@aa and so on
+
+
+    let validRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-]/;
+    if (
+      email.length === 0 ||
+      !email.match(validRegex) ||
+      username.length < 4 ||
+      password.length < 6 ||
+      password !== confirmPassword
+    ) {
+      setBlock(true);
+    } else {
+      setBlock(false);
+    }
+
+    if (email.length === 0) errObj.email = "Please provide a valid Email";
+    if (!email.match(validRegex)) errObj.email = "Please provide a valid Email";
+    if (username.length < 4) errObj.username="Please provide a Username of at least 4 characters";
+    if (password.length < 6) errObj.password = "Please provide a password of at least 6 characters";
+    if (password !== confirmPassword) errObj.confirmPassword = "Please ensure both passwords match";
+
+    setErrors(errObj)
+    // console.log(errors)
+  }, [email, username, password, confirmPassword]);
+
 
   if (sessionUser) return <Navigate to="/" replace={true} />;
 
@@ -40,11 +72,15 @@ function SignupFormPage() {
     }
   };
 
+
+
+
+
   return (
     <>
       <h1>Sign Up</h1>
       {errors.server && <p>{errors.server}</p>}
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit}style={{display:"flex",flexDirection:"column"}}>
         <label>
           Email
           <input
@@ -85,7 +121,7 @@ function SignupFormPage() {
           />
         </label>
         {errors.confirmPassword && <p>{errors.confirmPassword}</p>}
-        <button type="submit">Sign Up</button>
+        <button type="submit" disabled ={block}>Sign Up</button>
       </form>
     </>
   );
