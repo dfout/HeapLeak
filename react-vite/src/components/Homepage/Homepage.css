@@ -29,14 +29,13 @@ body {
     align-items:center;
     flex-direction: column;
     padding-top: 50px;
-    max-width: 1000px;
 }
 
 .question {
     border: 3px solid #ccc;
     padding: 10px;
     margin: 10px;
-    max-width: 550px;
+    width: 550px;
 }
 
 .title{
@@ -52,6 +51,7 @@ body {
 
 
 }
+
 
 
 .question:hover{
