@@ -8,19 +8,19 @@ import "./SavedQuestions.css";
 
 const SavedQuestions = () => {
   const dispatch = useDispatch();
-  let savedQuestions = useSelector((state)=>state.saves)
+  let savedQuestions = useSelector((state) => state.saves)
 
   savedQuestions = Object.values(savedQuestions)
 
   const navigate = useNavigate('')
 
 
-  useEffect(()=>{
+  useEffect(() => {
     dispatch(getSavedQuestionsThunk())
   }, [dispatch])
 
 
-  const handleUnSave = async(e,id) => {
+  const handleUnSave = async (e, id) => {
     e.preventDefault()
     await dispatch(unSaveQuestionThunk(id))
   }
@@ -33,31 +33,31 @@ const SavedQuestions = () => {
   return (
 
     <div className="save-container">
-        <div id="save-information">
-            <h2>All Saves</h2>
-            <h3>{savedQuestions.length} Saved Items</h3>
-        </div>
+      <div id="save-information">
+        <h2>All Saves</h2>
+        <h3>{savedQuestions.length} Saved Items</h3>
+      </div>
       <div className="saved-questions">
         {savedQuestions.length && savedQuestions.map((question) => {
 
-            return(
+          return (
 
-                    <div className = 'save-question-container' key= {question.id}>
-                    <p id="question-title" onClick={() => handleClick(question.id)}>{question.post.title}</p>
-                    <span>{question.post.body}</span>
-                    <div className='save-tags-display'>
-                    {question.post.Tags.map((tag) => (
+            <div className='save-question-container' key={question.id}>
+              <p id="save-question-title" onClick={() => handleClick(question.id)}>{question.post.title}</p>
+              <span className="save-author">{question.post.author}</span>
+              <span>{question.post.body.length > 110 ? question.post.body.slice(0,110)+ "...":question.post.body}</span>
+              <div className='save-tags-display'>
+                {question.post.Tags.map((tag) => (
                   <p className='save-tag' key={tag.id}>{tag.tag}</p>
-                    ))}
-                    </div>
-                    <span>{question.post.author}</span>
-                    <span>{question.post.timeUpdated}</span>
-                    <button onClick={e => handleUnSave(e, question.id)}>Unsave</button>
-                </div>
-            )
-})}
+                ))}
+              </div>
+              <span>{question.post.timeUpdated.slice(5,17)}</span>
+              <button className='unsave-button' onClick={e => handleUnSave(e, question.id)}>Unsave</button>
+            </div>
+          )
+        })}
+      </div>
     </div>
-</div>
 
   );
 };

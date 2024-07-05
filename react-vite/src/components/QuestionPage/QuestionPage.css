@@ -1,5 +1,5 @@
 
-.create-question-container {
+.display-question-container {
     padding-top: 20px;
     display: flex;
     flex-direction: column;
@@ -7,22 +7,22 @@
     padding-top: 50px;
     padding-bottom: 50px;
     width: 100%;
-    background-color: hsla(240, 67%, 94%, 0.843);
+    /* background-color: hsla(240, 67%, 94%, 0.843); */
 }
 
-.main-question {
+.display-main-question {
+    /* border: 2px solid; */
     max-width: 600px;
     margin-bottom: 50px;
-    background-color: #fff;
+    /* background-color: #fff; */
     padding: 20px;
     border-radius: 5px;
     box-shadow: 3px 3px 4px rgba(0, 0, 0, 0.1);
 }
 
-.pquestion {
-    border: 3px solid #ccc;
-    padding: 10px;
-    margin: 10px;
+.display-question {
+    /* padding: 10px; */
+    /* margin: 10px; */
     width: 475px;
     font-size: 24px;
     font-weight: bold;
@@ -30,7 +30,15 @@
     word-wrap: break-word;
 }
 
-#question-button{
+.display-author {
+    margin: 0;
+    margin-top: 7px;
+    padding: 0;
+    font-weight: 600;
+    font-size: medium;
+}
+
+#display-question-button{
     padding-top: 25px;
     width: 100%;
     margin: 0;
@@ -39,18 +47,21 @@
     align-items: center;
     padding-right: 65px;
 }
-#save-button{
+#display-save-button{
     padding-right: 20px;
 }
-.dates {
+.display-dates {
     margin-bottom: 10px;
 }
 
-.body {
-    margin-bottom: 20px;
+#display-body {
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    justify-content: center;
 }
 
-.tags-display {
+.display-tags-display {
     display:flex;
     gap:10px;
     margin-top: 10px;
@@ -58,101 +69,94 @@
 
 }
 
-.answers-containers {
-    margin: 0 25%;
-    max-width: 100%;
-    padding: 20px;
-    background-color: #f9f9f9;
-    border-radius: 5px;
-    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
-    background-color: rgb(196, 196, 196);
+.display-tag{
+    background-color: rgb(217, 217, 217);
+  border-radius: 5%;
+  padding: 5px;
+  word-break: break-word;
 }
 
-.answers-container h2 {
+.display-answers-containers {
+    /* border: 2px solid; */
+    margin: 0 30%;
+    max-width: 100%;
+    /* padding: 20px; */
+    /* background-color: #f9f9f9; */
+    border-radius: 5px;
+    /* box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1); */
+    /* background-color: rgb(196, 196, 196); */
+}
+
+.display-answers-container h2 {
     font-size: 24px;
     font-weight: bold;
     margin-bottom: 20px;
 }
 
-.answer-tile {
-    background-color: #fff;
+.display-answer-tile {
+    /* background-color: #fff; */
     padding: 10px;
     margin-bottom: 10px;
     border-radius: 5px;
-    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.55);
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.answer-tile p {
+.display-answer-tile p {
     margin-bottom: 10px;
 }
 
-#user-info {
+#display-user-info {
     display: flex;
     justify-content: space-between;
     font-size: 14px;
     color: #666;
 }
 
-.write-answer {
+.display-write-answer {
     margin-top: 20px;
 }
 
-.write-answer h3 {
+.display-write-answer h3 {
     font-size: 20px;
     font-weight: bold;
     margin-bottom: 10px;
 }
 
-.texts{
+.display-texts{
     width: 100%;
     padding: 10px;
      border: 1px solid #ccc;
      border-radius: 5px;
 }
 
-.submit:hover {
-    background-color: #1f9b0f;
+.display-submit:hover {
+    /* background-color: #1f9b0f; */
 }
 
-.submit{
+.display-submit{
     display: flex;
     margin-left: auto;
     font-size: 16px;
 
 }
 
-.submit-btn{
+.display-submit-btn{
     padding-top: 10px;
 }
-.links a ,
-.group-links a {
+.display-links a ,
+.display-group-links a {
     padding: 0px 4px;
     text-decoration: none;
     cursor: pointer;
 
 }
 
-.footer{
-    height: 100px;
-    position: relative;
-    padding-top: 20px;
-    /* height: 200px; */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: #041629;
-    text-align: center;
-    padding: 4px 8px 4px 8px;
-    bottom:0;
-    width:100%;
-}
-
-#can-click:hover{
+#display-can-click:hover{
     cursor: pointer;
     color: rgb(17, 17, 17);
 }
 
-#can-click:hover{
+#display-can-click:hover{
     cursor: pointer;
     color: rgb(61, 61, 61);
 }

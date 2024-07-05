@@ -102,38 +102,39 @@ const Questions = () => {
 
   // THE WE NEED TO GRAB USER SAVE QUESTIONS AND THEN COMPARE RECEIPTS SEE IF THE CURRENT QUESTION EXISTS IN THE ARR OR OBJ / DATA .
   return (
-    <>
+    <div id="display-body">
       {question ? (
-        <div className="create-question-container">
-          <div id="question-button">
-            <div id="save-button">
+        <div className="display-question-container">
+          <div id="display-question-button">
+            <div id="display-save-button">
               {isSaved || !user
                 ?
                 <FaBookmark size={32} color={'Blue'} />
                 :
-                <FaRegBookmark id="can-click" size={32} onClick={e => (handleSave(e, question))} />
+                <FaRegBookmark id="display-can-click" size={32} onClick={e => (handleSave(e, question))} />
               }
             </div>
-            <div className="main-question">
-              <h1 className="pquestion">{question.title}</h1>
-              <div className="dates">{question.timeUpdated}</div>
-              <div className="body">
+            <div className="display-main-question">
+              <h1 className="display-question">{question.title}</h1>
+              <p className="display-author">{question.author}</p>
+              <div className="display-dates">{question.timeUpdated}</div>
+              <div className="display-body">
                 <p>{question.body}</p>
               </div>
-              <div className="tags-display">
+              <div className="display-tags-display">
                 {question.Tags.map((tag) => (
-                  <p className="tag" key={tag.id}>{tag.tag}</p>
+                  <p className="display-tag" key={tag.id}>{tag.tag}</p>
                 ))}
               </div>
             </div>
           </div>
 
-          <div className="answers-containers">
+          <div className="display-answers-containers">
             {question.Answers && question.Answers.map((answer) => (
 
-              <div key={answer.id} className="answer-tile">
+              <div key={answer.id} className="display-answer-tile">
                 <p>{answer.body}</p>
-                <div id="user-info">
+                <div id="display-user-info">
                   <span>{answer.timeUpdated}</span>
 
                   <span>{answer.author?.username}</span>
@@ -144,7 +145,7 @@ const Questions = () => {
               user && question.ownerId != user.id && !answerOwnerIds.includes(user.id)
                 ?
                 (
-                  <div className="write-answer">
+                  <div className="display-write-answer">
                     <h3>Your Answer</h3>
                     <textarea
                       name="Answer"
@@ -156,7 +157,7 @@ const Questions = () => {
                       onChange={e => setBody(e.target.value)}
                     ></textarea>
                     <p>{errors.body}</p>
-                    <div className="submit-btn">
+                    <div className="display-submit-btn">
                       <button className="submit" disabled={block} onClick={e => sendAnswerSubmit(e)}>Submit</button>
                     </div>
                   </div>
@@ -169,7 +170,7 @@ const Questions = () => {
           <h1>Question not found !</h1>
         </div>
       )}
-    </>
+    </div>
   );
 };
 

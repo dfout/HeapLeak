@@ -76,12 +76,12 @@ function LoginFormPage() {
   }
 
   return (
-    <>
+    <div className="login-container">
       <h1>Log In</h1>
       {errors.length > 0 &&
         errors.map((message) => <p key={message}>{message}</p>)}
-      <form onSubmit={handleSubmit} style={{display:"flex",flexDirection:"column"}}>
-        <label>
+      <form onSubmit={handleSubmit} className="login-form">
+        <label id="login-col">
           Email
           <input
             type="text"
@@ -91,7 +91,7 @@ function LoginFormPage() {
           />
         </label>
         {errors.email && <p>{errors.email}</p>}
-        <label>
+        <label id="login-col">
           Password
           <input
             type="password"
@@ -103,8 +103,8 @@ function LoginFormPage() {
         {errors.password && <p>{errors.password}</p>}
         <button type="submit" disabled={block}>Log In</button>
       </form>
-      <button onClick={e => handleDemoLogin(e)}>Login Demo User</button>
-    </>
+      <button id='demo-button'onClick={e => handleDemoLogin(e)}>Login Demo User</button>
+    </div>
   );
 }
 

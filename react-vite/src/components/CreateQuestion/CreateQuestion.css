@@ -1,11 +1,3 @@
-*{
-    box-sizing: border-box;
-}
-
-body {
-    margin: 0;
-    padding: 0;
-}
 header {
   display: flex;
   align-items: center;
@@ -15,21 +7,21 @@ header {
   padding: 10px;
 }
 
-.logo {
+.ask-logo {
   font-size: 24px;
   font-weight: bold;
 }
 
-.about {
+.ask-about {
   display: flex;
   align-items: center;
 }
 
-.about span {
+.ask-about span {
   margin-right: 10px;
 }
 
-.about input {
+.ask-about input {
   padding: 5px;
   border: none;
   border-radius: 5px;
@@ -37,26 +29,25 @@ header {
   color: #333;
 }
 
-.about input::placeholder {
+.ask-about input::placeholder {
   color: #ccc;
 }
 
 
-.container {
+.ask-container {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 100vh;
   margin: 0 auto;
   max-width: 800px;
-  padding: 20px;
+  padding: 40px 20px;
   background-color: #f2f2f2;
   border-radius: 5px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-.question-form {
+.ask-question-form {
   display: grid;
   grid-template-columns: 1fr;
   gap: 10px;
@@ -64,17 +55,17 @@ header {
 
 }
 
-.question-form h2 {
+.ask-question-form h2 {
   text-align: center;
 }
 
-.question-form label {
+.ask-question-form label {
   display: block;
   font-weight: bold;
 }
 
 /* .question-form input[type="text"], */
-.question-form textarea {
+.ask-question-form textarea {
   height: 200px;
   padding: 5px;
   border: none;
@@ -83,7 +74,7 @@ header {
 
 
 
-.tags {
+.ask-tags {
   /* display: grid; */
   /* grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); */
   gap: 10px;
@@ -91,17 +82,17 @@ header {
   height: 400px;
 }
 
-.tags h3 {
+.ask-tags h3 {
   text-align: center;
 }
 
-.tags input[type="text"] {
+.ask-tags input[type="text"] {
   padding: 5px;
   border: none;
   border-radius: 5px;
 }
 
-.tags #add-tag {
+.ask-tags #ask-add-tag {
   padding: 5px 10px;
   border: none;
   border-radius: 5px;
@@ -110,16 +101,16 @@ header {
   cursor: pointer;
 }
 
-.tags #add-tag:hover {
+.ask-tags #ask-add-tag:hover {
   background-color: #45a049;
 }
 
-.tags #tag-list {
+.ask-tags #ask-tag-list {
   list-style-type: none;
   padding: 0;
 }
 
-.tags #tag-list li {
+.ask-tags #ask-tag-list li {
   display: inline-block;
   margin-right: 5px;
   padding: 5px;
@@ -128,32 +119,6 @@ header {
   background-color: #f2f2f2;
 }
 
-.tags #tag-list li:hover {
+.ask-tags #ask-tag-list li:hover {
   background-color: #ddd;
-}
-
-.footer {
-  background-color: #333;
-  color: #fff;
-  padding: 10px;
-}
-
-.footer ul {
-  list-style-type: none;
-  padding: 0;
-  display: flex;
-  justify-content: center;
-}
-
-.footer li {
-  margin: 0 10px;
-}
-
-.footer a {
-  color: #fff;
-  text-decoration: none;
-}
-
-.footer a:hover {
-  text-decoration: underline;
 }
