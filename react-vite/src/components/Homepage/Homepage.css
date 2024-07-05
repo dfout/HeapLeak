@@ -29,21 +29,26 @@ body {
     align-items:center;
     flex-direction: column;
     padding-top: 50px;
+    max-width: 1000px;
 }
 
 .question {
     border: 3px solid #ccc;
     padding: 10px;
     margin: 10px;
-    width: 475px;
+    max-width: 550px;
 }
 
 .title{
-    border: 1px solid #ccc;
+    font-size: large;
 }
 
 .preview{
-    border: 1px solid #ccc;
+    font-weight: 400;
+    font-size: medium;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
 
 
 }
@@ -54,7 +59,7 @@ body {
 }
 
 .title {
-    font-size: 20px;
+    font-size: 25px;
     font-weight: bold;
     word-wrap: break-word
 }
@@ -65,17 +70,17 @@ body {
 }
 
 .tags-display {
-    display:flex;
-    gap:10px;
-    margin-top: 10px;
-    font-size:small;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  overflow: hidden;
 
 }
 .tag{
-    background-color: lightgray;
-    border-radius: 5%;
-    height: 20px;
-    padding: auto;
+    background-color: rgb(170, 128, 128);
+  border-radius: 5%;
+  padding: 5px;
+  word-break: break-word;
 }
 
 .author {

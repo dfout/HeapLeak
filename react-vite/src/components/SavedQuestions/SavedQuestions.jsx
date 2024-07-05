@@ -32,7 +32,7 @@ const SavedQuestions = () => {
 
   return (
 
-    <div className="sqcontainer">
+    <div className="save-container">
         <div id="save-information">
             <h2>All Saves</h2>
             <h3>{savedQuestions.length} Saved Items</h3>
@@ -42,12 +42,12 @@ const SavedQuestions = () => {
 
             return(
 
-                    <div className = 'question-container' key= {question.id}>
+                    <div className = 'save-question-container' key= {question.id}>
                     <p id="question-title" onClick={() => handleClick(question.id)}>{question.post.title}</p>
                     <span>{question.post.body}</span>
-                    <div className='tags-display'>
+                    <div className='save-tags-display'>
                     {question.post.Tags.map((tag) => (
-                  <p className='tag' key={tag.id}>{tag.tag}</p>
+                  <p className='save-tag' key={tag.id}>{tag.tag}</p>
                     ))}
                     </div>
                     <span>{question.post.author}</span>
