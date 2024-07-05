@@ -158,7 +158,7 @@ const UpdateQuestion = () => {
 
   console.log(tags)
   return (
-    <div className="container">
+    <div className="scontainer">
       <form onSubmit={handleSubmit} className="question-form">
         <h2>Update a Question</h2>
         <label htmlFor="title">Title:</label>
