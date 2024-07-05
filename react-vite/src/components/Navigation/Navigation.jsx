@@ -46,8 +46,8 @@ function Navigation() {
         {sessionUser &&
         (
           <>
-          <NavLink to='/saved-questions'>Saved Questions</NavLink>
-            <Link to='questions/create'>Ask a Question</Link>
+          <NavLink className='nav-link'to='/saved-questions'>Saved Questions</NavLink>
+            <Link className='nav-link' to='questions/create'>Ask a Question </Link>
           <div id= 'profile'>
           <ProfileButton user={sessionUser} className='profile-button' />
           </div>

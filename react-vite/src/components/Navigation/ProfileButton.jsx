@@ -50,8 +50,8 @@ function ProfileButton() {
         <ul className={"profile-dropdown"} ref={ulRef}>
               <li>{user.username}</li>
               <li>{user.email}</li>
-              <li><Link to='/manage-questions'>Manage Questions</Link></li>
-              <li><Link to='/manage-answers'>Manage Answers</Link></li>
+              <li><Link  className='nav-link' to='/manage-questions'>Manage Questions</Link></li>
+              <li><Link className = 'nav-link' to='/manage-answers'>Manage Answers</Link></li>
               <li>
                 <button onClick={logout}>Log Out</button>
               </li>

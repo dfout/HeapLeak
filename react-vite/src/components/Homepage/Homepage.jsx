@@ -37,7 +37,7 @@ const Homepage = () => {
         <div className="all-questions-container">
           {Object.values(questions).map((question) => (
             <div key={question.id} className="question">
-              <NavLink className = "questionLink" to={`/questions/${question.id}`}>
+              <NavLink style={{textDecoration:'none'}}className = "questionLink" to={`/questions/${question.id}`}>
               <h1 className="title">{question.title}</h1>
               </NavLink>
               <p className="preview">{question.body}</p>
