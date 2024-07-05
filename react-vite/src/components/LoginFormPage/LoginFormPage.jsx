@@ -23,6 +23,7 @@ function LoginFormPage() {
     let validRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-]/;
     if (
       email.length === 0 ||
+      email.length > 65 ||
       !email.match(validRegex) ||
       password.length < 6
     ) {
@@ -32,6 +33,7 @@ function LoginFormPage() {
     }
 
     if (email.length === 0) errObj.email = "Please provide a valid Email";
+    if (email.length > 65) errObj.email = "Email must be 65 characters or less";
     if (!email.match(validRegex)) errObj.email = "Please provide a valid Email";
     if (password.length < 6) errObj.password = "Please provide a password of at least 6 characters";
 
