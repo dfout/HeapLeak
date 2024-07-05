@@ -103,7 +103,7 @@ body {
 }
 
 
-.container {
+.sqcontainer {
     display: flex;
     flex-direction: column;
     align-items: center;
