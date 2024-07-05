@@ -13,7 +13,7 @@ const Footer = () => {
             <a href="https://github.com/Zach-gold">zach</a>
         </div>
         <div className="group-links">
-            <a href="https://github.com/dfout">kyle</a>
+            <a href="https://github.com/PR55">kyle</a>
         </div>
     </div>
     )
