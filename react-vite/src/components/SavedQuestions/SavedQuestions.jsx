@@ -39,15 +39,15 @@ const SavedQuestions = () => {
         </div>
       <div className="saved-questions">
         {savedQuestions.length && savedQuestions.map((question) => {
-          console.log('questionnnnnnnnnnnnnn',question)
+          
             return(
 
                     <div className = 'question-container' key= {question.id} onClick={() => handleClick(question.id)}>
                     <p id="question-title">{question.post.title}</p>
                     <span>{question.post.body}</span>
-                    <div className='tags-container'>
+                    <div className='tags-display'>
                     {question.post.Tags.map((tag) => (
-                  <p key={tag.id}>{tag.tag}</p>
+                  <p className='tag' key={tag.id}>{tag.tag}</p>
                     ))}
                     </div>
                     <span>{question.post.author}</span>
