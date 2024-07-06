@@ -133,6 +133,17 @@ header {
   justify-self: center;
 }
 
+#ask-discard-btn:enabled:hover{
+  background-color: black;
+  color: white;
+  border: none;
+  border-radius: 15px;
+  width: 300px;
+  height: 40px;
+  justify-self: center;
+  cursor: pointer;
+}
+
 #ask-discard-btn:disabled{
   background-color: gray;
 }

@@ -126,7 +126,7 @@ function SignupFormPage() {
           />
         </label>
         {errors.confirmPassword && <p>{errors.confirmPassword}</p>}
-        <button type="submit" disabled ={block}>Sign Up</button>
+        <button id = "login-button" type="submit" disabled ={block}>Sign Up</button>
       </form>
     </div>
   );

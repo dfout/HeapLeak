@@ -102,7 +102,7 @@ function LoginFormPage() {
           />
         </label>
         {errors.password && <p>{errors.password}</p>}
-        <button type="submit" disabled={block}>Log In</button>
+        <button id = "login-button" type="submit" disabled={block}>Log In</button>
       </form>
       <button id='demo-button'onClick={e => handleDemoLogin(e)}>Login Demo User</button>
     </div>
