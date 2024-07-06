@@ -91,7 +91,7 @@ function LoginFormPage() {
             required
           />
         </label>
-        {errors.email && <p>{errors.email}</p>}
+        {errors.email && <p className='errors'>{"* " + errors.email}</p>}
         <label id="login-col">
           Password
           <input
@@ -101,7 +101,7 @@ function LoginFormPage() {
             required
           />
         </label>
-        {errors.password && <p>{errors.password}</p>}
+        {errors.password && <p className='errors'>{ "* " + errors.password}</p>}
         <button id = "login-button" type="submit" disabled={block}>Log In</button>
       </form>
       <button id='demo-button'onClick={e => handleDemoLogin(e)}>Login Demo User</button>

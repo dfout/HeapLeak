@@ -84,7 +84,7 @@ function SignupFormPage() {
   return (
     <div className="sign-up-holder">
       <h1>Sign Up</h1>
-      {errors.server && <p>{errors.server}</p>}
+      {errors.server && <p className='errors'>{errors.server}</p>}
       <form onSubmit={handleSubmit} className="login-form">
         <label id='login-col'>
           Email
@@ -95,7 +95,7 @@ function SignupFormPage() {
             required
           />
         </label>
-        {errors.email && <p>{errors.email}</p>}
+        {errors.email && <p className='errors'>{ "* " + errors.email}</p>}
         <label id='login-col'>
           Username
           <input
@@ -105,7 +105,7 @@ function SignupFormPage() {
             required
           />
         </label>
-        {errors.username && <p>{errors.username}</p>}
+        {errors.username && <p className='errors'>{ "* " + errors.username}</p>}
         <label id='login-col'>
           Password
           <input
@@ -115,8 +115,8 @@ function SignupFormPage() {
             required
           />
         </label>
-        {errors.password && <p>{errors.password}</p>}
-        <label id='login-col'>
+        {errors.password && <p className='errors'>{ "* " + errors.password}</p>}
+        <label id='login-col' className='last'>
           Confirm Password
           <input
             type="password"
@@ -125,8 +125,11 @@ function SignupFormPage() {
             required
           />
         </label>
-        {errors.confirmPassword && <p>{errors.confirmPassword}</p>}
-        <button id = "login-button" type="submit" disabled ={block}>Sign Up</button>
+        {errors.confirmPassword && <p className='errors'>{"* " + errors.confirmPassword}</p>}
+       
+
+        <button id = "signup-button" type="submit" disabled ={block}>Sign Up</button>
+  
       </form>
     </div>
   );

@@ -70,11 +70,20 @@
 #logged-container{
   display: flex;
   flex-direction: row;
-  align-content: center;
+  align-items: center;
+  justify-content: center;
+
 }
 
 #saves-creations{
   display: flex;
   column-gap: 30px;
   margin-right: 50px;
+}
+
+
+#profile{
+  margin-left:auto;
+  
+  position:relative;
 }

@@ -13,3 +13,26 @@
     display: flex;
     flex-direction: column;
 }
+
+
+.errors{
+    color:red;
+}
+
+
+
+#signup-button{
+    background-color: black;
+    color: white;
+    border: none;
+    border-radius: 15px;
+    /* width: 300px; */
+    height: 40px;
+    justify-self: center;
+    cursor: pointer;
+}
+
+
+.last{
+    padding-bottom: 30px;
+}

@@ -109,10 +109,10 @@ const CreateQuestion = () => {
         <h2>Create a Question</h2>
         <label htmlFor="ask-title">Title:</label>
         <input type="text" id="ask-title" name="title" value={title} onChange={(e) => setTitle(e.target.value)} />
-        {Object.values(errors).length ? (<p>{errors.title}</p>) : null}
+        {errors.title ? (<p className='errors'>{ "* " +errors.title}</p>) : null}
         <label htmlFor="problem">Problem:</label>
         <textarea id="ask-problem" name="problem" value={body} onChange={(e) => setBody(e.target.value)}></textarea>
-        {Object.values(errors).length ? errors.body : null}
+        {errors.body ? (<p className='errors'>{ "* " +errors.body}</p>) : null}
         <div className="ask-tags">
           <h3>Tags:</h3>
           <ul id="ask-tag-list">
@@ -128,7 +128,7 @@ const CreateQuestion = () => {
 
           </ul>
         </div>
-        {Object.values(errors).length ? errors.tags : null}
+        {errors.tags ? (<p className='errors'>{ "* " +errors.tags}</p>) : null}
         <button type="button" onClick={handleDiscard} id="ask-discard-btn">
           Discard
         </button>

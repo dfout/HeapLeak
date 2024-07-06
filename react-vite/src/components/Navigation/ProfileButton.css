@@ -17,8 +17,8 @@
 .profile-button{
    
     position:relative;
-    width:85px;
-    height:47px;
+    width:70px;
+    height:32px;
     border-radius:50px;
     border-width: 1px;
     outline:none;
@@ -67,14 +67,19 @@
   
     z-index:1;
     top:70px;
-   
-    right:0;
+   /* left: 80px; */
+    right:2%;
     margin-left:auto;
     height:200px;
     width:180px;
     background-color: white;
     box-shadow:  0px 0px 5px rgba(73, 72, 72, 0.181);
     border-radius:10px;
+    display:flex;
+    flex-direction:column;
+    gap: 10px;
+    align-items:start;
+    justify-content: center;
 
 }
 
@@ -193,3 +198,13 @@ cursor: default;
     gap: 10px;
     padding-top: 5%;
 }
+
+
+.profile-dropdown button {
+    background-color: #062708;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
