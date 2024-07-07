@@ -1,0 +1,38 @@
+.sign-up-holder{
+    width: 500px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+    padding:50px 0;
+    height:71.75vh;
+}
+
+.login-form{
+    display: flex;
+    flex-direction: column;
+}
+
+
+.errors{
+    color:red;
+}
+
+
+
+#signup-button{
+    background-color: black;
+    color: white;
+    border: none;
+    border-radius: 15px;
+    /* width: 300px; */
+    height: 40px;
+    justify-self: center;
+    cursor: pointer;
+}
+
+
+.last{
+    padding-bottom: 30px;
+}

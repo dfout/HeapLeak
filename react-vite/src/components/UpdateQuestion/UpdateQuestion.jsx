@@ -14,10 +14,9 @@ const UpdateQuestion = () => {
   const [title, setTitle] = useState(question?.title)
   const [body, setBody] = useState(question?.body)
   const [tags, setTags] = useState(question?.Tags)
-  const [block, setBlock] = useState(false);
   const [manageTagBool, setManageTagBool] = useState(false);
   const [errors, setErrors] = useState({})
-  const [tagArr, setTagArr] = useState(enumTags.map((tag) => false))
+  const [tagArr, setTagArr] = useState(enumTags.map(() => false))
   const [updated, setUpdated] = useState(false)
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -28,24 +27,19 @@ const UpdateQuestion = () => {
       const newErrors = {};
     if (title.length < 10) {
       newErrors.title = 'Title is required, and must be at least 10 Characters';
-      setBlock(true);
     }
     if (title.length > 200) {
       newErrors.title = 'Title must be less than 200 characters';
-      setBlock(true);
     }
     if (body.length < 20) {
       newErrors.body = 'Body is required, and must be at least 20 characters';
-      setBlock(true);
     }
     if (body.length > 2000) {
       newErrors.body = 'Body must be less than 2000 characters';
-      setBlock(true);
     }
     if (tags.length === 0) {
       newErrors.tags = 'At least one tag is required';
-      setBlock(true);
-    } else setBlock(false);
+    }
 
 
 
@@ -158,18 +152,18 @@ const UpdateQuestion = () => {
 
   console.log(tags)
   return (
-    <div className="scontainer">
-      <form onSubmit={handleSubmit} className="question-form">
+    <div className="ask-container">
+      <form onSubmit={handleSubmit} className="ask-question-form">
         <h2>Update a Question</h2>
         <label htmlFor="title">Title:</label>
-        <input type="text" id="title" name="title" value={title} onChange={(e) => setTitle(e.target.value)} />
+        <input type="text" id="ask-title" name="title" value={title} onChange={(e) => setTitle(e.target.value)} />
         {Object.values(errors).length ? (<p>{errors.title}</p>) : null}
         <label htmlFor="problem">Problem:</label>
-        <textarea id="problem" name="problem" value={body} onChange={(e) => setBody(e.target.value)}></textarea>
+        <textarea id="ask-problem" name="problem" value={body} onChange={(e) => setBody(e.target.value)}></textarea>
         {Object.values(errors).length ? errors.body : null}
-        <div className="tags">
+        <div className="ask-tags">
           <h3>Tags:</h3>
-          <ul id="tag-list">
+          <ul id="ask-tag-list">
             {enumTags.map((tag,i) => {
               return (
                 <li key={i}>
@@ -186,10 +180,10 @@ const UpdateQuestion = () => {
           </ul>
         </div>
         {Object.values(errors).length ? errors.tags : null}
-        <button type="button" onClick={handleDiscard} id="discard-btn">
+        <button type="button" onClick={handleDiscard} id="ask-discard-btn">
           Discard
         </button>
-        <button type="submit" disabled={block} id="discard-btn">
+        <button type="submit" disabled={Object.values(errors).length ? true : false} id="ask-discard-btn">
           Submit
         </button>
       </form>

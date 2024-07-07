@@ -6,7 +6,7 @@ tags = [e for e in Tags]
 
 # Adds a demo user, you can add other users here if you want
 def seed_tags():
-    for k in range(1 , 31):
+    for k in range(1 , 14):
         for i in range(1,4):
             new_tag= Topic(
                 question_id=k,

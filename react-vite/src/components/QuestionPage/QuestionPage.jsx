@@ -3,9 +3,10 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import "./QuestionPage.css";
 import { getOneQuestionThunk } from "../../redux/question";
-import {  useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { createOneAnswer } from "../../redux/answer";
-import {  saveQuestionThunk, userSavedThunks } from "../../redux/save";
+import { saveQuestionThunk, userSavedThunks } from "../../redux/save";
+import { FaRegBookmark, FaBookmark } from "react-icons/fa";
 
 const Questions = () => {
   const { questionId } = useParams();
@@ -23,20 +24,20 @@ const Questions = () => {
 
   //answer block validator
   useEffect(() => {
-    let ansErr ={}
+    let ansErr = {}
     if (body.length < 20) {
       ansErr.body = "Answer must be at least 20 characters long!"
 
       setBlock(true);
     }
-    if (body.length > 2000) {
+    else if (body.length > 2000) {
       ansErr.body = "Answer cannot be more than 2000 characters long!"
 
       setBlock(true);
-    }else setBlock(false);
+    } else setBlock(false);
 
     setErrors(ansErr);
-  },[body])
+  }, [body])
 
   // console.log('-----------------------------------------------',(userSaves))
   // const navigate = useNavigate();
@@ -46,7 +47,7 @@ const Questions = () => {
     } else {
       setIsSaved(false)
     }
-  },[isSaved,userSaves, questionId])
+  }, [isSaved, userSaves, questionId])
 
   // console.log('-------------saved',isSaved)
 
@@ -54,8 +55,8 @@ const Questions = () => {
     if (question && user && question?.Answers && question.Answers.length) {
       let answers = Object.values(question.Answers)
       let arr = []
-      for (let answer of answers){
-        if(!arr.includes(answer.ownerId)){
+      for (let answer of answers) {
+        if (!arr.includes(answer.ownerId)) {
           // console.log(answer)
           arr.push(answer.ownerId)
         }
@@ -66,16 +67,16 @@ const Questions = () => {
   };
   useEffect(() => {
     // if (questionId) {
-      dispatch(getOneQuestionThunk(questionId));
-      dispatch(userSavedThunks())
+    dispatch(getOneQuestionThunk(questionId));
+    dispatch(userSavedThunks())
     // }
   }, [dispatch, questionId, canAnswer]);
 
-    const handleSave = async (e, question) => {
-      e.preventDefault();
-      setIsSaved(true)
-      await dispatch(saveQuestionThunk(question));
-    };
+  const handleSave = async (e, question) => {
+    e.preventDefault();
+    setIsSaved(true)
+    await dispatch(saveQuestionThunk(question));
+  };
 
 
   useEffect(() => {
@@ -85,13 +86,13 @@ const Questions = () => {
   async function sendAnswerSubmit(e) {
     e.preventDefault()
     const payload = {
-      body:body
+      body: body
     }
     let data = await dispatch(createOneAnswer(payload, questionId))
-    if(data?.errors){
+    if (data?.errors) {
       console.log(data.errors)
       setErrors(data.errors)
-    }else{
+    } else {
       setCanAnswer(false)
     }
   }
@@ -101,51 +102,40 @@ const Questions = () => {
 
   // THE WE NEED TO GRAB USER SAVE QUESTIONS AND THEN COMPARE RECEIPTS SEE IF THE CURRENT QUESTION EXISTS IN THE ARR OR OBJ / DATA .
   return (
-    <>
+    <div id="display-body">
       {question ? (
-        <div className="create-question-container">
-          {
-            isSaved || !user  ?  (
-                          <div className="main-question">
-              <h1 className="question">{question.title}</h1>
-              <div className="dates">{question.timeUpdated}</div>
-              <div className="body">
+        <div className="display-question-container">
+          <div id="display-question-button">
+            <div id="display-save-button">
+              {isSaved || !user
+                ?
+                !user ?null:
+                <FaBookmark size={32} color={'Blue'} />
+                :
+                <FaRegBookmark id="display-can-click" size={32} onClick={e => (handleSave(e, question))} />
+              }
+            </div>
+            <div className="display-main-question">
+              <h1 className="display-question">{question.title}</h1>
+              <p className="display-author">{question.author}</p>
+              <div className="display-dates">{question.timeUpdated}</div>
+              <div className="display-body">
                 <p>{question.body}</p>
               </div>
-              <div className ="tags-display">
+              <div className="display-tags-display">
                 {question.Tags.map((tag) => (
-                  <p className="tag"key={tag.id}>{tag.tag}</p>
-              ))}
-              </div>
-            </div>
-            ): (
-          <div id="question-button">
-            <div  id="save-button">
-              <button onClick={e => (handleSave(e,question))} >Save</button>
-            </div>
-            <div className="main-question">
-              <h1 className="question">{question.title}</h1>
-              <div className="dates">{question.timeUpdated}</div>
-              <div className="body">
-                <p>{question.body}</p>
-              </div>
-              <div className="tags">
-                {question.Tags.map((tag) => (
-                  <p key={tag.id}>{tag.tag}</p>
+                  <p className="display-tag" key={tag.id}>{tag.tag}</p>
                 ))}
               </div>
             </div>
           </div>
-            )
-          }
 
-          <div className="answers-container">
-            <h2></h2>
+          <div className="display-answers-containers">
             {question.Answers && question.Answers.map((answer) => (
 
-              <div key={answer.id} className="answer-tile">
+              <div key={answer.id} className="display-answer-tile">
                 <p>{answer.body}</p>
-                <div id="user-info">
+                <div id="display-user-info">
                   <span>{answer.timeUpdated}</span>
 
                   <span>{answer.author?.username}</span>
@@ -156,7 +146,7 @@ const Questions = () => {
               user && question.ownerId != user.id && !answerOwnerIds.includes(user.id)
                 ?
                 (
-                  <div className="write-answer">
+                  <div className="display-write-answer">
                     <h3>Your Answer</h3>
                     <textarea
                       name="Answer"
@@ -167,9 +157,9 @@ const Questions = () => {
                       value={body}
                       onChange={e => setBody(e.target.value)}
                     ></textarea>
-                    <p>{errors.body}</p>
-                    <div className="submit-btn">
-                      <button className="submit" disabled={block} onClick={e => sendAnswerSubmit(e)}>Submit</button>
+                    <p className='errors'>{"* " + errors.body}</p>
+                    <div className="display-submit-btn">
+                      <button className="display-submit" disabled={block} onClick={e => sendAnswerSubmit(e)}>Submit</button>
                     </div>
                   </div>
                 ) : null
@@ -181,7 +171,7 @@ const Questions = () => {
           <h1>Question not found !</h1>
         </div>
       )}
-    </>
+    </div>
   );
 };
 

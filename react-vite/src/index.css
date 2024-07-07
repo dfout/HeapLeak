@@ -1,18 +1,20 @@
 /* TODO: Add sitewide styles */
 @import url('https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100..900&display=swap');
 
-*{
-    font-family: 'Roboto Slab', serif;
+* {
+    font-family: sans-serif;
     box-sizing: border-box;
 
-
 }
+
 body {
-        margin: 0;
-        padding: 0;
+    height: 100%;
+    position: relative;
+    margin: 0;
+    padding: 0;
 }
 
-.logoDiv{
+.logoDiv {
     display: flex;
     flex-direction: row;
     height: 87.5px;
@@ -21,7 +23,7 @@ body {
     margin: 0;
 }
 
-.logoDiv:hover{
+.logoDiv:hover {
     /* border: solid 2px black; */
     cursor: pointer;
 }
@@ -29,4 +31,12 @@ body {
 #logoPhoto {
     height: 100%;
     width: 100%;
+}
+
+:root {
+    height: 100vh;
+}
+
+#root{
+    height: 100%;
 }

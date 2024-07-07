@@ -2,17 +2,6 @@
   position: absolute;
 }
 
-
-*{
-  font-family: 'Roboto Slab', serif;
-  box-sizing: border-box;
-
-}
-body {
-      margin: 0;
-  padding: 0;
-}
-
 .navbar {
   display: flex;
   align-items: center;
@@ -54,6 +43,10 @@ body {
   cursor: pointer;
 }
 
+.login button:hover,
+.signup button:hover{
+  cursor: pointer;
+}
 
 .signup {
   margin-left: 10px;
@@ -72,4 +65,25 @@ body {
 
 .nav-link:hover{
   text-decoration: underline;
+}
+
+#logged-container{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+
+}
+
+#saves-creations{
+  display: flex;
+  column-gap: 30px;
+  margin-right: 50px;
+}
+
+
+#profile{
+  margin-left:auto;
+  
+  position:relative;
 }
