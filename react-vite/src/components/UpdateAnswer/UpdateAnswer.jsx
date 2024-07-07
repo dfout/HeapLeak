@@ -90,7 +90,7 @@ const UpdateAnswer = () => {
                 value={body}
                 onChange={e => setBody(e.target.value)}
               ></textarea>
-              <p>{errors.body}</p>
+              <p className="errors">{Object.values(errors).length ? "*" + errors.body : null}</p>
               <div className="display-submit-btn">
                 <button className="display-submit" disabled={block} onClick={e => sendAnswerSubmit(e)}>Submit</button>
               </div>

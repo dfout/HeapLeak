@@ -85,7 +85,7 @@ function SignupFormPage() {
     <div className="sign-up-holder">
       <h1>Sign Up</h1>
       {errors.server && <p className='errors'>{errors.server}</p>}
-      <form onSubmit={handleSubmit} className="login-form">
+      <form onSubmit={handleSubmit} className="sign-up-form">
         <label id='login-col'>
           Email
           <input
@@ -116,7 +116,7 @@ function SignupFormPage() {
           />
         </label>
         {errors.password && <p className='errors'>{ "* " + errors.password}</p>}
-        <label id='login-col' className='last'>
+        <label id='login-col'>
           Confirm Password
           <input
             type="password"
@@ -125,11 +125,11 @@ function SignupFormPage() {
             required
           />
         </label>
-        {errors.confirmPassword && <p className='errors'>{"* " + errors.confirmPassword}</p>}
-       
+        {errors.confirmPassword && <p className='errors last'>{"* " + errors.confirmPassword}</p>}
+
 
         <button id = "signup-button" type="submit" disabled ={block}>Sign Up</button>
-  
+
       </form>
     </div>
   );

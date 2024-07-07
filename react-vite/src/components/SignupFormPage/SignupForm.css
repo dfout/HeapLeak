@@ -4,14 +4,16 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    margin: 0 auto;
-    padding:50px 0;
-    height:71.75vh;
+    margin: 20px auto;
+    padding:40px 0;
+    min-height:500px;
 }
 
-.login-form{
+.sign-up-form{
     display: flex;
     flex-direction: column;
+    width: 65%;
+    row-gap: 10px;
 }
 
 
@@ -29,10 +31,16 @@
     /* width: 300px; */
     height: 40px;
     justify-self: center;
+}
+
+#signup-button:disabled{
+    background-color: grey;
+}
+
+#signup-button:enabled:hover{
     cursor: pointer;
 }
 
-
 .last{
-    padding-bottom: 30px;
+    padding-bottom: 20px;
 }
