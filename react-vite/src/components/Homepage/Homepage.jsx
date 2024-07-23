@@ -5,6 +5,7 @@ import "./Homepage.css";
 import { getQuestionsThunk } from "../../redux/question";
 import { enumTags } from "../CreateQuestion/tags";
 import { IoIosSearch } from "react-icons/io";
+import { ImSpinner7 } from "react-icons/im";
 
 const Homepage = () => {
   const dispatch = useDispatch();
@@ -23,6 +24,9 @@ const Homepage = () => {
   const [tagChangeBool, setTagChangeBool] = useState(false)
 
   const [searchName, setSearch] = useState('')
+
+  const [loadingMain, setLoadMain] = useState(true)
+  const [loadingPopular, setLoadPopular] = useState(true)
 
   async function sortArrNow() {
     if (Object.values(questions).length) {
@@ -55,6 +59,22 @@ const Homepage = () => {
     }
   }
 
+  function timeoutMain(){
+    var longLoadMain = null
+
+    if(longLoadMain && !loadingMain){
+      window.clearTimeout(longLoadMain)
+      longLoadMain = false
+    } else if(!longLoadMain){
+      setLoadMain(true)
+      longLoadMain = setTimeout(async ()=>{
+        await sortArrNow()
+        setLoadMain(false)
+        return 'Sort Complete!'
+      }, 2000)
+    }
+  }
+
   useEffect(() => {
     dispatch(getQuestionsThunk());
   }, [dispatch]);
@@ -66,7 +86,9 @@ const Homepage = () => {
   }, [tagChangeBool])
 
   useEffect(() => {
-    sortArrNow()
+    if(Object.values(questions).length){
+      timeoutMain()
+    }
   }, [searchTags.length, questions, searchName])
 
   const manageTags = (e) => {
@@ -89,9 +111,8 @@ const Homepage = () => {
     setTagChangeBool(!tagChangeBool)
   }
 
-  useEffect(() => {
-    if (Object.values(questions).length) {
-      let arr = Object.values(questions)
+  async function sortPopular(){
+    let arr = Object.values(questions)
 
       arr.sort((a, b) => {
         if (a?.numSaves > b?.numSaves) {
@@ -99,10 +120,50 @@ const Homepage = () => {
         } else if (a?.numSaves < b?.numSaves) {
           return 1
         } else {
-          return 0
+          if (a.Answers.length > b.Answers.length) {
+            return -1
+          } else if (a.Answers.length < b.Answers.length) {
+            return 1
+          } else {
+            let date1 = new Date(a.timeUpdated)
+            let date2 = new Date(b.timeUpdated)
+
+            if (date1 > date2) {
+              return 1
+            } else if (date1 < date2) {
+              return -1
+            } else {
+              if (a.id > b.id) {
+                return 1
+              } else {
+                return -1
+              }
+            }
+          }
         }
       })
       setSortArr(arr.slice(0, 5))
+  }
+
+  function timeoutPopular(){
+    var longLoadPopular = null
+
+    if(longLoadPopular && !loadingPopular){
+      window.clearTimeout(longLoadPopular)
+      longLoadPopular = false
+    } else if(!longLoadPopular){
+      setLoadPopular(true)
+      longLoadPopular = setTimeout(async ()=>{
+        await sortPopular()
+        setLoadPopular(false)
+        return 'Sort Complete!'
+      }, 3000)
+    }
+  }
+
+  useEffect(() => {
+    if (Object.values(questions).length) {
+      timeoutPopular()
     }
   }, [questions])
 
@@ -113,6 +174,7 @@ const Homepage = () => {
           <h2>Popular questions</h2>
           <div className="home-popularity-holder">
             {
+              loadingPopular ? <ImSpinner7 className="spinner"/>:
               sortedArr.map((question, index) => (
                 <div className="home-popularity-tile" key={index}>
                   <p className="popularity-link" onClick={() => navigate(`/questions/${question.id}`)}>{question.title}</p>
@@ -139,7 +201,9 @@ const Homepage = () => {
             <IoIosSearch />
             <input className='searchBar' type="search" value={searchName} onChange={e => setSearch(e.target.value)} />
           </div>
-          {toDisplayArr.map((question) => (
+          {
+            loadingMain ? <ImSpinner7 className="spinner"/>:
+          toDisplayArr.map((question) => (
             <div key={question.id} className="home-question">
               <NavLink style={{ textDecoration: 'none' }} className="home-questionLink" to={`/questions/${question.id}`}>
                 <h1 className="home-title">{question.title}</h1>
@@ -152,7 +216,7 @@ const Homepage = () => {
                 ))}
               </div>
               <p className="home-date">{question.timeUpdated.slice(5, 17)}</p>
-              <p>Saves: {question.numSaves}</p>
+              <p>Answers: {question.Answers.length}</p>
             </div>
           ))}
         </div>

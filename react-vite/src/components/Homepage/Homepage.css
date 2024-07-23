@@ -125,6 +125,7 @@ height:75%;
 
 .home-popularity{
     position: absolute;
+    min-height: 400px;
     width: 400px;
     border: 2px solid;
     left: 1%;
@@ -220,4 +221,24 @@ height:75%;
 
 .searchBar:active{
     border: none;
+}
+
+.spinner{
+    margin-top: 30px;
+    font-size: 2rem;
+    animation-name: spinner;
+    animation-duration: 3s;
+    animation-iteration-count: infinite;
+    animation-timing-function: ease-out;
+}
+
+@keyframes spinner{
+    0%{
+        scale:1.0;
+        transform: rotate(0deg);
+    }
+    100%{
+        scale:1.0;
+        transform: rotate(720deg);
+    }
 }

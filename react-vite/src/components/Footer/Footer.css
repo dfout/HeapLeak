@@ -76,8 +76,22 @@ height:75%;
 
 }
 
+.links-display{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.link-icons{
+    font-size: 1.75rem;
+}
+
+.link-icons > a > *:hover{
+    color: rgb(199, 199, 199);
+}
+
 .footer{
-    height: 100px;
+    min-height: 100px;
     position: relative;
     padding-top: 20px;
     /* height: 200px; */
