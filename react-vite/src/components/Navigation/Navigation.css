@@ -9,6 +9,7 @@
   justify-content: space-between;
   align-items: center;
   padding: 10px;
+  box-shadow: 0px 1px 0px black;
 }
 
 .logo {
@@ -84,6 +85,6 @@
 
 #profile{
   margin-left:auto;
-  
+
   position:relative;
 }

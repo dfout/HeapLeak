@@ -28,10 +28,6 @@
     overflow: hidden;
 }
 
-
-
-
-
 .home-title {
     font-size: 25px;
     font-weight: bold;
@@ -40,6 +36,7 @@
 }
 
 .home-body {
+    min-height: 600px;
     margin-top: 10px;
     word-wrap: break-word;
     height: fit-content;
@@ -124,4 +121,103 @@ height:75%;
 .home-title:hover{
     cursor: pointer;
     text-decoration: underline;
+}
+
+.home-popularity{
+    position: absolute;
+    width: 400px;
+    border: 2px solid;
+    left: 1%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    row-gap: 2px;
+    box-shadow: 5px 5px 4px rgba(0, 0, 0, 0.342);
+    border-radius: 5px;
+}
+
+.home-popularity-holder{
+    display: flex;
+    flex-direction: column;
+    row-gap: 15px;
+    align-items: center;
+    justify-content: center;
+    padding: 5px 0;
+    padding-bottom: 25px;
+}
+
+.home-popularity-tile{
+    margin: 0;
+    padding: 5px;
+    width: 90%;
+
+}
+
+.popularity-link{
+    padding: 5px;
+    margin: 0;
+    font-weight: bold;
+    border: 2px solid;
+    box-shadow: 5px 5px 4px rgba(0, 0, 0, 0.342);
+    border-radius: 5px;
+}
+
+.popularity-link:hover{
+    text-decoration: underline;
+    cursor: pointer;
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.342);
+}
+
+
+.home-filter{
+    position: fixed;
+    top: 15%;
+    right: 1%;
+    padding: 5px;
+    border: 5px solid;
+    width: 235px;
+    height: 450px;
+    background-color: rgb(225, 225, 225);
+    border-radius: 2rem;
+    box-shadow: 5px 5px 4px rgba(0, 0, 0, 0.342);
+}
+
+.home-filter-select{
+    height: 300px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    overflow-y: scroll;
+    width: 100%;
+    background-color: white;
+    column-gap: 500px;
+}
+
+
+.tagVisualFilter{
+    display: flex;
+}
+
+.searchBarVisual{
+    margin-right: 15%;
+    display: flex;
+    padding: 0;
+    align-items: center;
+    background-color: white;
+    border: 1px solid;
+    width:200px;
+    color: black;
+    font-size: 16px;
+    column-gap: 5px;
+}
+
+.searchBar{
+    border: none;
+    width: 100%;
+    font-size: 16px;
+}
+
+.searchBar:active{
+    border: none;
 }

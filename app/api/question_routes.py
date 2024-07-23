@@ -20,6 +20,8 @@ def all_questions():
         for answer in question['Answers']:
             user = User.query.filter_by(id = answer['ownerId']).first()
             answer['author'] = user.to_dict()
+        question['numSaves'] = len(Save.query.filter_by(question_id = question['id']).all())
+
     return {"Questions":questions}
 
 @question_routes.route('/<int:id>')

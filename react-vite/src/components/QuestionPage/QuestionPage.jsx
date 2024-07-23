@@ -106,15 +106,7 @@ const Questions = () => {
       {question ? (
         <div className="display-question-container">
           <div id="display-question-button">
-            <div id="display-save-button">
-              {isSaved || !user
-                ?
-                !user ?null:
-                <FaBookmark size={32} color={'Blue'} />
-                :
-                <FaRegBookmark id="display-can-click" size={32} onClick={e => (handleSave(e, question))} />
-              }
-            </div>
+
             <div className="display-main-question">
               <h1 className="display-question">{question.title}</h1>
               <p className="display-author">{question.author}</p>
@@ -122,11 +114,23 @@ const Questions = () => {
               <div className="display-body">
                 <p>{question.body}</p>
               </div>
-              <div className="display-tags-display">
-                {question.Tags.map((tag) => (
-                  <p className="display-tag" key={tag.id}>{tag.tag}</p>
-                ))}
+              <div className="display-question-bottom">
+                <div className="display-tags-display">
+                  {question.Tags.map((tag) => (
+                    <p className="display-tag" key={tag.id}>{tag.tag}</p>
+                  ))}
+                </div>
+                <div id="display-save-button">
+                  {isSaved || !user
+                    ?
+                    !user ? null :
+                      <FaBookmark size={32} color={'Blue'} />
+                    :
+                    <FaRegBookmark id="display-can-click" size={32} onClick={e => (handleSave(e, question))} />
+                  }
+                </div>
               </div>
+
             </div>
           </div>
 
@@ -157,7 +161,7 @@ const Questions = () => {
                       value={body}
                       onChange={e => setBody(e.target.value)}
                     ></textarea>
-                    <p className='errors'>{Object.values(errors).length ? "* " + errors.body: null}</p>
+                    <p className='errors'>{Object.values(errors).length ? "* " + errors.body : null}</p>
                     <div className="display-submit-btn">
                       <button className="display-submit" disabled={block} onClick={e => sendAnswerSubmit(e)}>Submit</button>
                     </div>
