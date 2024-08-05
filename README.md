@@ -1,130 +1,454 @@
 # HeapLeak
 
-## Base ReadMe.md
+## Tech Stack
 
+### Frameworks and Libraries
 
-1. Clone this repository (only this branch).
+![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54) ![Flask](https://img.shields.io/badge/flask-%23000.svg?style=for-the-badge&logo=flask&logoColor=white) ![JavaScript](https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E) ![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB) ![Redux](https://img.shields.io/badge/redux-%23593d88.svg?style=for-the-badge&logo=redux&logoColor=white) ![CSS3](https://img.shields.io/badge/css3-%231572B6.svg?style=for-the-badge&logo=css3&logoColor=white) ![HTML5](https://img.shields.io/badge/html5-%23E34F26.svg?style=for-the-badge&logo=html5&logoColor=white)
 
-2. Install dependencies.
+### Database:
 
-   ```bash
-   pipenv install -r requirements.txt
-   ```
+![Postgres](https://img.shields.io/badge/postgres-%23316192.svg?style=for-the-badge&logo=postgresql&logoColor=white)
 
-3. Create a __.env__ file based on the example with proper settings for your
-   development environment.
+### Hosting:
 
-4. Make sure the SQLite3 database connection URL is in the __.env__ file.
+![Render](https://img.shields.io/badge/Render-%46E3B7.svg?style=for-the-badge&logo=render&logoColor=white)
 
-5. This starter organizes all tables inside the `flask_schema` schema, defined
-   by the `SCHEMA` environment variable.  Replace the value for
-   `SCHEMA` with a unique name, **making sure you use the snake_case
-   convention.**
+# Index
 
-6. Get into your pipenv, migrate your database, seed your database, and run your
-   Flask app:
+[Feature List](<https://github.com/dfout/HeapLeak/wiki/Features-and-Minimum-Viable-Product-(WIP)>) | [Database Schema](https://github.com/dfout/HeapLeak/wiki/DB-SCHEMA) | [User Stories](https://github.com/dfout/HeapLeak/wiki/User-Stories)
 
-   ```bash
-   pipenv shell
-   ```
+# API Documentation
 
-   ```bash
-   flask db upgrade
-   ```
+## Endpoint: `GET /questions`
 
-   ```bash
-   flask seed all
-   ```
+**Description:**
+Retrieve all questions from the database, including each question's tags, author information, answers, and the number of saves.
 
-   ```bash
-   flask run
-   ```
+**Response:**
 
-7. The React frontend has no styling applied. Copy the __.css__ files from your
-   Authenticate Me project into the corresponding locations in the
-   __react-vite__ folder to give your project a unique look.
+**Success (200 OK):**
 
-8. To run the React frontend in development, `cd` into the __react-vite__
-   directory and run `npm i` to install dependencies. Next, run `npm run build`
-   to create the `dist` folder. The starter has modified the `npm run build`
-   command to include the `--watch` flag. This flag will rebuild the __dist__
-   folder whenever you change your code, keeping the production version up to
-   date.
+```json
+{
+  "Questions": [
+    {
+      "id": 1,
+      "title": "Question Title",
+      "body": "Question Body",
+      "ownerId": 1,
+      "author": "Author Username",
+      "Tags": [
+        {
+          "id": 1,
+          "tag": "Tag Value",
+          "question_id": 1
+        }
+      ],
+      "Answers": [
+        {
+          "id": 1,
+          "body": "Answer Body",
+          "ownerId": 2,
+          "author": {
+            "id": 2,
+            "username": "Answer Author Username"
+          }
+        }
+      ],
+      "numSaves": 5
+    }
+  ]
+}
+```
 
-## Deployment through Render.com
+## Endpoint: `GET /questions/<int:id>`
 
-First, recall that Vite is a development dependency, so it will not be used in
-production. This means that you must already have the __dist__ folder located in
-the root of your __react-vite__ folder when you push to GitHub. This __dist__
-folder contains your React code and all necessary dependencies minified and
-bundled into a smaller footprint, ready to be served from your Python API.
+**Description:**
+Retrieve a specific question from the database by its ID, including the question's tags, author information, and answers.
 
-Begin deployment by running `npm run build` in your __react-vite__ folder and
-pushing any changes to GitHub.
+**Parameters:**
+- `id` (int): ID of the question to retrieve.
 
-Refer to your Render.com deployment articles for more detailed instructions
-about getting started with [Render.com], creating a production database, and
-deployment debugging tips.
+**Response:**
 
-From the Render [Dashboard], click on the "New +" button in the navigation bar,
-and click on "Web Service" to create the application that will be deployed.
+**Success (200 OK):**
+```json
+{
+  "Question": {
+    "id": 1,
+    "title": "Question Title",
+    "body": "Question Body",
+    "ownerId": 1,
+    "author": "Author Username",
+    "Tags": [
+      {
+        "id": 1,
+        "tag": "Tag Value",
+        "question_id": 1
+      }
+    ],
+    "Answers": [
+      {
+        "id": 1,
+        "body": "Answer Body",
+        "ownerId": 2,
+        "author": {
+          "id": 2,
+          "username": "Answer Author Username"
+        }
+      }
+    ]
+  }
+}
+```
+**Error (404 NOT FOUND):**
+```json
+{
+   "message": "Question could not be found"
+}
+```
 
-Select that you want to "Build and deploy from a Git repository" and click
-"Next". On the next page, find the name of the application repo you want to
-deploy and click the "Connect" button to the right of the name.
+## Endpoint: `POST /questions`
 
-Now you need to fill out the form to configure your app. Most of the setup will
-be handled by the __Dockerfile__, but you do need to fill in a few fields.
+**Description:**
+Create a new question and add it to the database along with any tags provided in the request. The user must be logged in for this operation.
 
-Start by giving your application a name.
+**Authentication:** Required (logged in)
 
-Make sure the Region is set to the location closest to you, the Branch is set to
-"main", and Runtime is set to "Docker". You can leave the Root Directory field
-blank. (By default, Render will run commands from the root directory.)
+**Request Body:**
+```json
+{
+  "title": "Question Title",
+  "body": "Question Body",
+  "tags": ["Tag1", "Tag2"]
+}
+```
 
-Select "Free" as your Instance Type.
+**Response:**
 
-### Add environment variables
+**Success (201 CREATED):**
+```json
+{
+  "Question": {
+    "id": 1,
+    "title": "Question Title",
+    "body": "Question Body",
+    "author": "Current User",
+    "Tags": [
+      {
+        "id": 1,
+        "tag": "Tag1",
+        "question_id": 1
+      }
+    ]
+  }
+}
+```
 
-In the development environment, you have been securing your environment
-variables in a __.env__ file, which has been removed from source control (i.e.,
-the file is gitignored). In this step, you will need to input the keys and
-values for the environment variables you need for production into the Render
-GUI.
+**Error (400 BAD REQUEST):**
+```json
+{
+  "message": "Bad Request",
+  "errors": {
+    "field": ["error message"]
+  }
+}
+```
 
-Add the following keys and values in the Render GUI form:
+## Endpoint: `PUT /questions/<int:id>`
 
-- SECRET_KEY (click "Generate" to generate a secure secret for production)
-- FLASK_ENV production
-- FLASK_APP app
-- SCHEMA (your unique schema name, in snake_case)
+**Description:**
+Update a specific question in the database. The user must be logged in and be the owner of the question to make updates.
 
-In a new tab, navigate to your dashboard and click on your Postgres database
-instance.
+**Authentication:** Required (logged in)
 
-Add the following keys and values:
+**Parameters:**
+- `id` (int): ID of the question to update.
 
-- DATABASE_URL (copy value from the **External Database URL** field)
+**Request Body:**
+```json
+{
+  "title": "Updated Question Title",
+  "body": "Updated Question Body",
+  "tags": ["NewTag1", "NewTag2"]
+}
+```
 
-**Note:** Add any other keys and values that may be present in your local
-__.env__ file. As you work to further develop your project, you may need to add
-more environment variables to your local __.env__ file. Make sure you add these
-environment variables to the Render GUI as well for the next deployment.
+**Response:**
 
-### Deploy
+**Success (200 OK):**
+```json
+{
+  "Question": {
+    "id": 1,
+    "title": "Updated Question Title",
+    "body": "Updated Question Body",
+    "author": "Current User",
+    "Tags": [
+      {
+        "id": 1,
+        "tag": "NewTag1",
+        "question_id": 1
+      }
+    ],
+    "Answers": [
+      {
+        "id": 1,
+        "body": "Answer Body",
+        "ownerId": 2,
+        "author": {
+          "id": 2,
+          "username": "Answer Author Username"
+        }
+      }
+    ]
+  }
+}
+```
 
-Now you are finally ready to deploy! Click "Create Web Service" to deploy your
-project. The deployment process will likely take about 10-15 minutes if
-everything works as expected. You can monitor the logs to see your Dockerfile
-commands being executed and any errors that occur.
+**Error (400 BAD REQEST):**
+```json
+{
+  "message": "Bad Request",
+  "errors": {
+    "field": ["error message"]
+  }
+}
+```
 
-When deployment is complete, open your deployed site and check to see that you
-have successfully deployed your Flask application to Render! You can find the
-URL for your site just below the name of the Web Service at the top of the page.
+**Error (401 UNAUTHORIZED):**
+```json
+{
+  "message": "Bad Request",
+  "errors": {
+    "field": ["error message"]
+  }
+}
+```
 
-**Note:** By default, Render will set Auto-Deploy for your project to true. This
-setting will cause Render to re-deploy your application every time you push to
-main, always keeping it up to date.
+## Endpoint: `GET /questions/<int:id>/answers`
 
-[Render.com]: https://render.com/
-[Dashboard]: https://dashboard.render.com/
+**Description:**
+Retrieve all answers associated with a specific question from the database.
+
+**Parameters:**
+- `id` (int): ID of the question for which answers are to be retrieved.
+
+**Response:**
+
+**Success (200 OK):**
+```json
+{
+  "Answers": [
+    {
+      "id": 1,
+      "body": "Answer Body",
+      "ownerId": 2,
+      "author": "Answer Author Username"
+    },
+    {
+      "id": 2,
+      "body": "Another Answer Body",
+      "ownerId": 3,
+      "author": "Another Answer Author Username"
+    }
+  ]
+}
+```
+
+**Error (404 NOT FOUND):**
+```json
+{
+   "message": "Question could not be found"
+}
+```
+
+## Endpoint: `POST /questions/<int:id>/answers`
+
+**Description:**
+Create a new answer for a specific question and add it to the database. The answer is created as a non-primary answer by default. The user must be logged in to perform this operation.
+
+**Authentication:** Required (logged in)
+
+**Parameters:**
+- `id` (int): ID of the question to which the answer is being added.
+
+**Request Body:**
+```json
+{
+  "body": "Answer Body"
+}
+```
+
+**Response:**
+
+**Success (201 CREATED):**
+```json
+{
+  "Answer": {
+    "id": 1,
+    "body": "Answer Body",
+    "ownerId": 2,
+    "mainPost": {
+      "id": 1,
+      "title": "Question Title",
+      "body": "Question Body",
+      "owner": {
+        "id": 1,
+        "username": "Question Author Username"
+      }
+    }
+  }
+}
+```
+
+**Error (400 BAD REQUEST):**
+```json
+{
+  "message": "Bad Request",
+  "errors": {
+    "field": ["error message"]
+  }
+}
+```
+
+## Endpoint: `POST /questions/<int:id>/tags`
+
+**Description:**
+Add new tags to an existing question in the database. The user must be logged in to perform this operation.
+
+**Authentication:** Required (logged in)
+
+**Parameters:**
+- `id` (int): ID of the question to which tags are being added.
+
+**Request Body:**
+```json
+{
+  "tags": ["Tag1", "Tag2"]
+}
+```
+
+**Response:**
+
+**Success (200 OK):**
+```json
+{
+  "Tags": [
+    {
+      "id": 1,
+      "tag": "Tag1",
+      "question_id": 1
+    },
+    {
+      "id": 2,
+      "tag": "Tag2",
+      "question_id": 1
+    }
+  ]
+}
+```
+
+**Error (400 BAD REQUEST):**
+```json
+{
+  "message": "Bad Request",
+  "errors": {
+    "field": ["error message"]
+  }
+}
+```
+
+## Endpoint: `POST /questions/<int:id>/saves`
+
+**Description:**
+Create a relationship to save the specified question for the currently logged-in user.
+
+**Authentication:** Required (logged in)
+
+**Parameters:**
+- `id` (int): ID of the question to be saved.
+
+**Response:**
+
+**Success (201 Created):**
+```json
+{
+  "Save": {
+    "id": 1,
+    "question_id": 1,
+    "user_id": 2,
+    "post": {
+      "id": 1,
+      "title": "Question Title",
+      "body": "Question Body",
+      "author": "Question Author Username",
+      "Tags": [
+        {
+          "id": 1,
+          "tag": "Tag1",
+          "question_id": 1
+        }
+      ]
+    }
+  }
+}
+```
+**Error (404 NOT FOUND):**
+```json
+{
+   "message": "Question could not be found"
+}
+```
+
+## Endpoint: `DELETE /saves/<int:id>`
+
+**Description:**
+Remove the relationship indicating that the user has saved a specific question.
+
+**Authentication:** Required (logged in)
+
+**Parameters:**
+- `id` (int): ID of the save relationship to be removed.
+
+**Response:**
+
+**Success (200 OK):**
+```json
+{
+  "Id": 1
+}
+```
+**Error (404 NOT FOUND):**
+```json
+{
+   "message": "Relation could not be found"
+}
+```
+
+## Endpoint: `DELETE /questions/<int:id>`
+
+**Description:**
+Delete a specific question from the database if the user is logged in and is the owner of the question.
+
+**Authentication:** Required (logged in)
+
+**Parameters:**
+- `id` (int): ID of the question to be deleted.
+
+**Response:**
+
+**Success (200 OK):**
+```json
+{
+  "id": 1
+}
+```
+
+**Error (404 NOT FOUND):**
+```json
+{
+    "id": null
+}
+```
