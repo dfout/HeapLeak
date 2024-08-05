@@ -6,6 +6,7 @@ import { getQuestionsThunk } from "../../redux/question";
 import { enumTags } from "../CreateQuestion/tags";
 import { IoIosSearch } from "react-icons/io";
 import { ImSpinner7 } from "react-icons/im";
+import { MdOutlineArrowDropDown } from "react-icons/md";
 
 const Homepage = () => {
   const dispatch = useDispatch();
@@ -27,6 +28,8 @@ const Homepage = () => {
 
   const [loadingMain, setLoadMain] = useState(true)
   const [loadingPopular, setLoadPopular] = useState(true)
+
+  const [drop, setDrop] = useState(false)
 
   async function sortArrNow() {
     if (Object.values(questions).length) {
@@ -166,6 +169,10 @@ const Homepage = () => {
     }
   }, [questions])
 
+  const handleDrop = ()=>{
+    setDrop(!drop)
+  }
+
   return (
     <>
       <div className="home-body">
@@ -196,10 +203,31 @@ const Homepage = () => {
           </div>
         </div>
         <div className="home-all-questions-container">
+          <div className='search'>
+
           <div className='searchBarVisual'>
             <IoIosSearch />
             <input className='searchBar' type="search" value={searchName} onChange={e => setSearch(e.target.value)} />
           </div>
+          <div className='filter-drop-cont'>
+            
+          </div>
+          <button onClick={handleDrop} className='filter-by'>Filter by Topic<MdOutlineArrowDropDown /></button>
+          {drop && (
+            <div className='filter-drop-down'>
+              <div className='filter-select'>
+
+              {enumTags.map((tag, index)=> (
+                <div key={index} className='tagVisualFilter'>
+                <input type='checkbox' checked={tagArr[index]} value={tag[1]} onChange={e => manageTags(e)} />
+                <p>{tag[1]}</p>
+              </div>
+              ))}
+              </div>
+            </div>
+          )}
+          </div>
+          
           {
             loadingMain ? <ImSpinner7 className="spinner"/>:
           toDisplayArr.map((question) => (
