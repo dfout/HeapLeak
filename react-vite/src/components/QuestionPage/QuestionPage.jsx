@@ -39,7 +39,6 @@ const Questions = () => {
     setErrors(ansErr);
   }, [body])
 
-  // console.log('-----------------------------------------------',(userSaves))
   // const navigate = useNavigate();
   useEffect(() => {
     if (userSaves[questionId]) {
@@ -49,7 +48,6 @@ const Questions = () => {
     }
   }, [isSaved, userSaves, questionId])
 
-  // console.log('-------------saved',isSaved)
 
   const abilityCheck = () => {
     if (question && user && question?.Answers && question.Answers.length) {
@@ -57,11 +55,9 @@ const Questions = () => {
       let arr = []
       for (let answer of answers) {
         if (!arr.includes(answer.ownerId)) {
-          // console.log(answer)
           arr.push(answer.ownerId)
         }
       }
-      // console.log(arr)
       setOwnerIds(arr)
     }
   };
@@ -90,14 +86,12 @@ const Questions = () => {
     }
     let data = await dispatch(createOneAnswer(payload, questionId))
     if (data?.errors) {
-      console.log(data.errors)
       setErrors(data.errors)
     } else {
       setCanAnswer(false)
     }
   }
 
-  // console.log("->>>>>>>>>>>>>>>>>>>>>>>>>>>>>", questionId);
 
 
   // THE WE NEED TO GRAB USER SAVE QUESTIONS AND THEN COMPARE RECEIPTS SEE IF THE CURRENT QUESTION EXISTS IN THE ARR OR OBJ / DATA .

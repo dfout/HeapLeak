@@ -44,7 +44,6 @@ const CreateQuestion = () => {
       setErrors(newErrors);
 
 
-    console.log(errors)
   }, [title, body, tags, manageTagBool]);
 
   const handleDiscard = () => {
@@ -67,15 +66,11 @@ const CreateQuestion = () => {
     };
     let id = await dispatch(createQuestionThunk(question)).catch(async (res)=> {
       const data = await res.json();
-      console.log('I am being hit!', data)
   });
     if(id?.errors){
-    console.log('The object!: ', id)
-    // console.log("Errors were found!")
       setErrors(id.errors);
       allow = false;
     }
-    console.log(question)
     // setTitle("");
     // setBody("");
     // setTags([]);
@@ -85,7 +80,6 @@ const CreateQuestion = () => {
   };
 
   const manageTags = (e) => {
-    console.log(`I have been clicked! my value is ${e.target.value}`)
     let arr = tags
     setManageTagBool(!manageTagBool);
     if(e.target.checked){

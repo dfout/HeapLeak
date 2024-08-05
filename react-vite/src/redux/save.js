@@ -38,7 +38,6 @@ export const saveQuestionThunk = (question) => async (dispatch) => {
     })
     if (response.ok) {
         const { Save } = await response.json()
-        console.log('this is the save =================',Save)
         await dispatch(savedQuestion(Save))
         return Save
     }

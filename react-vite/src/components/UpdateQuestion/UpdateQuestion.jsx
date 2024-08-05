@@ -46,7 +46,6 @@ const UpdateQuestion = () => {
       setErrors(newErrors);
 
 
-    console.log(errors)
   }, [title, body, tags, manageTagBool]);
 
   useEffect(() => {
@@ -135,12 +134,9 @@ const UpdateQuestion = () => {
     };
     let id = await dispatch(updateQuestionThunk(updatedQuestion, questionId));
     if (id?.errors) {
-      // console.log('The object!: ', id)
-      // console.log("Errors were found!")
       setErrors(id.errors);
       allow = false;
     }
-    // console.log(question)
     // setTitle("");
     // setBody("");
     // setTags([]);
@@ -150,7 +146,6 @@ const UpdateQuestion = () => {
   };
 
 
-  console.log(tags)
   return (
     <div className="ask-container">
       <form onSubmit={handleSubmit} className="ask-question-form">

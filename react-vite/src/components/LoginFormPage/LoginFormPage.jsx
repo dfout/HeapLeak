@@ -38,7 +38,6 @@ function LoginFormPage() {
     if (password.length < 6) errObj.password = "Please provide a password of at least 6 characters";
 
     setErrors(errObj)
-    // console.log(errors)
   }, [email, password]);
 
   if (sessionUser) return <Navigate to="/" replace={true} />;

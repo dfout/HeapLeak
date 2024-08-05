@@ -46,7 +46,6 @@ function SignupFormPage() {
     if (password !== confirmPassword) errObj.confirmPassword = "Please ensure both passwords match";
 
     setErrors(errObj)
-    // console.log(errors)
   }, [email, username, password, confirmPassword]);
 
 

@@ -21,7 +21,6 @@ const ManageQuestions = () => {
   const userId = useSelector((state) => state.session.user.id)
   const [deleted, setDeleted] = useState(false);
   let userQuestions = filterById(questions, userId);
-  console.log(userQuestions)
 
 
 

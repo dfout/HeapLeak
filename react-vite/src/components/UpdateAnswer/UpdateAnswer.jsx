@@ -51,7 +51,6 @@ const UpdateAnswer = () => {
     }
     let data = await dispatch(updateAnswerThunk(payload))
     if (data?.errors) {
-      console.log(data.errors)
       setErrors(data.errors)
     }
     else {

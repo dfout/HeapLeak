@@ -93,7 +93,6 @@ const Homepage = () => {
 
   const manageTags = (e) => {
     e.preventDefault()
-    // console.log(`I have been clicked! my value is ${e.target.value}`)
     let arr = searchTags
     if (e.target.checked) {
       arr.push(e.target.value)
