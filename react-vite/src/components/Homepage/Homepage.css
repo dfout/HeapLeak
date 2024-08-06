@@ -280,9 +280,7 @@ height:75%;
     .filter-by{
         display:inline-block;
     }
-    .filter-drop-down{
-        
-    }
+
 
 }
 
@@ -304,6 +302,7 @@ height:75%;
     gap:5px;
     justify-content: center;
     align-items: center;
+    cursor:pointer;
 }
 
 /* .search{
@@ -333,4 +332,10 @@ height:75%;
     column-gap: 500px;
     /* box-shadow: 5px 5px 4px rgba(0, 0, 0, 0.342); */
     border: 1px solid lightgrey;
+}
+
+
+
+.tagVisualFilterInput{
+    cursor:pointer;
 }

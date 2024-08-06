@@ -223,7 +223,7 @@ const Homepage = () => {
             {
               enumTags.map((tag, index) => (
                 <div key={index} className='tagVisualFilter'>
-                  <input type='checkbox' checked={tagArr[index]} value={tag[1]} onChange={e => manageTags(e)} />
+                  <input type='checkbox' className='tagVisualFilterInput' checked={tagArr[index]} value={tag[1]} onChange={e => manageTags(e)} />
                   <p>{tag[1]}</p>
                 </div>
               ))
