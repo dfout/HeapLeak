@@ -815,3 +815,113 @@ Remove a tag from a question. The tag is deleted only if the current user is the
   "id": null
 }
 ```
+
+## AUTH
+
+## Endpoint: `GET /`
+
+**Description**: Authenticates a user. Returns user information if authenticated, otherwise returns an unauthorized error.
+
+**Response**:
+**200 OK**: Returns the current user's information if authenticated.
+  ```json
+  {
+    "id": 1,
+    "username": "exampleUser",
+    "email": "user@example.com"
+  }
+  ```
+
+  **Error (401 UNAUTHORIZED):**
+```json
+{
+  "message": "Unauthorized"
+}
+```
+
+## Endpoint: `POST /login`
+
+**Description**: Logs a user in. Requires email and password. If authentication is successful, the user is logged in and their information is returned.
+
+**Request**:
+- **Body**
+  ```json
+  {
+    "email": "user@example.com",
+    "password": "password"
+  }
+  ```
+**Response**:
+**200 OK**: Returns the logged-in user's information if credentials are correct.
+- **Body**
+  ```json
+  {
+  "id": 1,
+  "username": "exampleUser",
+  "email": "user@example.com"
+  }
+   ```
+
+**Error (401 UNAUTHORIZED):**
+```json
+{
+  "email": ["Invalid email address"],
+  "password": ["Incorrect password"]
+}
+```
+## Endpoint: `GET /logout`
+
+**Description**: Logs the current user out and returns a confirmation message.
+
+**Response**:
+**200 OK**: Returns a message indicating the user has been logged out.
+  ```json
+  {
+    "message": "User logged out"
+  }
+  ```
+
+  ## Endpoint: `POST /signup`
+
+**Description**: Creates a new user and logs them in. Requires username, email, and password.
+
+**Request**:
+
+- **Body (JSON)**:
+  ```json
+  {
+    "username": "newUser",
+    "email": "newuser@example.com",
+    "password": "newpassword"
+  }
+
+**Response**:
+**200 OK**: Returns the newly created user's information.
+```json
+{
+  "id": 2,
+  "username": "newUser",
+  "email": "newuser@example.com"
+}
+```
+**Error (401 UNAUTHORIZED):**
+```json
+{
+  "username": ["Username already taken"],
+  "email": ["Email already in use"],
+  "password": ["Password is too short"]
+}
+```
+
+## Endpoint: `GET /unauthorized`
+
+**Description**: Returns unauthorized JSON when Flask-Login authentication fails.
+
+**Response**:
+- **401 Unauthorized**: Returns an error message indicating unauthorized access.
+  ```json
+  {
+    "errors": {
+      "message": "Unauthorized"
+    }
+  }
