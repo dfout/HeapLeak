@@ -53,23 +53,26 @@ Welcome to the HeapLeak README! HeapLeak is a humble clone of the legendary Stac
 
 **Request**:
 
-  **Body**
-  ```json
-  {
-    "email": "user@example.com",
-    "password": "password"
-  }
-  ```
-  **Response**:
-  **200 OK**: Returns the logged in user's information if credentials are correct.
-  **Body**
-  ```json
-  {
-    "id": 1,
-    "username": "exampleUser",
-    "email": "user@example.com"
-  }
-  ```
+**Body**
+
+```json
+{
+  "email": "user@example.com",
+  "password": "password"
+}
+```
+
+**Response**:
+**200 OK**: Returns the logged in user's information if credentials are correct.
+**Body**
+
+```json
+{
+  "id": 1,
+  "username": "exampleUser",
+  "email": "user@example.com"
+}
+```
 
 **Error (401 UNAUTHORIZED):**
 
@@ -99,14 +102,15 @@ Welcome to the HeapLeak README! HeapLeak is a humble clone of the legendary Stac
 
 **Request**:
 
-  **Body (JSON)**:
-  ```json
-  {
-    "username": "newUser",
-    "email": "newuser@example.com",
-    "password": "newpassword"
-  }
-  ```
+**Body (JSON)**:
+
+```json
+{
+  "username": "newUser",
+  "email": "newuser@example.com",
+  "password": "newpassword"
+}
+```
 
 **Response**:
 **200 OK**: Returns the newly created user's information.
@@ -135,16 +139,17 @@ Welcome to the HeapLeak README! HeapLeak is a humble clone of the legendary Stac
 
 **Response**:
 
-  **401 Unauthorized**: Returns an error message indicating unauthorized access.
-  ```json
-  {
-    "errors": {
-      "message": "Unauthorized"
-    }
-  }
-  ```
+**401 Unauthorized**: Returns an error message indicating unauthorized access.
 
-  ## USERS
+```json
+{
+  "errors": {
+    "message": "Unauthorized"
+  }
+}
+```
+
+## USERS
 
 ## Endpoint: `GET /users`
 
@@ -819,7 +824,7 @@ Update the body of an answer if the user is logged in and is the owner of the an
 
 **Request Body:**
 
-  `body` (string): The new body of the answer.
+`body` (string): The new body of the answer.
 
 **Response:**
 
