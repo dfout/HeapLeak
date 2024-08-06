@@ -96,6 +96,7 @@ const Homepage = () => {
 
   const manageTags = (e) => {
     e.preventDefault()
+    e.stopPropagation()
     let arr = searchTags
     if (e.target.checked) {
       arr.push(e.target.value)
@@ -169,6 +170,33 @@ const Homepage = () => {
     }
   }, [questions])
 
+  useEffect(()=>{
+
+
+    const eventListener = document.addEventListener("click", (e)=>{
+      e.stopPropagation()
+
+      // console.log(e.target, Object.valuese.target.classList)
+      // console.log(e.currentTarget, e.currentTarget.classList)
+
+      
+
+      if(!Object.values(e.target.classList).includes('filter-by') && 
+      !Object.values(e.target.classList).includes('tagVisualFilterInput')
+    ){
+        setDrop(false)
+        
+      }
+  
+
+    })
+
+    return ()=> {
+      document.removeEventListener("click", eventListener)
+    }
+
+  },[])
+
   const handleDrop = ()=>{
     setDrop(!drop)
   }
@@ -219,7 +247,7 @@ const Homepage = () => {
 
               {enumTags.map((tag, index)=> (
                 <div key={index} className='tagVisualFilter'>
-                <input type='checkbox' checked={tagArr[index]} value={tag[1]} onChange={e => manageTags(e)} />
+                <input className='tagVisualFilterInput' type='checkbox' checked={tagArr[index]} value={tag[1]} onChange={e => manageTags(e)} />
                 <p>{tag[1]}</p>
               </div>
               ))}
