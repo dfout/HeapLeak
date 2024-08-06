@@ -1,5 +1,7 @@
 # HeapLeak
 
+Welcome to the HeapLeak README! HeapLeak is a humble clone of the legendary StackOverflow, built and maintained by Kyle Flores, Drew Fout, Syed Zaidi, and Zach Gold
+
 ## Tech Stack
 
 ### Frameworks and Libraries
@@ -19,6 +21,319 @@
 [Feature List](<https://github.com/dfout/HeapLeak/wiki/Features-and-Minimum-Viable-Product-(WIP)>) | [Database Schema](https://github.com/dfout/HeapLeak/wiki/DB-SCHEMA) | [User Stories](https://github.com/dfout/HeapLeak/wiki/User-Stories)
 
 # API Documentation
+
+## AUTH
+
+## Endpoint: `GET /`
+
+**Description**: Authenticates a user. Returns user information if authenticated, otherwise returns an unauthorized error.
+
+**Response**:
+**200 OK**: Returns the current user's information if authenticated.
+
+```json
+{
+  "id": 1,
+  "username": "exampleUser",
+  "email": "user@example.com"
+}
+```
+
+**Error (401 UNAUTHORIZED):**
+
+```json
+{
+  "message": "Unauthorized"
+}
+```
+
+## Endpoint: `POST /login`
+
+**Description**: Logs a user in. Requires email and password. If authentication is successful, the user is logged in and their information is returned.
+
+**Request**:
+
+- **Body**
+  ```json
+  {
+    "email": "user@example.com",
+    "password": "password"
+  }
+  ```
+  **Response**:
+  **200 OK**: Returns the logged-in user's information if credentials are correct.
+- **Body**
+  ```json
+  {
+    "id": 1,
+    "username": "exampleUser",
+    "email": "user@example.com"
+  }
+  ```
+
+**Error (401 UNAUTHORIZED):**
+
+```json
+{
+  "email": ["Invalid email address"],
+  "password": ["Incorrect password"]
+}
+```
+
+## Endpoint: `GET /logout`
+
+**Description**: Logs the current user out and returns a confirmation message.
+
+**Response**:
+**200 OK**: Returns a message indicating the user has been logged out.
+
+```json
+{
+  "message": "User logged out"
+}
+```
+
+## Endpoint: `POST /signup`
+
+**Description**: Creates a new user and logs them in. Requires username, email, and password.
+
+**Request**:
+
+- **Body (JSON)**:
+  ```json
+  {
+    "username": "newUser",
+    "email": "newuser@example.com",
+    "password": "newpassword"
+  }
+  ```
+
+**Response**:
+**200 OK**: Returns the newly created user's information.
+
+```json
+{
+  "id": 2,
+  "username": "newUser",
+  "email": "newuser@example.com"
+}
+```
+
+**Error (401 UNAUTHORIZED):**
+
+```json
+{
+  "username": ["Username already taken"],
+  "email": ["Email already in use"],
+  "password": ["Password is too short"]
+}
+```
+
+## Endpoint: `GET /unauthorized`
+
+**Description**: Returns unauthorized JSON when Flask-Login authentication fails.
+
+**Response**:
+
+- **401 Unauthorized**: Returns an error message indicating unauthorized access.
+  ```json
+  {
+    "errors": {
+      "message": "Unauthorized"
+    }
+  }
+  ```
+
+  ## USERS
+
+## Endpoint: `GET /users`
+
+**Description:**
+Query for all users and return them in a list of user dictionaries.
+
+**Authentication:** Required (logged in)
+
+**Parameters:**
+
+- None
+
+**Response:**
+
+**Success (200 OK):**
+
+```json
+{
+  "users": [
+    {
+      "id": 1,
+      "username": "user1",
+      "email": "user1@example.com"
+      // Other user fields...
+    },
+    {
+      "id": 2,
+      "username": "user2",
+      "email": "user2@example.com"
+      // Other user fields...
+    }
+    // More users...
+  ]
+}
+```
+
+**Error (401 UNAUTHORIZED):**
+
+```json
+{
+  "message": "Login required"
+}
+```
+
+## Endpoint: `GET /users/<int:id>`
+
+**Description:**
+Query for a user by ID and return that user in a dictionary.
+
+**Authentication:** Required (logged in)
+
+**Parameters:**
+
+- `id` (integer, path parameter): The ID of the user to retrieve.
+
+**Response:**
+
+**Success (200 OK):**
+
+```json
+{
+  "id": 1,
+  "username": "user1",
+  "email": "user1@example.com"
+  // Other user fields...
+}
+```
+
+**Error (401 UNAUTHORIZED):**
+
+```json
+{
+  "message": "Login required"
+}
+```
+
+**Error (404 NOT FOUND):**
+
+```json
+{
+  "message": "User could not be found"
+}
+```
+
+## Endpoint: `GET /saves`
+
+**Description:**
+Retrieve all saved questions for the current logged-in user. Returns an empty array if there are no saved questions or if the questions no longer exist.
+
+**Authentication:** Required (logged in)
+
+**Parameters:**
+
+- None
+
+**Response:**
+**Success (200 OK):**
+
+```json
+{
+  "SavedQuestions": [
+    {
+      "id": 1,
+      "post": {
+        "id": 1,
+        "title": "Question Title",
+        "body": "Question Body",
+        "author": "Author Username",
+        "Tags": [{ "id": 1, "tag": "Tag1" }],
+        "Answers": [
+          {
+            "id": 1,
+            "body": "Answer Body",
+            "author": { "id": 1, "username": "Answer Author" }
+          }
+        ]
+      }
+    }
+  ]
+}
+```
+
+**Error (401 UNAUTHORIZED):**
+
+```json
+{
+  "message": "Login required"
+}
+```
+
+## Endpoint: `GET /answers`
+
+**Description:**
+Retrieve all answers made by the currently logged-in user. Returns an empty array if there are no answers or if the related questions no longer exist.
+
+**Authentication:** Required (logged in)
+
+**Parameters:**
+
+- None
+
+**Response:**
+**Success (200 OK):**
+
+```json
+{
+  "Answers": [
+    {
+      "id": 1,
+      "body": "This is an answer.",
+      "question_id": 1,
+      "user_id": 1,
+      "is_primary": false,
+      "mainPost": {
+        "id": 1,
+        "title": "Sample Question",
+        "body": "This is a sample question.",
+        "ownerId": 2,
+        "Tags": [
+          {
+            "id": 1,
+            "tag": "SampleTag"
+          }
+        ],
+        "Answers": [
+          {
+            "id": 1,
+            "body": "This is an answer.",
+            "user_id": 1,
+            "is_primary": false
+          }
+        ],
+        "author": {
+          "id": 2,
+          "username": "author_username"
+        }
+      }
+    }
+  ]
+}
+```
+
+**Error (401 UNAUTHORIZED):**
+
+```json
+{
+  "message": "Login required"
+}
+```
 
 ## QUESTIONS
 
@@ -70,11 +385,13 @@ Retrieve all questions from the database, including each question's tags, author
 Retrieve a specific question from the database by its ID, including the question's tags, author information, and answers.
 
 **Parameters:**
+
 - `id` (int): ID of the question to retrieve.
 
 **Response:**
 
 **Success (200 OK):**
+
 ```json
 {
   "Question": {
@@ -104,10 +421,12 @@ Retrieve a specific question from the database by its ID, including the question
   }
 }
 ```
+
 **Error (404 NOT FOUND):**
+
 ```json
 {
-   "message": "Question could not be found"
+  "message": "Question could not be found"
 }
 ```
 
@@ -119,6 +438,7 @@ Create a new question and add it to the database along with any tags provided in
 **Authentication:** Required (logged in)
 
 **Request Body:**
+
 ```json
 {
   "title": "Question Title",
@@ -130,6 +450,7 @@ Create a new question and add it to the database along with any tags provided in
 **Response:**
 
 **Success (201 CREATED):**
+
 ```json
 {
   "Question": {
@@ -149,6 +470,7 @@ Create a new question and add it to the database along with any tags provided in
 ```
 
 **Error (400 BAD REQUEST):**
+
 ```json
 {
   "message": "Bad Request",
@@ -166,9 +488,11 @@ Update a specific question in the database. The user must be logged in and be th
 **Authentication:** Required (logged in)
 
 **Parameters:**
+
 - `id` (int): ID of the question to update.
 
 **Request Body:**
+
 ```json
 {
   "title": "Updated Question Title",
@@ -180,6 +504,7 @@ Update a specific question in the database. The user must be logged in and be th
 **Response:**
 
 **Success (200 OK):**
+
 ```json
 {
   "Question": {
@@ -210,6 +535,7 @@ Update a specific question in the database. The user must be logged in and be th
 ```
 
 **Error (400 BAD REQEST):**
+
 ```json
 {
   "message": "Bad Request",
@@ -220,6 +546,7 @@ Update a specific question in the database. The user must be logged in and be th
 ```
 
 **Error (401 UNAUTHORIZED):**
+
 ```json
 {
   "message": "Bad Request",
@@ -235,11 +562,13 @@ Update a specific question in the database. The user must be logged in and be th
 Retrieve all answers associated with a specific question from the database.
 
 **Parameters:**
+
 - `id` (int): ID of the question for which answers are to be retrieved.
 
 **Response:**
 
 **Success (200 OK):**
+
 ```json
 {
   "Answers": [
@@ -260,9 +589,10 @@ Retrieve all answers associated with a specific question from the database.
 ```
 
 **Error (404 NOT FOUND):**
+
 ```json
 {
-   "message": "Question could not be found"
+  "message": "Question could not be found"
 }
 ```
 
@@ -274,9 +604,11 @@ Create a new answer for a specific question and add it to the database. The answ
 **Authentication:** Required (logged in)
 
 **Parameters:**
+
 - `id` (int): ID of the question to which the answer is being added.
 
 **Request Body:**
+
 ```json
 {
   "body": "Answer Body"
@@ -286,6 +618,7 @@ Create a new answer for a specific question and add it to the database. The answ
 **Response:**
 
 **Success (201 CREATED):**
+
 ```json
 {
   "Answer": {
@@ -306,6 +639,7 @@ Create a new answer for a specific question and add it to the database. The answ
 ```
 
 **Error (400 BAD REQUEST):**
+
 ```json
 {
   "message": "Bad Request",
@@ -323,9 +657,11 @@ Add new tags to an existing question in the database. The user must be logged in
 **Authentication:** Required (logged in)
 
 **Parameters:**
+
 - `id` (int): ID of the question to which tags are being added.
 
 **Request Body:**
+
 ```json
 {
   "tags": ["Tag1", "Tag2"]
@@ -335,6 +671,7 @@ Add new tags to an existing question in the database. The user must be logged in
 **Response:**
 
 **Success (200 OK):**
+
 ```json
 {
   "Tags": [
@@ -353,6 +690,7 @@ Add new tags to an existing question in the database. The user must be logged in
 ```
 
 **Error (400 BAD REQUEST):**
+
 ```json
 {
   "message": "Bad Request",
@@ -370,11 +708,13 @@ Create a relationship to save the specified question for the currently logged-in
 **Authentication:** Required (logged in)
 
 **Parameters:**
+
 - `id` (int): ID of the question to be saved.
 
 **Response:**
 
 **Success (201 Created):**
+
 ```json
 {
   "Save": {
@@ -397,10 +737,12 @@ Create a relationship to save the specified question for the currently logged-in
   }
 }
 ```
+
 **Error (404 NOT FOUND):**
+
 ```json
 {
-   "message": "Question could not be found"
+  "message": "Question could not be found"
 }
 ```
 
@@ -412,20 +754,24 @@ Remove the relationship indicating that the user has saved a specific question.
 **Authentication:** Required (logged in)
 
 **Parameters:**
+
 - `id` (int): ID of the save relationship to be removed.
 
 **Response:**
 
 **Success (200 OK):**
+
 ```json
 {
   "Id": 1
 }
 ```
+
 **Error (404 NOT FOUND):**
+
 ```json
 {
-   "message": "Relation could not be found"
+  "message": "Relation could not be found"
 }
 ```
 
@@ -437,11 +783,13 @@ Delete a specific question from the database if the user is logged in and is the
 **Authentication:** Required (logged in)
 
 **Parameters:**
+
 - `id` (int): ID of the question to be deleted.
 
 **Response:**
 
 **Success (200 OK):**
+
 ```json
 {
   "id": 1
@@ -449,9 +797,10 @@ Delete a specific question from the database if the user is logged in and is the
 ```
 
 **Error (404 NOT FOUND):**
+
 ```json
 {
-    "id": null
+  "id": null
 }
 ```
 
@@ -465,14 +814,17 @@ Update the body of an answer if the user is logged in and is the owner of the an
 **Authentication:** Required (logged in)
 
 **Parameters:**
+
 - `id` (int): ID of the answer to be updated.
 
 **Request Body:**
+
 - `body` (string): The new body of the answer.
 
 **Response:**
 
 **Success (200 OK):**
+
 ```json
 {
   "Answer": {
@@ -495,6 +847,7 @@ Update the body of an answer if the user is logged in and is the owner of the an
 ```
 
 **Error (400 BAD REQEST):**
+
 ```json
 {
   "message": "Bad Request",
@@ -505,6 +858,7 @@ Update the body of an answer if the user is logged in and is the owner of the an
 ```
 
 **Error (401 UNAUTHORIZED):**
+
 ```json
 {
   "message": "Not the owner of this Answer"
@@ -519,11 +873,13 @@ Update an answer to be the primary answer for the linked question if the user is
 **Authentication:** Required (logged in)
 
 **Parameters:**
+
 - `id` (int): ID of the answer to be promoted to primary.
 
 **Response:**
 
 **Success (200 OK):**
+
 ```json
 {
   "Answer": {
@@ -545,7 +901,9 @@ Update an answer to be the primary answer for the linked question if the user is
   }
 }
 ```
+
 **Error (401 UNAUTHORIZED):**
+
 ```json
 {
   "message": "Not the owner of this Answer"
@@ -560,11 +918,13 @@ Delete an answer if the user is logged in and is the owner of the answer.
 **Authentication:** Required (logged in)
 
 **Parameters:**
+
 - `id` (int): ID of the answer to be deleted.
 
 **Response:**
 
 **Success (200 OK):**
+
 ```json
 {
   "id": 1
@@ -572,213 +932,37 @@ Delete an answer if the user is logged in and is the owner of the answer.
 ```
 
 **Error (401 UNAUTHORIZED):**
+
 ```json
 {
   "id": null
 }
 ```
 
-## USERS
-
-## Endpoint: `GET /users`
-
-**Description:**
-Query for all users and return them in a list of user dictionaries.
-
-**Authentication:** Required (logged in)
-
-**Parameters:**
-- None
-
-**Response:**
-
-**Success (200 OK):**
-```json
-{
-  "users": [
-    {
-      "id": 1,
-      "username": "user1",
-      "email": "user1@example.com",
-      // Other user fields...
-    },
-    {
-      "id": 2,
-      "username": "user2",
-      "email": "user2@example.com",
-      // Other user fields...
-    },
-    // More users...
-  ]
-}
-```
-
-**Error (401 UNAUTHORIZED):**
-```json
-{
-  "message": "Login required"
-}
-```
-
-## Endpoint: `GET /users/<int:id>`
-
-**Description:**
-Query for a user by ID and return that user in a dictionary.
-
-**Authentication:** Required (logged in)
-
-**Parameters:**
-- `id` (integer, path parameter): The ID of the user to retrieve.
-
-**Response:**
-
-**Success (200 OK):**
-```json
-{
-  "id": 1,
-  "username": "user1",
-  "email": "user1@example.com",
-  // Other user fields...
-}
-```
-
-**Error (401 UNAUTHORIZED):**
-```json
-{
-  "message": "Login required"
-}
-```
-
-**Error (404 NOT FOUND):**
-```json
-{
-   "message": "User could not be found"
-}
-```
-
-## Endpoint: `GET /saves`
-**Description:**
-Retrieve all saved questions for the current logged-in user. Returns an empty array if there are no saved questions or if the questions no longer exist.
-
-**Authentication:** Required (logged in)
-
-**Parameters:**
-- None
-
-**Response:**
-**Success (200 OK):**
-```json
-{
-  "SavedQuestions": [
-    {
-      "id": 1,
-      "post": {
-        "id": 1,
-        "title": "Question Title",
-        "body": "Question Body",
-        "author": "Author Username",
-        "Tags": [{"id": 1, "tag": "Tag1"}],
-        "Answers": [
-          {
-            "id": 1,
-            "body": "Answer Body",
-            "author": {"id": 1, "username": "Answer Author"}
-          }
-        ]
-      }
-    }
-  ]
-}
-```
-
-**Error (401 UNAUTHORIZED):**
-```json
-{
-  "message": "Login required"
-}
-```
-
-## Endpoint: `GET /answers`
-**Description:**
-Retrieve all answers made by the currently logged-in user. Returns an empty array if there are no answers or if the related questions no longer exist.
-
-**Authentication:** Required (logged in)
-
-**Parameters:**
-- None
-
-**Response:**
-**Success (200 OK):**
-```json
-{
-  "Answers": [
-    {
-      "id": 1,
-      "body": "This is an answer.",
-      "question_id": 1,
-      "user_id": 1,
-      "is_primary": false,
-      "mainPost": {
-        "id": 1,
-        "title": "Sample Question",
-        "body": "This is a sample question.",
-        "ownerId": 2,
-        "Tags": [
-          {
-            "id": 1,
-            "tag": "SampleTag"
-          }
-        ],
-        "Answers": [
-          {
-            "id": 1,
-            "body": "This is an answer.",
-            "user_id": 1,
-            "is_primary": false
-          }
-        ],
-        "author": {
-          "id": 2,
-          "username": "author_username"
-        }
-      }
-    }
-  ]
-}
-```
-
-**Error (401 UNAUTHORIZED):**
-```json
-{
-  "message": "Login required"
-}
-```
-
 ## TAGS
 
 ## Endpoint: `GET /tags`
+
 **Description:**
 Retrieve a list of all available tags.
 
 **Authentication:** Required (logged in)
 
 **Parameters:**
-- None
 
+- None
 
 **Response:**
 **Success (200 OK):**
+
 ```json
 {
-  "Tags": [
-    "Tag1",
-    "Tag2",
-    "Tag3"
-  ]
+  "Tags": ["Tag1", "Tag2", "Tag3"]
 }
 ```
 
 **Error (401 UNAUTHORIZED):**
+
 ```json
 {
   "message": "Login required"
@@ -786,16 +970,19 @@ Retrieve a list of all available tags.
 ```
 
 ## Endpoint: `DELETE /tags/<int:id>`
+
 **Description:**
 Remove a tag from a question. The tag is deleted only if the current user is the owner of the question associated with the tag.
 
 **Authentication:** Required (logged in)
 
 **Parameters:**
+
 - **id** (path parameter): The ID of the tag to be removed.
 
 **Response:**
 **Success (200 OK):**
+
 ```json
 {
   "id": 123
@@ -803,6 +990,7 @@ Remove a tag from a question. The tag is deleted only if the current user is the
 ```
 
 **Error (401 UNAUTHORIZED):**
+
 ```json
 {
   "message": "Login required"
@@ -810,118 +998,9 @@ Remove a tag from a question. The tag is deleted only if the current user is the
 ```
 
 **Error (404 NOT FOUND):**
+
 ```json
 {
   "id": null
 }
 ```
-
-## AUTH
-
-## Endpoint: `GET /`
-
-**Description**: Authenticates a user. Returns user information if authenticated, otherwise returns an unauthorized error.
-
-**Response**:
-**200 OK**: Returns the current user's information if authenticated.
-  ```json
-  {
-    "id": 1,
-    "username": "exampleUser",
-    "email": "user@example.com"
-  }
-  ```
-
-  **Error (401 UNAUTHORIZED):**
-```json
-{
-  "message": "Unauthorized"
-}
-```
-
-## Endpoint: `POST /login`
-
-**Description**: Logs a user in. Requires email and password. If authentication is successful, the user is logged in and their information is returned.
-
-**Request**:
-- **Body**
-  ```json
-  {
-    "email": "user@example.com",
-    "password": "password"
-  }
-  ```
-**Response**:
-**200 OK**: Returns the logged-in user's information if credentials are correct.
-- **Body**
-  ```json
-  {
-  "id": 1,
-  "username": "exampleUser",
-  "email": "user@example.com"
-  }
-   ```
-
-**Error (401 UNAUTHORIZED):**
-```json
-{
-  "email": ["Invalid email address"],
-  "password": ["Incorrect password"]
-}
-```
-## Endpoint: `GET /logout`
-
-**Description**: Logs the current user out and returns a confirmation message.
-
-**Response**:
-**200 OK**: Returns a message indicating the user has been logged out.
-  ```json
-  {
-    "message": "User logged out"
-  }
-  ```
-
-  ## Endpoint: `POST /signup`
-
-**Description**: Creates a new user and logs them in. Requires username, email, and password.
-
-**Request**:
-
-- **Body (JSON)**:
-  ```json
-  {
-    "username": "newUser",
-    "email": "newuser@example.com",
-    "password": "newpassword"
-  }
-
-**Response**:
-**200 OK**: Returns the newly created user's information.
-```json
-{
-  "id": 2,
-  "username": "newUser",
-  "email": "newuser@example.com"
-}
-```
-**Error (401 UNAUTHORIZED):**
-```json
-{
-  "username": ["Username already taken"],
-  "email": ["Email already in use"],
-  "password": ["Password is too short"]
-}
-```
-
-## Endpoint: `GET /unauthorized`
-
-**Description**: Returns unauthorized JSON when Flask-Login authentication fails.
-
-**Response**:
-- **401 Unauthorized**: Returns an error message indicating unauthorized access.
-  ```json
-  {
-    "errors": {
-      "message": "Unauthorized"
-    }
-  }
