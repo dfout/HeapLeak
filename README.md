@@ -20,6 +20,8 @@
 
 # API Documentation
 
+## QUESTIONS
+
 ## Endpoint: `GET /questions`
 
 **Description:**
@@ -450,5 +452,366 @@ Delete a specific question from the database if the user is logged in and is the
 ```json
 {
     "id": null
+}
+```
+
+## ANSWERS
+
+## Endpoint: `PUT /answers/<int:id>`
+
+**Description:**
+Update the body of an answer if the user is logged in and is the owner of the answer.
+
+**Authentication:** Required (logged in)
+
+**Parameters:**
+- `id` (int): ID of the answer to be updated.
+
+**Request Body:**
+- `body` (string): The new body of the answer.
+
+**Response:**
+
+**Success (200 OK):**
+```json
+{
+  "Answer": {
+    "id": 1,
+    "body": "Updated answer body",
+    "question_id": 1,
+    "user_id": 2,
+    "mainPost": {
+      "id": 1,
+      "title": "Question Title",
+      "body": "Question Body",
+      "owner": {
+        "id": 2,
+        "username": "Owner Username",
+        "email": "owner@example.com"
+      }
+    }
+  }
+}
+```
+
+**Error (400 BAD REQEST):**
+```json
+{
+  "message": "Bad Request",
+  "errors": {
+    "field": ["error message"]
+  }
+}
+```
+
+**Error (401 UNAUTHORIZED):**
+```json
+{
+  "message": "Not the owner of this Answer"
+}
+```
+
+## Endpoint: `PUT /answers/<int:id>/mark_primary`
+
+**Description:**
+Update an answer to be the primary answer for the linked question if the user is logged in and is the owner of the question. This will demote any existing primary answer.
+
+**Authentication:** Required (logged in)
+
+**Parameters:**
+- `id` (int): ID of the answer to be promoted to primary.
+
+**Response:**
+
+**Success (200 OK):**
+```json
+{
+  "Answer": {
+    "id": 1,
+    "body": "Answer body",
+    "question_id": 1,
+    "user_id": 2,
+    "is_primary": true,
+    "mainPost": {
+      "id": 1,
+      "title": "Question Title",
+      "body": "Question Body",
+      "owner": {
+        "id": 2,
+        "username": "Owner Username",
+        "email": "owner@example.com"
+      }
+    }
+  }
+}
+```
+**Error (401 UNAUTHORIZED):**
+```json
+{
+  "message": "Not the owner of this Answer"
+}
+```
+
+## Endpoint: `DELETE /answers/<int:id>`
+
+**Description:**
+Delete an answer if the user is logged in and is the owner of the answer.
+
+**Authentication:** Required (logged in)
+
+**Parameters:**
+- `id` (int): ID of the answer to be deleted.
+
+**Response:**
+
+**Success (200 OK):**
+```json
+{
+  "id": 1
+}
+```
+
+**Error (401 UNAUTHORIZED):**
+```json
+{
+  "id": null
+}
+```
+
+## USERS
+
+## Endpoint: `GET /users`
+
+**Description:**
+Query for all users and return them in a list of user dictionaries.
+
+**Authentication:** Required (logged in)
+
+**Parameters:**
+- None
+
+**Response:**
+
+**Success (200 OK):**
+```json
+{
+  "users": [
+    {
+      "id": 1,
+      "username": "user1",
+      "email": "user1@example.com",
+      // Other user fields...
+    },
+    {
+      "id": 2,
+      "username": "user2",
+      "email": "user2@example.com",
+      // Other user fields...
+    },
+    // More users...
+  ]
+}
+```
+
+**Error (401 UNAUTHORIZED):**
+```json
+{
+  "message": "Login required"
+}
+```
+
+## Endpoint: `GET /users/<int:id>`
+
+**Description:**
+Query for a user by ID and return that user in a dictionary.
+
+**Authentication:** Required (logged in)
+
+**Parameters:**
+- `id` (integer, path parameter): The ID of the user to retrieve.
+
+**Response:**
+
+**Success (200 OK):**
+```json
+{
+  "id": 1,
+  "username": "user1",
+  "email": "user1@example.com",
+  // Other user fields...
+}
+```
+
+**Error (401 UNAUTHORIZED):**
+```json
+{
+  "message": "Login required"
+}
+```
+
+**Error (404 NOT FOUND):**
+```json
+{
+   "message": "User could not be found"
+}
+```
+
+## Endpoint: `GET /saves`
+**Description:**
+Retrieve all saved questions for the current logged-in user. Returns an empty array if there are no saved questions or if the questions no longer exist.
+
+**Authentication:** Required (logged in)
+
+**Parameters:**
+- None
+
+**Response:**
+**Success (200 OK):**
+```json
+{
+  "SavedQuestions": [
+    {
+      "id": 1,
+      "post": {
+        "id": 1,
+        "title": "Question Title",
+        "body": "Question Body",
+        "author": "Author Username",
+        "Tags": [{"id": 1, "tag": "Tag1"}],
+        "Answers": [
+          {
+            "id": 1,
+            "body": "Answer Body",
+            "author": {"id": 1, "username": "Answer Author"}
+          }
+        ]
+      }
+    }
+  ]
+}
+```
+
+**Error (401 UNAUTHORIZED):**
+```json
+{
+  "message": "Login required"
+}
+```
+
+## Endpoint: `GET /answers`
+**Description:**
+Retrieve all answers made by the currently logged-in user. Returns an empty array if there are no answers or if the related questions no longer exist.
+
+**Authentication:** Required (logged in)
+
+**Parameters:**
+- None
+
+**Response:**
+**Success (200 OK):**
+```json
+{
+  "Answers": [
+    {
+      "id": 1,
+      "body": "This is an answer.",
+      "question_id": 1,
+      "user_id": 1,
+      "is_primary": false,
+      "mainPost": {
+        "id": 1,
+        "title": "Sample Question",
+        "body": "This is a sample question.",
+        "ownerId": 2,
+        "Tags": [
+          {
+            "id": 1,
+            "tag": "SampleTag"
+          }
+        ],
+        "Answers": [
+          {
+            "id": 1,
+            "body": "This is an answer.",
+            "user_id": 1,
+            "is_primary": false
+          }
+        ],
+        "author": {
+          "id": 2,
+          "username": "author_username"
+        }
+      }
+    }
+  ]
+}
+```
+
+**Error (401 UNAUTHORIZED):**
+```json
+{
+  "message": "Login required"
+}
+```
+
+## TAGS
+
+## Endpoint: `GET /tags`
+**Description:**
+Retrieve a list of all available tags.
+
+**Authentication:** Required (logged in)
+
+**Parameters:**
+- None
+
+
+**Response:**
+**Success (200 OK):**
+```json
+{
+  "Tags": [
+    "Tag1",
+    "Tag2",
+    "Tag3"
+  ]
+}
+```
+
+**Error (401 UNAUTHORIZED):**
+```json
+{
+  "message": "Login required"
+}
+```
+
+## Endpoint: `DELETE /tags/<int:id>`
+**Description:**
+Remove a tag from a question. The tag is deleted only if the current user is the owner of the question associated with the tag.
+
+**Authentication:** Required (logged in)
+
+**Parameters:**
+- **id** (path parameter): The ID of the tag to be removed.
+
+**Response:**
+**Success (200 OK):**
+```json
+{
+  "id": 123
+}
+```
+
+**Error (401 UNAUTHORIZED):**
+```json
+{
+  "message": "Login required"
+}
+```
+
+**Error (404 NOT FOUND):**
+```json
+{
+  "id": null
 }
 ```
