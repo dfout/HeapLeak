@@ -448,7 +448,7 @@ Create a new question and add it to the database along with any tags provided in
 {
   "title": "Question Title",
   "body": "Question Body",
-  "tags": ["Tag1", "Tag2"]
+  "tags": ["Tag1"]
 }
 ```
 
@@ -502,7 +502,7 @@ Update a specific question in the database. The user must be logged in and be th
 {
   "title": "Updated Question Title",
   "body": "Updated Question Body",
-  "tags": ["NewTag1", "NewTag2"]
+  "tags": ["NewTag1"]
 }
 ```
 
