@@ -16,7 +16,7 @@ Welcome to the HeapLeak README! HeapLeak is a humble clone of the legendary Stac
 
 ![Render](https://img.shields.io/badge/Render-%46E3B7.svg?style=for-the-badge&logo=render&logoColor=white)
 
-# Index
+# Wiki Articles
 
 [Feature List](<https://github.com/dfout/HeapLeak/wiki/Features-and-Minimum-Viable-Product-(WIP)>) | [Database Schema](https://github.com/dfout/HeapLeak/wiki/DB-SCHEMA) | [User Stories](https://github.com/dfout/HeapLeak/wiki/User-Stories)
 
@@ -53,7 +53,7 @@ Welcome to the HeapLeak README! HeapLeak is a humble clone of the legendary Stac
 
 **Request**:
 
-- **Body**
+  **Body**
   ```json
   {
     "email": "user@example.com",
@@ -61,8 +61,8 @@ Welcome to the HeapLeak README! HeapLeak is a humble clone of the legendary Stac
   }
   ```
   **Response**:
-  **200 OK**: Returns the logged-in user's information if credentials are correct.
-- **Body**
+  **200 OK**: Returns the logged in user's information if credentials are correct.
+  **Body**
   ```json
   {
     "id": 1,
@@ -99,7 +99,7 @@ Welcome to the HeapLeak README! HeapLeak is a humble clone of the legendary Stac
 
 **Request**:
 
-- **Body (JSON)**:
+  **Body (JSON)**:
   ```json
   {
     "username": "newUser",
@@ -131,11 +131,11 @@ Welcome to the HeapLeak README! HeapLeak is a humble clone of the legendary Stac
 
 ## Endpoint: `GET /unauthorized`
 
-**Description**: Returns unauthorized JSON when Flask-Login authentication fails.
+**Description**: Returns unauthorized JSON when Flask Login authentication fails.
 
 **Response**:
 
-- **401 Unauthorized**: Returns an error message indicating unauthorized access.
+  **401 Unauthorized**: Returns an error message indicating unauthorized access.
   ```json
   {
     "errors": {
@@ -232,7 +232,7 @@ Query for a user by ID and return that user in a dictionary.
 ## Endpoint: `GET /saves`
 
 **Description:**
-Retrieve all saved questions for the current logged-in user. Returns an empty array if there are no saved questions or if the questions no longer exist.
+Retrieve all saved questions for the current logged in user. Returns an empty array if there are no saved questions or if the questions no longer exist.
 
 **Authentication:** Required (logged in)
 
@@ -278,7 +278,7 @@ Retrieve all saved questions for the current logged-in user. Returns an empty ar
 ## Endpoint: `GET /answers`
 
 **Description:**
-Retrieve all answers made by the currently logged-in user. Returns an empty array if there are no answers or if the related questions no longer exist.
+Retrieve all answers made by the currently logged in user. Returns an empty array if there are no answers or if the related questions no longer exist.
 
 **Authentication:** Required (logged in)
 
@@ -703,7 +703,7 @@ Add new tags to an existing question in the database. The user must be logged in
 ## Endpoint: `POST /questions/<int:id>/saves`
 
 **Description:**
-Create a relationship to save the specified question for the currently logged-in user.
+Create a relationship to save the specified question for the currently logged in user.
 
 **Authentication:** Required (logged in)
 
@@ -819,7 +819,7 @@ Update the body of an answer if the user is logged in and is the owner of the an
 
 **Request Body:**
 
-- `body` (string): The new body of the answer.
+  `body` (string): The new body of the answer.
 
 **Response:**
 
