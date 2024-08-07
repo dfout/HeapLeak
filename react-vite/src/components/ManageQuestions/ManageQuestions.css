@@ -130,3 +130,34 @@
     text-decoration: underline;
     color:black;
 }
+
+
+.tagVisualFilterInput{
+    cursor:pointer;
+}
+.paginationNav{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    column-gap: 10px;
+}
+
+.inActive{
+    color: gray;
+}
+
+.inActive:hover{
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.Active{
+    color: blueviolet;
+    text-decoration: underline;
+    cursor: default;
+}
+
+.decoratorPageNums:hover{
+    text-decoration: underline;
+    cursor: pointer;
+}

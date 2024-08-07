@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+import { useState } from "react";
 
 import { getSavedQuestionsThunk, unSaveQuestionThunk } from "../../redux/save";
 import "./SavedQuestions.css";
@@ -13,11 +14,78 @@ const SavedQuestions = () => {
   savedQuestions = Object.values(savedQuestions)
 
   const navigate = useNavigate('')
+  const [pageNumbers, setPageNumbers] = useState([])
+  const [searchTags, setTagSearch] = useState([])
+
+  const [currentPage, setCurrentPage] = useState(1)
+  const [loadingMain, setLoadMain] = useState(true)
+
+  const numProductsForPage = 4
+
+  const parseNum = 3
+
+  async function sortArrNow() {
+    if (savedQuestions.length) {
+      let arr = []
+      for (let question of savedQuestions) {
+        arr.push(question)
+      }
+      setPages(arr, currentPage)
+    }
+  }
+
+  function setPages(arr, page = 1) {
+
+    if (arr.length < 2) {
+        setDisplay(arr)
+        setPageNumbers([1])
+        return
+    }
+
+    let val = arr.length / numProductsForPage;
+
+    let arr2 = arr.slice((numProductsForPage * (page - 1)), numProductsForPage * page)
+    setDisplay(arr2)
+
+    let pageArr = []
+
+    for (let i = 0; i < val; i++) {
+        pageArr.push(i + 1)
+    }
+
+    setPageNumbers(pageArr)
+
+}
+
+
+  function timeoutMain() {
+    var longLoadMain = null
+
+    if (longLoadMain && !loadingMain) {
+      window.clearTimeout(longLoadMain)
+      longLoadMain = false
+    } else if (!longLoadMain) {
+      setLoadMain(true)
+      setPageNumbers([])
+      window.scrollTo({top:0, left:0, behavior:'instant'})
+      longLoadMain = setTimeout(async () => {
+        await sortArrNow()
+        setLoadMain(false)
+        return 'Sort Complete!'
+      }, 2000)
+    }
+  }
 
 
   useEffect(() => {
     dispatch(getSavedQuestionsThunk())
   }, [dispatch])
+
+  useEffect(()=>{
+    if (savedQuestions.length){
+      timeoutMain()
+    }
+  },[savedQuestions, currentPage])
 
 
   const handleUnSave = async (e, id) => {
@@ -72,6 +140,81 @@ const SavedQuestions = () => {
           </div>
 
       }
+                    <div className='paginationNav'>
+            {
+                    pageNumbers.length && currentPage !== 1
+                    ?
+                    <p
+                    onClick={e => {
+                        e.preventDefault()
+                        e.stopPropagation()
+                        setCurrentPage(1)
+                    }}
+                    className='decoratorPageNums'
+                    >{'<<'}</p>
+                    :
+                    null
+                }
+                {
+                    pageNumbers.length && currentPage > 1
+                    ?
+                    <p
+                    onClick={e => {
+                        e.preventDefault()
+                        e.stopPropagation()
+                        setCurrentPage(currentPage-1)
+                    }}
+                    className='decoratorPageNums'
+                    >{'<'}</p>
+                    :
+                    null
+                }
+                {
+                    pageNumbers.map((number, index) => {
+                        if (number >= currentPage -(parseNum-1) && number < currentPage + parseNum) {
+                            return (
+                                <p key={index}
+                                    onClick={e => {
+                                        e.preventDefault()
+                                        e.stopPropagation()
+                                        setCurrentPage(number)
+                                    }}
+                                    className={number === currentPage ? 'Active':'inActive'}
+                                >{number}</p>
+                            )
+                        }
+                    })
+                }
+                {
+                    pageNumbers.length && currentPage < pageNumbers[pageNumbers.length-1]
+                    ?
+                    <p
+                    onClick={e => {
+                        e.preventDefault()
+                        e.stopPropagation()
+                        setCurrentPage(currentPage+1)
+                    }}
+                    className='decoratorPageNums'
+                    >{'>'}</p>
+                    :
+                    null
+                }
+                {
+                    pageNumbers.length && currentPage !== pageNumbers[pageNumbers.length-1]
+                    ?
+                    <p
+                    onClick={e => {
+                        e.preventDefault()
+                        e.stopPropagation()
+                        setCurrentPage(pageNumbers[pageNumbers.length-1])
+                    }}
+                    className='decoratorPageNums'
+                    >{'>>'}</p>
+                    :
+                    null
+                }
+
+            </div>
     </>
   );
 };
