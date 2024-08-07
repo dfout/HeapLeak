@@ -102,9 +102,12 @@ const SavedQuestions = () => {
 
 
   return (
-    <>
+    <div className="placeholder">
       {
-
+        loadingMain
+        ?
+        <ImSpinner7 className="spinner"/>
+        :
         display.length
           ?
           <div className="save-container">
@@ -231,7 +234,7 @@ const SavedQuestions = () => {
                 }
 
             </div>
-    </>
+    </div>
   );
 };
 
