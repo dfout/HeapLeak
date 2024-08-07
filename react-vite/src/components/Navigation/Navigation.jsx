@@ -48,7 +48,7 @@ function Navigation() {
           <div id='logged-container'>
             <div id="saves-creations">
               <NavLink className='nav-link' to='/saved-questions'>Saved Questions</NavLink>
-              <Link className='nav-link' to='questions/create'>Ask a Question </Link>
+              <NavLink className='nav-link' to='questions/create'>Ask a Question </NavLink>
             </div>
             <div id='profile'>
               <ProfileButton user={sessionUser} className='profile-button' />

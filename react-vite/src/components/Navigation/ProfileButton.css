@@ -6,8 +6,8 @@
     justify-content: space-between;
     gap: 10px;
     max-height: 200px;
-   
-    
+
+
 }
 
 #profile-button:hover{
@@ -15,7 +15,7 @@
 }
 
 .profile-button{
-   
+
     position:relative;
     width:70px;
     height:32px;
@@ -34,7 +34,7 @@
     box-shadow: 0px 2.5px 2.5px rgba(108, 108, 108, 0.181);
     transition:150ms;
     cursor: pointer;
-    
+
 }
 
 .menu-icon{
@@ -64,9 +64,9 @@
 
 .profile-dropdown{
     position:absolute;
-  
+
     z-index:1;
-    top:70px;
+    top:55%;
    /* left: 80px; */
     right:2%;
     margin-left:auto;
@@ -89,17 +89,17 @@ ul{
 
 .extra-info{
     border-top: 1px solid #d5d5d5;
-    display:flex; 
+    display:flex;
     flex-direction:column;
     justify-content: space-between;
 }
-/* 
+/*
 #drop-down-content{
     display:flex;
     flex-direction: column;
     height:fit-content;
-    
-    
+
+
 } */
 
 #log-in-sign-up{
@@ -111,7 +111,7 @@ ul{
     align-items: center;
 
 }
-/* 
+/*
 .bolded-menu{
     font-weight:bold !important;
 } */
@@ -159,7 +159,7 @@ cursor: default;
     display:flex;
     flex-direction:column;
     align-items: center;
-    
+
     padding-bottom: 10%;
     padding-top:5%;
     border:1px solid #d5d5d5;
@@ -208,3 +208,32 @@ cursor: default;
     border-radius: 5px;
     cursor: pointer;
   }
+
+  .nav-link-user{
+    text-decoration: none;
+    color:black;
+  }
+
+  .nav-link-mobile{
+    display: none;
+    text-decoration: none;
+    color:black;
+  }
+
+  .nav-link-user:hover{
+    text-decoration: underline;
+  }
+
+  .nav-link-mobile:hover{
+    text-decoration: underline;
+  }
+
+  @media screen and (max-width:775px){
+    .nav-link{
+     display: none;
+    }
+
+    .nav-link-mobile{
+     display: inline;
+    }
+}
