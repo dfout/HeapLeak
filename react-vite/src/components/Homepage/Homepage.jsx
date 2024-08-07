@@ -72,7 +72,7 @@ const Homepage = () => {
 
   function setPages(arr, page = 1) {
 
-    if (arr.length < 2) {
+    if (arr.length && arr.length < 2) {
         setDisplay(arr)
         setPageNumbers([1])
         return
@@ -231,7 +231,7 @@ const Homepage = () => {
   }
 
   return (
-    <>
+    <div className="placeholder">
       <div className="home-body">
         <div className="home-popularity">
           <h2>Popular questions</h2>
@@ -315,6 +315,9 @@ const Homepage = () => {
                   <p>Answers: {question.Answers.length}</p>
                 </div>
               ))}
+              {
+                toDisplayArr.length || loadingMain?null :<h1>No Results Found</h1>
+              }
         </div>
         <div className='paginationNav'>
             {
@@ -392,7 +395,7 @@ const Homepage = () => {
 
             </div>
       </div>
-    </>
+    </div>
   );
 };
 

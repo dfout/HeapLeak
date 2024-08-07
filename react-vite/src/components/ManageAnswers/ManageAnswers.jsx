@@ -41,7 +41,7 @@ const ManageAnswers = () => {
 
   function setPages(arr, page = 1) {
 
-    if (arr.length < 2) {
+    if (arr.length && arr.length < 2) {
         setDisplay(arr)
         setPageNumbers([1])
         return
