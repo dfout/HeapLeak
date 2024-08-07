@@ -243,10 +243,12 @@ height:75%;
     }
 }
 
+.mobilefilter{
+    position: relative;
+}
+
 .filter-drop-down{
     position: absolute;
-    top: 23.2%;
-    right: 22%;
     padding: 5px;
     /* border: 5px solid; */
     width: 235px;
@@ -364,4 +366,10 @@ height:75%;
 .decoratorPageNums:hover{
     text-decoration: underline;
     cursor: pointer;
+}
+
+@media screen and (max-width:775px){
+    .filter-drop-down{
+        right: 2%;
+    }
 }

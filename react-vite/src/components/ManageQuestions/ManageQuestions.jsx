@@ -2,6 +2,7 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { getQuestionsThunk, deleteQuestionThunk } from "../../redux/question";
+import { ImSpinner7 } from "react-icons/im";
 import "./ManageQuestions.css";
 
 function filterById(questions, userId) {
@@ -28,45 +29,28 @@ const ManageQuestions = () => {
 
   const [currentPage, setCurrentPage] = useState(1)
 
+  const [loadingMain, setLoadMain] = useState(false)
+
   const numProductsForPage = 4
 
   const parseNum = 3
 
   async function sortArrNow() {
     if (Object.values(questions).length) {
-      let arr = []
-      for (let question of Object.values(questions)) {
-        if (searchTags.length) {
-          for (let tag of searchTags) {
-            for (let tag2 of question.Tags) {
-              if (tag2.tag == tag && !arr.includes(question)) {
-                if ((searchName && question.title.toLowerCase().includes(searchName.toLowerCase()) ||
-                  (searchName && question.body.toLowerCase().includes(searchName.toLowerCase()))
-                  || !searchName)) {
-                  arr.push(question)
-                }
-                break
-              } else if (tag2.tag == tag && arr.includes(question)) {
-                break
-              }
-            }
-          }
-        } else {
-          if ((searchName && question.title.toLowerCase().includes(searchName.toLowerCase()) ||
-            (searchName && question.body.toLowerCase().includes(searchName.toLowerCase()))
-            || !searchName)) {
-            arr.push(question)
-          }
+      let arr = filterById(questions,userId)
+      let arr2 = []
+      for (let question of arr) {
+        if(question?.id){
+          arr2.push(question)
         }
       }
-      setPages(arr, currentPage)
+      setPages(arr2, currentPage)
     }
   }
 
   function setPages(arr, page = 1) {
-
     if (arr.length < 2) {
-        setDisplay(arr)
+        userQuestions = arr
         setPageNumbers([1])
         return
     }
@@ -74,8 +58,7 @@ const ManageQuestions = () => {
     let val = arr.length / numProductsForPage;
 
     let arr2 = arr.slice((numProductsForPage * (page - 1)), numProductsForPage * page)
-    setDisplay(arr2)
-
+    userQuestions = arr2;
     let pageArr = []
 
     for (let i = 0; i < val; i++) {
@@ -83,6 +66,10 @@ const ManageQuestions = () => {
     }
 
     setPageNumbers(pageArr)
+
+    if(page > pageArr[pageArr.length-1]){
+      setCurrentPage(pageArr[pageArr.length-1])
+    }
 
 }
 
@@ -120,16 +107,28 @@ const ManageQuestions = () => {
 
   }, [dispatch, deleted])
 
+  useEffect(()=> {
+    if(Object.values(questions).length){
+      timeoutMain()
+    }
+  }, [questions, userId, currentPage])
+
+
   return (
-    <>
+    <div className="placeholder">
       {
+
         userQuestions.length
           ?
           <div className="manage-questions-container">
             <div id="manage-questions-overview">
               <h2>Manage Questions</h2>
             </div>
-            {<div className='manage-display-questions-container'>
+            {
+              loadingMain?
+              <ImSpinner7 className="spinner"/>
+              :
+              <div className='manage-display-questions-container'>
               {userQuestions.map((question) => (
                 <div className="manage-question-tile" key={question.id}>
                   <div className="manage-question-info" key={question.id}>
@@ -137,9 +136,16 @@ const ManageQuestions = () => {
                     <p className="manage-author">{question.author}</p>
                     <p>{question.body}</p>
                     <div className="manage-tag-display">
-                      {question.Tags.map((tag) => (
-                        <p className="manage-tag" key={tag.id}>{tag.tag}</p>
-                      ))}
+                      {question.Tags.map((tag, index) => {
+                        if(index < 5){
+                          return(
+                            <p className="manage-tag" key={tag.id}>{tag.tag}</p>
+                          )
+                        }
+                      })}
+                      {
+                        question.Tags.length > 5 ? <p className="manage-tag">+{question.Tags.length - 5} more</p>:null
+                      }
                     </div>
                     <p>Date : {question.timeUpdated.slice(5, 17)}</p>
                   </div>
@@ -163,82 +169,82 @@ const ManageQuestions = () => {
             </div>
           </div>
       }
-              <div className='paginationNav'>
+      <div className='paginationNav'>
+        {
+                pageNumbers.length && currentPage !== 1
+                ?
+                <p
+                onClick={e => {
+                    e.preventDefault()
+                    e.stopPropagation()
+                    setCurrentPage(1)
+                }}
+                className='decoratorPageNums'
+                >{'<<'}</p>
+                :
+                null
+            }
             {
-                    pageNumbers.length && currentPage !== 1
-                    ?
-                    <p
-                    onClick={e => {
-                        e.preventDefault()
-                        e.stopPropagation()
-                        setCurrentPage(1)
-                    }}
-                    className='decoratorPageNums'
-                    >{'<<'}</p>
-                    :
-                    null
-                }
-                {
-                    pageNumbers.length && currentPage > 1
-                    ?
-                    <p
-                    onClick={e => {
-                        e.preventDefault()
-                        e.stopPropagation()
-                        setCurrentPage(currentPage-1)
-                    }}
-                    className='decoratorPageNums'
-                    >{'<'}</p>
-                    :
-                    null
-                }
-                {
-                    pageNumbers.map((number, index) => {
-                        if (number >= currentPage -(parseNum-1) && number < currentPage + parseNum) {
-                            return (
-                                <p key={index}
-                                    onClick={e => {
-                                        e.preventDefault()
-                                        e.stopPropagation()
-                                        setCurrentPage(number)
-                                    }}
-                                    className={number === currentPage ? 'Active':'inActive'}
-                                >{number}</p>
-                            )
-                        }
-                    })
-                }
-                {
-                    pageNumbers.length && currentPage < pageNumbers[pageNumbers.length-1]
-                    ?
-                    <p
-                    onClick={e => {
-                        e.preventDefault()
-                        e.stopPropagation()
-                        setCurrentPage(currentPage+1)
-                    }}
-                    className='decoratorPageNums'
-                    >{'>'}</p>
-                    :
-                    null
-                }
-                {
-                    pageNumbers.length && currentPage !== pageNumbers[pageNumbers.length-1]
-                    ?
-                    <p
-                    onClick={e => {
-                        e.preventDefault()
-                        e.stopPropagation()
-                        setCurrentPage(pageNumbers[pageNumbers.length-1])
-                    }}
-                    className='decoratorPageNums'
-                    >{'>>'}</p>
-                    :
-                    null
-                }
+                pageNumbers.length && currentPage > 1
+                ?
+                <p
+                onClick={e => {
+                    e.preventDefault()
+                    e.stopPropagation()
+                    setCurrentPage(currentPage-1)
+                }}
+                className='decoratorPageNums'
+                >{'<'}</p>
+                :
+                null
+            }
+            {
+                pageNumbers.map((number, index) => {
+                    if (number >= currentPage -(parseNum-1) && number < currentPage + parseNum) {
+                        return (
+                            <p key={index}
+                                onClick={e => {
+                                    e.preventDefault()
+                                    e.stopPropagation()
+                                    setCurrentPage(number)
+                                }}
+                                className={number === currentPage ? 'Active':'inActive'}
+                            >{number}</p>
+                        )
+                    }
+                })
+            }
+            {
+                pageNumbers.length && currentPage < pageNumbers[pageNumbers.length-1]
+                ?
+                <p
+                onClick={e => {
+                    e.preventDefault()
+                    e.stopPropagation()
+                    setCurrentPage(currentPage+1)
+                }}
+                className='decoratorPageNums'
+                >{'>'}</p>
+                :
+                null
+            }
+            {
+                pageNumbers.length && currentPage !== pageNumbers[pageNumbers.length-1]
+                ?
+                <p
+                onClick={e => {
+                    e.preventDefault()
+                    e.stopPropagation()
+                    setCurrentPage(pageNumbers[pageNumbers.length-1])
+                }}
+                className='decoratorPageNums'
+                >{'>>'}</p>
+                :
+                null
+            }
 
-            </div>
-    </>
+        </div>
+    </div>
   );
 };
 

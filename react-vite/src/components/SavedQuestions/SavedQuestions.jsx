@@ -2,20 +2,19 @@ import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
-
+import { ImSpinner7 } from "react-icons/im";
 import { getSavedQuestionsThunk, unSaveQuestionThunk } from "../../redux/save";
 import "./SavedQuestions.css";
 
 
 const SavedQuestions = () => {
   const dispatch = useDispatch();
-  let savedQuestions = useSelector((state) => state.saves)
+  const savedQuestions = useSelector((state) => state.saves)
 
-  savedQuestions = Object.values(savedQuestions)
+  const [display, setDisplay] = useState([])
 
   const navigate = useNavigate('')
   const [pageNumbers, setPageNumbers] = useState([])
-  const [searchTags, setTagSearch] = useState([])
 
   const [currentPage, setCurrentPage] = useState(1)
   const [loadingMain, setLoadMain] = useState(true)
@@ -25,9 +24,9 @@ const SavedQuestions = () => {
   const parseNum = 3
 
   async function sortArrNow() {
-    if (savedQuestions.length) {
+    if (Object.values(savedQuestions).length) {
       let arr = []
-      for (let question of savedQuestions) {
+      for (let question of Object.values(savedQuestions)) {
         arr.push(question)
       }
       setPages(arr, currentPage)
@@ -54,6 +53,10 @@ const SavedQuestions = () => {
     }
 
     setPageNumbers(pageArr)
+
+    if(page > pageArr[pageArr.length-1]){
+      setCurrentPage(pageArr[pageArr.length-1])
+    }
 
 }
 
@@ -82,7 +85,7 @@ const SavedQuestions = () => {
   }, [dispatch])
 
   useEffect(()=>{
-    if (savedQuestions.length){
+    if (Object.values(savedQuestions).length){
       timeoutMain()
     }
   },[savedQuestions, currentPage])
@@ -101,7 +104,8 @@ const SavedQuestions = () => {
   return (
     <>
       {
-        savedQuestions.length
+
+        display.length
           ?
           <div className="save-container">
             <div id="save-information">
@@ -109,16 +113,28 @@ const SavedQuestions = () => {
               <h3>{savedQuestions.length} Saved Items</h3>
             </div>
             <div className="saved-questions">
-              {savedQuestions.map((question) => (
+              {
+
+              display.map((question) => (
 
                 <div className='save-question-container' key={question.id}>
                   <p id="save-question-title" onClick={() => handleClick(question.id)}>{question.post.title}</p>
                   <span className="save-author">{question.post.author}</span>
                   <span>{question.post.body.length > 110 ? question.post.body.slice(0, 110) + "..." : question.post.body}</span>
                   <div className='save-tags-display'>
-                    {question.post.Tags.map((tag) => (
+                    {question.post.Tags.map((tag, index) => {
+                      if(index < 5){
+                        return(
                       <p className='save-tag' key={tag.id}>{tag.tag}</p>
-                    ))}
+                        )
+                      }
+                    })}
+                    {
+                      question.post.Tags.length > 5
+                      ?
+                      <p className='save-tag'>+{question.post.Tags.length - 5} more</p>
+                      :null
+                    }
                   </div>
                   <span>{question.post.timeUpdated.slice(5, 17)}</span>
                   <button className='unsave-button' onClick={e => handleUnSave(e, question.id)}>Unsave</button>
