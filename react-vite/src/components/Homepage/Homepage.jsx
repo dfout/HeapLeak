@@ -288,7 +288,7 @@ const Homepage = () => {
           </div>
 
           {
-            loadingMain ? <ImSpinner7 className="spinner" /> :
+            loadingMain ? <ImSpinner7 className="spinner" /> : toDisplayArr.length ?
               toDisplayArr.map((question) => (
                 <div key={question.id} className="home-question">
                   <NavLink style={{ textDecoration: 'none' }} className="home-questionLink" to={`/questions/${question.id}`}>
@@ -314,7 +314,7 @@ const Homepage = () => {
                   <p className="home-date">{question.timeUpdated.slice(5, 17)}</p>
                   <p>Answers: {question.Answers.length}</p>
                 </div>
-              ))}
+              )): <h2>No Results Found</h2>}
         </div>
         <div className='paginationNav'>
             {
