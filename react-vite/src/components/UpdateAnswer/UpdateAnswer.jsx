@@ -69,13 +69,12 @@ const UpdateAnswer = () => {
               <p>{answer.mainPost.body}</p>
             </div>
           </div>
-          <div className="display-answers-container">
+          <div className="display-answers-containers">
             <h2></h2>
             <div key={answer.id} className="display-answer-tile">
               <p>{answer.body}</p>
               <div id="display-user-info">
                 <span>{answer.timeUpdated}</span>
-
               </div>
             </div>
             <div className="display-write-answer">

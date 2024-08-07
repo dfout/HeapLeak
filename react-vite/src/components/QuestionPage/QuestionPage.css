@@ -51,15 +51,21 @@
     justify-content: center;
 }
 
+.display-body p{
+    word-break: break-all;
+}
+
 .display-tags-display {
     display:flex;
-    gap:10px;
+    flex-wrap: wrap;
+    gap:15px 10px;
     margin-top: 10px;
     font-size:small;
 
 }
 
 .display-tag{
+    margin: 0%;
     background-color: rgb(217, 217, 217);
   border-radius: 5%;
   padding: 5px;
@@ -98,6 +104,7 @@
 
 .display-answer-tile p {
     margin-bottom: 10px;
+    word-break: break-all;
 }
 
 #display-user-info {

@@ -210,11 +210,6 @@ const Homepage = () => {
     const eventListener = document.addEventListener("click", (e) => {
       e.stopPropagation()
 
-      // console.log(e.target, Object.valuese.target.classList)
-      // console.log(e.currentTarget, e.currentTarget.classList)
-
-
-
       if (!Object.values(e.target.classList).includes('filter-by') &&
         !Object.values(e.target.classList).includes('tagVisualFilterInput')
       ) {
@@ -274,6 +269,7 @@ const Homepage = () => {
             <div className='filter-drop-cont'>
 
             </div>
+            <div className="mobileFilter">
             <button onClick={handleDrop} className='filter-by'>Filter by Topic<MdOutlineArrowDropDown /></button>
             {drop && (
               <div className='filter-drop-down'>
@@ -288,6 +284,7 @@ const Homepage = () => {
                 </div>
               </div>
             )}
+            </div>
           </div>
 
           {
@@ -300,9 +297,19 @@ const Homepage = () => {
                   <p className="home-author">{question.author}</p>
                   <p className="home-preview">{question.body.length > 110 ? question.body.slice(0, 110) + "..." : question.body}</p>
                   <div className="home-tags-display">
-                    {question.Tags.map((tag) => (
-                      <p className="home-tag" key={tag.id}>{tag.tag}</p>
-                    ))}
+                    {question.Tags.map((tag, index) => {
+                      if(index < 5){
+                        return(
+                      <p className='home-tag' key={tag.id}>{tag.tag}</p>
+                        )
+                      }
+                    })}
+                    {
+                      question.Tags.length > 5
+                      ?
+                      <p className='save-tag'>+{question.Tags.length - 5} more</p>
+                      :null
+                    }
                   </div>
                   <p className="home-date">{question.timeUpdated.slice(5, 17)}</p>
                   <p>Answers: {question.Answers.length}</p>

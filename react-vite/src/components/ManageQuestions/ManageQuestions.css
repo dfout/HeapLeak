@@ -1,3 +1,9 @@
+.placeholder{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 600px;
+}
 .manage-questions-container {
     display: flex;
     flex-direction: column;
@@ -52,7 +58,9 @@
     border-radius: 2%;
 }
 
-
+.manage-question-info > p{
+    word-break: break-all;
+}
 
 .manage-tile-tags-container{
     border: 1px solid #ccc;
@@ -129,4 +137,35 @@
 .manage-nav-link:hover{
     text-decoration: underline;
     color:black;
+}
+
+
+.tagVisualFilterInput{
+    cursor:pointer;
+}
+.paginationNav{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    column-gap: 10px;
+}
+
+.inActive{
+    color: gray;
+}
+
+.inActive:hover{
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.Active{
+    color: blueviolet;
+    text-decoration: underline;
+    cursor: default;
+}
+
+.decoratorPageNums:hover{
+    text-decoration: underline;
+    cursor: pointer;
 }
