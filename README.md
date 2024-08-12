@@ -20,6 +20,15 @@ Welcome to the HeapLeak README! HeapLeak is a humble clone of the legendary Stac
 
 [Feature List](<https://github.com/dfout/HeapLeak/wiki/Features-and-Minimum-Viable-Product-(WIP)>) | [Database Schema](https://github.com/dfout/HeapLeak/wiki/DB-SCHEMA) | [User Stories](https://github.com/dfout/HeapLeak/wiki/User-Stories)
 
+# Homepage
+<img  width='800px'  src='https://github.com/user-attachments/assets/5cb98808-920f-410e-9cec-8195823bc9f5'/>
+
+# Filters
+<img  width='800px'  src='https://github.com/user-attachments/assets/1ca1b994-1d33-4907-b8c3-7c03497971ec'/>
+
+# Question Page
+<img  width='800px'  src='https://github.com/user-attachments/assets/d5b0f319-a61b-43aa-886e-11761fdec03f'/>
+
 # API Documentation
 
 ## AUTH
