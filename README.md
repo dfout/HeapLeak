@@ -1,130 +1,1011 @@
 # HeapLeak
 
-## Base ReadMe.md
+Welcome to the HeapLeak README! HeapLeak is a humble clone of the legendary StackOverflow, built and maintained by Kyle Flores, Drew Fout, Syed Zaidi, and Zach Gold
 
+## Tech Stack
 
-1. Clone this repository (only this branch).
+### Frameworks and Libraries
 
-2. Install dependencies.
+![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54) ![Flask](https://img.shields.io/badge/flask-%23000.svg?style=for-the-badge&logo=flask&logoColor=white) ![JavaScript](https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E) ![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB) ![Redux](https://img.shields.io/badge/redux-%23593d88.svg?style=for-the-badge&logo=redux&logoColor=white) ![CSS3](https://img.shields.io/badge/css3-%231572B6.svg?style=for-the-badge&logo=css3&logoColor=white) ![HTML5](https://img.shields.io/badge/html5-%23E34F26.svg?style=for-the-badge&logo=html5&logoColor=white)
 
-   ```bash
-   pipenv install -r requirements.txt
-   ```
+### Database:
 
-3. Create a __.env__ file based on the example with proper settings for your
-   development environment.
+![Postgres](https://img.shields.io/badge/postgres-%23316192.svg?style=for-the-badge&logo=postgresql&logoColor=white)
 
-4. Make sure the SQLite3 database connection URL is in the __.env__ file.
+### Hosting:
 
-5. This starter organizes all tables inside the `flask_schema` schema, defined
-   by the `SCHEMA` environment variable.  Replace the value for
-   `SCHEMA` with a unique name, **making sure you use the snake_case
-   convention.**
+![Render](https://img.shields.io/badge/Render-%46E3B7.svg?style=for-the-badge&logo=render&logoColor=white)
 
-6. Get into your pipenv, migrate your database, seed your database, and run your
-   Flask app:
+# Wiki Articles
 
-   ```bash
-   pipenv shell
-   ```
+[Feature List](<https://github.com/dfout/HeapLeak/wiki/Features-and-Minimum-Viable-Product-(WIP)>) | [Database Schema](https://github.com/dfout/HeapLeak/wiki/DB-SCHEMA) | [User Stories](https://github.com/dfout/HeapLeak/wiki/User-Stories)
 
-   ```bash
-   flask db upgrade
-   ```
+# API Documentation
 
-   ```bash
-   flask seed all
-   ```
+## AUTH
 
-   ```bash
-   flask run
-   ```
+## Endpoint: `GET /`
 
-7. The React frontend has no styling applied. Copy the __.css__ files from your
-   Authenticate Me project into the corresponding locations in the
-   __react-vite__ folder to give your project a unique look.
+**Description**: Authenticates a user. Returns user information if authenticated, otherwise returns an unauthorized error.
 
-8. To run the React frontend in development, `cd` into the __react-vite__
-   directory and run `npm i` to install dependencies. Next, run `npm run build`
-   to create the `dist` folder. The starter has modified the `npm run build`
-   command to include the `--watch` flag. This flag will rebuild the __dist__
-   folder whenever you change your code, keeping the production version up to
-   date.
+**Response**:
+**200 OK**: Returns the current user's information if authenticated.
 
-## Deployment through Render.com
+```json
+{
+  "id": 1,
+  "username": "exampleUser",
+  "email": "user@example.com"
+}
+```
 
-First, recall that Vite is a development dependency, so it will not be used in
-production. This means that you must already have the __dist__ folder located in
-the root of your __react-vite__ folder when you push to GitHub. This __dist__
-folder contains your React code and all necessary dependencies minified and
-bundled into a smaller footprint, ready to be served from your Python API.
+**Error (401 UNAUTHORIZED):**
 
-Begin deployment by running `npm run build` in your __react-vite__ folder and
-pushing any changes to GitHub.
+```json
+{
+  "message": "Unauthorized"
+}
+```
 
-Refer to your Render.com deployment articles for more detailed instructions
-about getting started with [Render.com], creating a production database, and
-deployment debugging tips.
+## Endpoint: `POST /login`
 
-From the Render [Dashboard], click on the "New +" button in the navigation bar,
-and click on "Web Service" to create the application that will be deployed.
+**Description**: Logs a user in. Requires email and password. If authentication is successful, the user is logged in and their information is returned.
 
-Select that you want to "Build and deploy from a Git repository" and click
-"Next". On the next page, find the name of the application repo you want to
-deploy and click the "Connect" button to the right of the name.
+**Request**:
 
-Now you need to fill out the form to configure your app. Most of the setup will
-be handled by the __Dockerfile__, but you do need to fill in a few fields.
+**Body**
 
-Start by giving your application a name.
+```json
+{
+  "email": "user@example.com",
+  "password": "password"
+}
+```
 
-Make sure the Region is set to the location closest to you, the Branch is set to
-"main", and Runtime is set to "Docker". You can leave the Root Directory field
-blank. (By default, Render will run commands from the root directory.)
+**Response**:
+**200 OK**: Returns the logged in user's information if credentials are correct.
+**Body**
 
-Select "Free" as your Instance Type.
+```json
+{
+  "id": 1,
+  "username": "exampleUser",
+  "email": "user@example.com"
+}
+```
 
-### Add environment variables
+**Error (401 UNAUTHORIZED):**
 
-In the development environment, you have been securing your environment
-variables in a __.env__ file, which has been removed from source control (i.e.,
-the file is gitignored). In this step, you will need to input the keys and
-values for the environment variables you need for production into the Render
-GUI.
+```json
+{
+  "email": ["Invalid email address"],
+  "password": ["Incorrect password"]
+}
+```
 
-Add the following keys and values in the Render GUI form:
+## Endpoint: `GET /logout`
 
-- SECRET_KEY (click "Generate" to generate a secure secret for production)
-- FLASK_ENV production
-- FLASK_APP app
-- SCHEMA (your unique schema name, in snake_case)
+**Description**: Logs the current user out and returns a confirmation message.
 
-In a new tab, navigate to your dashboard and click on your Postgres database
-instance.
+**Response**:
+**200 OK**: Returns a message indicating the user has been logged out.
 
-Add the following keys and values:
+```json
+{
+  "message": "User logged out"
+}
+```
 
-- DATABASE_URL (copy value from the **External Database URL** field)
+## Endpoint: `POST /signup`
 
-**Note:** Add any other keys and values that may be present in your local
-__.env__ file. As you work to further develop your project, you may need to add
-more environment variables to your local __.env__ file. Make sure you add these
-environment variables to the Render GUI as well for the next deployment.
+**Description**: Creates a new user and logs them in. Requires username, email, and password.
 
-### Deploy
+**Request**:
 
-Now you are finally ready to deploy! Click "Create Web Service" to deploy your
-project. The deployment process will likely take about 10-15 minutes if
-everything works as expected. You can monitor the logs to see your Dockerfile
-commands being executed and any errors that occur.
+**Body (JSON)**:
 
-When deployment is complete, open your deployed site and check to see that you
-have successfully deployed your Flask application to Render! You can find the
-URL for your site just below the name of the Web Service at the top of the page.
+```json
+{
+  "username": "newUser",
+  "email": "newuser@example.com",
+  "password": "newpassword"
+}
+```
 
-**Note:** By default, Render will set Auto-Deploy for your project to true. This
-setting will cause Render to re-deploy your application every time you push to
-main, always keeping it up to date.
+**Response**:
+**200 OK**: Returns the newly created user's information.
 
-[Render.com]: https://render.com/
-[Dashboard]: https://dashboard.render.com/
+```json
+{
+  "id": 2,
+  "username": "newUser",
+  "email": "newuser@example.com"
+}
+```
+
+**Error (401 UNAUTHORIZED):**
+
+```json
+{
+  "username": ["Username already taken"],
+  "email": ["Email already in use"],
+  "password": ["Password is too short"]
+}
+```
+
+## Endpoint: `GET /unauthorized`
+
+**Description**: Returns unauthorized JSON when Flask Login authentication fails.
+
+**Response**:
+
+**401 Unauthorized**: Returns an error message indicating unauthorized access.
+
+```json
+{
+  "errors": {
+    "message": "Unauthorized"
+  }
+}
+```
+
+## USERS
+
+## Endpoint: `GET /users`
+
+**Description:**
+Query for all users and return them in a list of user dictionaries.
+
+**Authentication:** Required (logged in)
+
+**Parameters:**
+
+- None
+
+**Response:**
+
+**Success (200 OK):**
+
+```json
+{
+  "users": [
+    {
+      "id": 1,
+      "username": "user1",
+      "email": "user1@example.com"
+      // Other user fields...
+    },
+    {
+      "id": 2,
+      "username": "user2",
+      "email": "user2@example.com"
+      // Other user fields...
+    }
+    // More users...
+  ]
+}
+```
+
+**Error (401 UNAUTHORIZED):**
+
+```json
+{
+  "message": "Login required"
+}
+```
+
+## Endpoint: `GET /users/<int:id>`
+
+**Description:**
+Query for a user by ID and return that user in a dictionary.
+
+**Authentication:** Required (logged in)
+
+**Parameters:**
+
+- `id` (integer, path parameter): The ID of the user to retrieve.
+
+**Response:**
+
+**Success (200 OK):**
+
+```json
+{
+  "id": 1,
+  "username": "user1",
+  "email": "user1@example.com"
+  // Other user fields...
+}
+```
+
+**Error (401 UNAUTHORIZED):**
+
+```json
+{
+  "message": "Login required"
+}
+```
+
+**Error (404 NOT FOUND):**
+
+```json
+{
+  "message": "User could not be found"
+}
+```
+
+## Endpoint: `GET /saves`
+
+**Description:**
+Retrieve all saved questions for the current logged in user. Returns an empty array if there are no saved questions or if the questions no longer exist.
+
+**Authentication:** Required (logged in)
+
+**Parameters:**
+
+- None
+
+**Response:**
+**Success (200 OK):**
+
+```json
+{
+  "SavedQuestions": [
+    {
+      "id": 1,
+      "post": {
+        "id": 1,
+        "title": "Question Title",
+        "body": "Question Body",
+        "author": "Author Username",
+        "Tags": [{ "id": 1, "tag": "Tag1" }],
+        "Answers": [
+          {
+            "id": 1,
+            "body": "Answer Body",
+            "author": { "id": 1, "username": "Answer Author" }
+          }
+        ]
+      }
+    }
+  ]
+}
+```
+
+**Error (401 UNAUTHORIZED):**
+
+```json
+{
+  "message": "Login required"
+}
+```
+
+## Endpoint: `GET /answers`
+
+**Description:**
+Retrieve all answers made by the currently logged in user. Returns an empty array if there are no answers or if the related questions no longer exist.
+
+**Authentication:** Required (logged in)
+
+**Parameters:**
+
+- None
+
+**Response:**
+**Success (200 OK):**
+
+```json
+{
+  "Answers": [
+    {
+      "id": 1,
+      "body": "This is an answer.",
+      "question_id": 1,
+      "user_id": 1,
+      "is_primary": false,
+      "mainPost": {
+        "id": 1,
+        "title": "Sample Question",
+        "body": "This is a sample question.",
+        "ownerId": 2,
+        "Tags": [
+          {
+            "id": 1,
+            "tag": "SampleTag"
+          }
+        ],
+        "Answers": [
+          {
+            "id": 1,
+            "body": "This is an answer.",
+            "user_id": 1,
+            "is_primary": false
+          }
+        ],
+        "author": {
+          "id": 2,
+          "username": "author_username"
+        }
+      }
+    }
+  ]
+}
+```
+
+**Error (401 UNAUTHORIZED):**
+
+```json
+{
+  "message": "Login required"
+}
+```
+
+## QUESTIONS
+
+## Endpoint: `GET /questions`
+
+**Description:**
+Retrieve all questions from the database, including each question's tags, author information, answers, and the number of saves.
+
+**Response:**
+
+**Success (200 OK):**
+
+```json
+{
+  "Questions": [
+    {
+      "id": 1,
+      "title": "Question Title",
+      "body": "Question Body",
+      "ownerId": 1,
+      "author": "Author Username",
+      "Tags": [
+        {
+          "id": 1,
+          "tag": "Tag Value",
+          "question_id": 1
+        }
+      ],
+      "Answers": [
+        {
+          "id": 1,
+          "body": "Answer Body",
+          "ownerId": 2,
+          "author": {
+            "id": 2,
+            "username": "Answer Author Username"
+          }
+        }
+      ],
+      "numSaves": 5
+    }
+  ]
+}
+```
+
+## Endpoint: `GET /questions/<int:id>`
+
+**Description:**
+Retrieve a specific question from the database by its ID, including the question's tags, author information, and answers.
+
+**Parameters:**
+
+- `id` (int): ID of the question to retrieve.
+
+**Response:**
+
+**Success (200 OK):**
+
+```json
+{
+  "Question": {
+    "id": 1,
+    "title": "Question Title",
+    "body": "Question Body",
+    "ownerId": 1,
+    "author": "Author Username",
+    "Tags": [
+      {
+        "id": 1,
+        "tag": "Tag Value",
+        "question_id": 1
+      }
+    ],
+    "Answers": [
+      {
+        "id": 1,
+        "body": "Answer Body",
+        "ownerId": 2,
+        "author": {
+          "id": 2,
+          "username": "Answer Author Username"
+        }
+      }
+    ]
+  }
+}
+```
+
+**Error (404 NOT FOUND):**
+
+```json
+{
+  "message": "Question could not be found"
+}
+```
+
+## Endpoint: `POST /questions`
+
+**Description:**
+Create a new question and add it to the database along with any tags provided in the request. The user must be logged in for this operation.
+
+**Authentication:** Required (logged in)
+
+**Request Body:**
+
+```json
+{
+  "title": "Question Title",
+  "body": "Question Body",
+  "tags": ["Tag1"]
+}
+```
+
+**Response:**
+
+**Success (201 CREATED):**
+
+```json
+{
+  "Question": {
+    "id": 1,
+    "title": "Question Title",
+    "body": "Question Body",
+    "author": "Current User",
+    "Tags": [
+      {
+        "id": 1,
+        "tag": "Tag1",
+        "question_id": 1
+      }
+    ]
+  }
+}
+```
+
+**Error (400 BAD REQUEST):**
+
+```json
+{
+  "message": "Bad Request",
+  "errors": {
+    "field": ["error message"]
+  }
+}
+```
+
+## Endpoint: `PUT /questions/<int:id>`
+
+**Description:**
+Update a specific question in the database. The user must be logged in and be the owner of the question to make updates.
+
+**Authentication:** Required (logged in)
+
+**Parameters:**
+
+- `id` (int): ID of the question to update.
+
+**Request Body:**
+
+```json
+{
+  "title": "Updated Question Title",
+  "body": "Updated Question Body",
+  "tags": ["NewTag1"]
+}
+```
+
+**Response:**
+
+**Success (200 OK):**
+
+```json
+{
+  "Question": {
+    "id": 1,
+    "title": "Updated Question Title",
+    "body": "Updated Question Body",
+    "author": "Current User",
+    "Tags": [
+      {
+        "id": 1,
+        "tag": "NewTag1",
+        "question_id": 1
+      }
+    ],
+    "Answers": [
+      {
+        "id": 1,
+        "body": "Answer Body",
+        "ownerId": 2,
+        "author": {
+          "id": 2,
+          "username": "Answer Author Username"
+        }
+      }
+    ]
+  }
+}
+```
+
+**Error (400 BAD REQEST):**
+
+```json
+{
+  "message": "Bad Request",
+  "errors": {
+    "field": ["error message"]
+  }
+}
+```
+
+**Error (401 UNAUTHORIZED):**
+
+```json
+{
+  "message": "Bad Request",
+  "errors": {
+    "field": ["error message"]
+  }
+}
+```
+
+## Endpoint: `GET /questions/<int:id>/answers`
+
+**Description:**
+Retrieve all answers associated with a specific question from the database.
+
+**Parameters:**
+
+- `id` (int): ID of the question for which answers are to be retrieved.
+
+**Response:**
+
+**Success (200 OK):**
+
+```json
+{
+  "Answers": [
+    {
+      "id": 1,
+      "body": "Answer Body",
+      "ownerId": 2,
+      "author": "Answer Author Username"
+    },
+    {
+      "id": 2,
+      "body": "Another Answer Body",
+      "ownerId": 3,
+      "author": "Another Answer Author Username"
+    }
+  ]
+}
+```
+
+**Error (404 NOT FOUND):**
+
+```json
+{
+  "message": "Question could not be found"
+}
+```
+
+## Endpoint: `POST /questions/<int:id>/answers`
+
+**Description:**
+Create a new answer for a specific question and add it to the database. The answer is created as a non-primary answer by default. The user must be logged in to perform this operation.
+
+**Authentication:** Required (logged in)
+
+**Parameters:**
+
+- `id` (int): ID of the question to which the answer is being added.
+
+**Request Body:**
+
+```json
+{
+  "body": "Answer Body"
+}
+```
+
+**Response:**
+
+**Success (201 CREATED):**
+
+```json
+{
+  "Answer": {
+    "id": 1,
+    "body": "Answer Body",
+    "ownerId": 2,
+    "mainPost": {
+      "id": 1,
+      "title": "Question Title",
+      "body": "Question Body",
+      "owner": {
+        "id": 1,
+        "username": "Question Author Username"
+      }
+    }
+  }
+}
+```
+
+**Error (400 BAD REQUEST):**
+
+```json
+{
+  "message": "Bad Request",
+  "errors": {
+    "field": ["error message"]
+  }
+}
+```
+
+## Endpoint: `POST /questions/<int:id>/tags`
+
+**Description:**
+Add new tags to an existing question in the database. The user must be logged in to perform this operation.
+
+**Authentication:** Required (logged in)
+
+**Parameters:**
+
+- `id` (int): ID of the question to which tags are being added.
+
+**Request Body:**
+
+```json
+{
+  "tags": ["Tag1", "Tag2"]
+}
+```
+
+**Response:**
+
+**Success (200 OK):**
+
+```json
+{
+  "Tags": [
+    {
+      "id": 1,
+      "tag": "Tag1",
+      "question_id": 1
+    },
+    {
+      "id": 2,
+      "tag": "Tag2",
+      "question_id": 1
+    }
+  ]
+}
+```
+
+**Error (400 BAD REQUEST):**
+
+```json
+{
+  "message": "Bad Request",
+  "errors": {
+    "field": ["error message"]
+  }
+}
+```
+
+## Endpoint: `POST /questions/<int:id>/saves`
+
+**Description:**
+Create a relationship to save the specified question for the currently logged in user.
+
+**Authentication:** Required (logged in)
+
+**Parameters:**
+
+- `id` (int): ID of the question to be saved.
+
+**Response:**
+
+**Success (201 Created):**
+
+```json
+{
+  "Save": {
+    "id": 1,
+    "question_id": 1,
+    "user_id": 2,
+    "post": {
+      "id": 1,
+      "title": "Question Title",
+      "body": "Question Body",
+      "author": "Question Author Username",
+      "Tags": [
+        {
+          "id": 1,
+          "tag": "Tag1",
+          "question_id": 1
+        }
+      ]
+    }
+  }
+}
+```
+
+**Error (404 NOT FOUND):**
+
+```json
+{
+  "message": "Question could not be found"
+}
+```
+
+## Endpoint: `DELETE /saves/<int:id>`
+
+**Description:**
+Remove the relationship indicating that the user has saved a specific question.
+
+**Authentication:** Required (logged in)
+
+**Parameters:**
+
+- `id` (int): ID of the save relationship to be removed.
+
+**Response:**
+
+**Success (200 OK):**
+
+```json
+{
+  "Id": 1
+}
+```
+
+**Error (404 NOT FOUND):**
+
+```json
+{
+  "message": "Relation could not be found"
+}
+```
+
+## Endpoint: `DELETE /questions/<int:id>`
+
+**Description:**
+Delete a specific question from the database if the user is logged in and is the owner of the question.
+
+**Authentication:** Required (logged in)
+
+**Parameters:**
+
+- `id` (int): ID of the question to be deleted.
+
+**Response:**
+
+**Success (200 OK):**
+
+```json
+{
+  "id": 1
+}
+```
+
+**Error (404 NOT FOUND):**
+
+```json
+{
+  "id": null
+}
+```
+
+## ANSWERS
+
+## Endpoint: `PUT /answers/<int:id>`
+
+**Description:**
+Update the body of an answer if the user is logged in and is the owner of the answer.
+
+**Authentication:** Required (logged in)
+
+**Parameters:**
+
+- `id` (int): ID of the answer to be updated.
+
+**Request Body:**
+
+`body` (string): The new body of the answer.
+
+**Response:**
+
+**Success (200 OK):**
+
+```json
+{
+  "Answer": {
+    "id": 1,
+    "body": "Updated answer body",
+    "question_id": 1,
+    "user_id": 2,
+    "mainPost": {
+      "id": 1,
+      "title": "Question Title",
+      "body": "Question Body",
+      "owner": {
+        "id": 2,
+        "username": "Owner Username",
+        "email": "owner@example.com"
+      }
+    }
+  }
+}
+```
+
+**Error (400 BAD REQEST):**
+
+```json
+{
+  "message": "Bad Request",
+  "errors": {
+    "field": ["error message"]
+  }
+}
+```
+
+**Error (401 UNAUTHORIZED):**
+
+```json
+{
+  "message": "Not the owner of this Answer"
+}
+```
+
+## Endpoint: `PUT /answers/<int:id>/mark_primary`
+
+**Description:**
+Update an answer to be the primary answer for the linked question if the user is logged in and is the owner of the question. This will demote any existing primary answer.
+
+**Authentication:** Required (logged in)
+
+**Parameters:**
+
+- `id` (int): ID of the answer to be promoted to primary.
+
+**Response:**
+
+**Success (200 OK):**
+
+```json
+{
+  "Answer": {
+    "id": 1,
+    "body": "Answer body",
+    "question_id": 1,
+    "user_id": 2,
+    "is_primary": true,
+    "mainPost": {
+      "id": 1,
+      "title": "Question Title",
+      "body": "Question Body",
+      "owner": {
+        "id": 2,
+        "username": "Owner Username",
+        "email": "owner@example.com"
+      }
+    }
+  }
+}
+```
+
+**Error (401 UNAUTHORIZED):**
+
+```json
+{
+  "message": "Not the owner of this Answer"
+}
+```
+
+## Endpoint: `DELETE /answers/<int:id>`
+
+**Description:**
+Delete an answer if the user is logged in and is the owner of the answer.
+
+**Authentication:** Required (logged in)
+
+**Parameters:**
+
+- `id` (int): ID of the answer to be deleted.
+
+**Response:**
+
+**Success (200 OK):**
+
+```json
+{
+  "id": 1
+}
+```
+
+**Error (401 UNAUTHORIZED):**
+
+```json
+{
+  "id": null
+}
+```
+
+## TAGS
+
+## Endpoint: `GET /tags`
+
+**Description:**
+Retrieve a list of all available tags.
+
+**Authentication:** Required (logged in)
+
+**Parameters:**
+
+- None
+
+**Response:**
+**Success (200 OK):**
+
+```json
+{
+  "Tags": ["Tag1", "Tag2", "Tag3"]
+}
+```
+
+**Error (401 UNAUTHORIZED):**
+
+```json
+{
+  "message": "Login required"
+}
+```
+
+## Endpoint: `DELETE /tags/<int:id>`
+
+**Description:**
+Remove a tag from a question. The tag is deleted only if the current user is the owner of the question associated with the tag.
+
+**Authentication:** Required (logged in)
+
+**Parameters:**
+
+- **id** (path parameter): The ID of the tag to be removed.
+
+**Response:**
+**Success (200 OK):**
+
+```json
+{
+  "id": 123
+}
+```
+
+**Error (401 UNAUTHORIZED):**
+
+```json
+{
+  "message": "Login required"
+}
+```
+
+**Error (404 NOT FOUND):**
+
+```json
+{
+  "id": null
+}
+```
